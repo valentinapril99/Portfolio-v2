@@ -104,6 +104,8 @@ img { display: block; }
 .theme-btn svg { width: 20px; height: 20px; flex: none; }
 .theme-btn .i-sun, :root[data-theme="dark"] .theme-btn .i-moon { display: none; }
 :root[data-theme="dark"] .theme-btn .i-sun { display: block; }
+/* Тёмная тема скрыта — удалить, чтобы вернуть переключатель */
+.theme-btn, .nav.is-open .theme-btn { display: none !important; }
 
 /* Блок с контактами внутри мобильного меню */
 .menu-extra { display: none; }

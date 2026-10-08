@@ -48,33 +48,36 @@ window.addEventListener('scroll', () => {
   lastY = y;
 }, { passive: true });
 
-// Переключение темы
+// Переключение темы (тёмная тема временно отключена)
+const DARK_THEME_ENABLED = false;
 const root = document.documentElement;
-const themeBtn = document.querySelector('.theme-btn');
-const themeLabel = themeBtn.querySelector('span');
-const syncThemeBtn = () => {
-  const dark = root.dataset.theme === 'dark';
-  themeLabel.textContent = dark ? 'Светлая тема' : 'Тёмная тема';
-  themeBtn.setAttribute('aria-label', themeLabel.textContent);
-};
-syncThemeBtn();
-const systemDark = matchMedia('(prefers-color-scheme: dark)');
-const systemTheme = () => systemDark.matches ? 'dark' : 'light';
-themeBtn.addEventListener('click', () => {
-  const next = root.dataset.theme === 'dark' ? 'light' : 'dark';
-  root.dataset.theme = next;
-  try {
-    if (next === systemTheme()) localStorage.removeItem('theme');
-    else localStorage.setItem('theme', next);
-  } catch (e) {}
+if (DARK_THEME_ENABLED) {
+  const themeBtn = document.querySelector('.theme-btn');
+  const themeLabel = themeBtn.querySelector('span');
+  const syncThemeBtn = () => {
+    const dark = root.dataset.theme === 'dark';
+    themeLabel.textContent = dark ? 'Светлая тема' : 'Тёмная тема';
+    themeBtn.setAttribute('aria-label', themeLabel.textContent);
+  };
   syncThemeBtn();
-});
-// Смена темы на устройстве — сайт следует за ней сразу
-systemDark.addEventListener('change', () => {
-  try { localStorage.removeItem('theme'); } catch (e) {}
-  root.dataset.theme = systemTheme();
-  syncThemeBtn();
-});
+  const systemDark = matchMedia('(prefers-color-scheme: dark)');
+  const systemTheme = () => systemDark.matches ? 'dark' : 'light';
+  themeBtn.addEventListener('click', () => {
+    const next = root.dataset.theme === 'dark' ? 'light' : 'dark';
+    root.dataset.theme = next;
+    try {
+      if (next === systemTheme()) localStorage.removeItem('theme');
+      else localStorage.setItem('theme', next);
+    } catch (e) {}
+    syncThemeBtn();
+  });
+  // Смена темы на устройстве — сайт следует за ней сразу
+  systemDark.addEventListener('change', () => {
+    try { localStorage.removeItem('theme'); } catch (e) {}
+    root.dataset.theme = systemTheme();
+    syncThemeBtn();
+  });
+}
 
 // Фильтр работ на странице «Концепты»
 const filters = document.querySelectorAll('.concept-filter');

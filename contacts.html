@@ -6,7 +6,11 @@
 <script>
   // Тема: по умолчанию светлая, тёмная — если она включена на устройстве.
   // Ручной выбор посетителя хранится, только пока отличается от системной темы.
+  // Тёмная тема временно отключена: чтобы вернуть, поставьте DARK_THEME_ENABLED = true
+  // здесь, во всех HTML-страницах, и в main.js, и удалите блок «Тёмная тема скрыта» в styles.css.
   (function () {
+    const DARK_THEME_ENABLED = false;
+    if (!DARK_THEME_ENABLED) { document.documentElement.dataset.theme = 'light'; return; }
     let t = null;
     try { t = localStorage.getItem('theme'); } catch (e) {}
     if (t !== 'light' && t !== 'dark') t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
