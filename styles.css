@@ -408,7 +408,10 @@ a.tag:hover { background: var(--secondary-1-hover); }
 .career-context { font-weight: 500; }
 .projects { display: flex; flex-direction: column; gap: 24px; }
 .projects[hidden] { display: none; }
-.projects h4 { font-weight: 400; font-size: 32px; line-height: 48px; letter-spacing: .64px; }
+.projects h4, .achievements h4 { font-weight: 400; font-size: 32px; line-height: 48px; letter-spacing: .64px; }
+/* Достижения: заголовок как у «Ключевых проектов», нумерованный список */
+.achievements { display: flex; flex-direction: column; gap: 24px; }
+.achievements-list { display: flex; flex-direction: column; gap: 16px; padding-left: 28px; font-size: 20px; line-height: 28px; letter-spacing: .4px; }
 .projects-head p { margin-top: 8px; font-size: 20px; line-height: 28px; letter-spacing: .4px; }
 
 .mini-cards {
@@ -492,12 +495,15 @@ a.tag:hover { background: var(--secondary-1-hover); }
   .company { order: 1; gap: 16px; }
   .periods { order: 2; gap: 16px; flex-direction: column; }
   .career-desc { order: 3; }
-  .projects { order: 4; }
+  .achievements { order: 4; }
+  .projects { order: 5; }
   .company-logo { width: 56px; height: 56px; }
   .company h3 { font-size: 24px; line-height: 32px; letter-spacing: .48px; }
   .company p { font-size: 18px; line-height: 24px; letter-spacing: .36px; }
   .period { flex-direction: row; gap: 8px; font-size: 18px; line-height: 24px; letter-spacing: .36px; }
-  .projects h4 { font-weight: 500; font-size: 18px; line-height: 24px; letter-spacing: .36px; }
+  .projects h4, .achievements h4 { font-weight: 500; font-size: 18px; line-height: 24px; letter-spacing: .36px; }
+  .achievements { gap: 16px; }
+  .achievements-list { gap: 12px; padding-left: 24px; font-size: 18px; line-height: 24px; letter-spacing: .36px; }
   .projects-head p { font-size: 18px; line-height: 24px; letter-spacing: .36px; }
   .mini-card { flex-basis: 320px; }
 
@@ -844,7 +850,8 @@ html.soon-open { overflow: hidden; }
   .company h3 { font-size: 40px; line-height: 48px; letter-spacing: .8px; }
   .company p { font-size: 24px; line-height: 32px; letter-spacing: .48px; }
   .career-desc { font-size: 18px; line-height: 26px; letter-spacing: .36px; }
-  .projects h4 { font-size: 26px; line-height: 36px; letter-spacing: .52px; }
+  .projects h4, .achievements h4 { font-size: 26px; line-height: 36px; letter-spacing: .52px; }
+  .achievements-list { font-size: 18px; line-height: 26px; letter-spacing: .36px; }
   .projects-head p { font-size: 18px; line-height: 26px; letter-spacing: .36px; }
   .mini-title { font-size: 20px; line-height: 28px; letter-spacing: .4px; }
   .period { gap: 12px; font-size: 26px; line-height: 32px; letter-spacing: .52px; }
@@ -904,7 +911,8 @@ html.soon-open { overflow: hidden; }
   .company h3 { font-size: 32px; line-height: 40px; letter-spacing: .64px; }
   .company p { margin-top: 4px; font-size: 20px; line-height: 28px; letter-spacing: .4px; }
   .career-desc { font-size: 18px; line-height: 26px; letter-spacing: .36px; }
-  .projects h4 { font-size: 22px; line-height: 30px; letter-spacing: .44px; }
+  .projects h4, .achievements h4 { font-size: 22px; line-height: 30px; letter-spacing: .44px; }
+  .achievements-list { font-size: 18px; line-height: 26px; letter-spacing: .36px; }
   .projects-head p { font-size: 16px; line-height: 24px; letter-spacing: .32px; }
   .mini-title { font-size: 18px; line-height: 24px; letter-spacing: .36px; }
   .period { gap: 8px; font-size: 22px; line-height: 28px; letter-spacing: .44px; }
