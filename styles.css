@@ -240,10 +240,12 @@ a.tag:hover { background: var(--secondary-1-hover); }
   display: flex; align-items: center; gap: 64px; padding: 56px;
   font-weight: 500; font-size: 24px; line-height: 32px; letter-spacing: .48px;
 }
-.footer .txt { display: flex; flex-wrap: wrap; gap: 16px; white-space: nowrap; }
+.footer .txt { flex: 1 1 0; display: flex; flex-wrap: wrap; gap: 16px; white-space: nowrap; }
+/* Текст слева и счётчик справа делят место поровну — иконки соцсетей ровно по центру футера */
+.footer .visit-counter { justify-content: flex-end; text-align: right; }
 /* Счётчик посетителей показывается, когда номер известен (место под него держим, чтобы футер не прыгал) */
 .visit-counter:not(.is-ready) { visibility: hidden; }
-.socials { flex: 1 1 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 24px; }
+.socials { flex: none; display: flex; flex-wrap: wrap; justify-content: center; gap: 24px; }
 .socials a { width: 56px; height: 56px; transition: transform .15s; }
 .socials a:hover { transform: translateY(-2px); }
 .socials img { width: 56px; height: 56px; }
@@ -353,6 +355,7 @@ a.tag:hover { background: var(--secondary-1-hover); }
     font-weight: 400; font-size: 18px; line-height: 24px; letter-spacing: .36px;
   }
   .socials { order: -1; flex: none; justify-content: center; }
+  .footer .txt, .footer .visit-counter { flex: none; justify-content: center; row-gap: 0; text-align: center; }
 }
 
 /* =====================================================================
@@ -901,4 +904,14 @@ html.soon-open { overflow: hidden; }
   .case-p, .case-list { font-size: 17px; line-height: 28px; letter-spacing: .34px; }
   .case-photo figcaption { font-size: 17px; line-height: 28px; letter-spacing: .34px; }
   .funnel-box b { font-size: 26px; line-height: 32px; letter-spacing: .52px; }
+}
+
+/* Футер на планшете и узком ноутбуке: в одну строку не помещается —
+   иконки сверху по центру, ниже копирайт слева и счётчик справа */
+@media (min-width: 761px) and (max-width: 1279px) {
+  .footer { display: grid; grid-template-columns: 1fr auto; grid-template-areas: "s s" "t c"; gap: 24px 32px; }
+  .footer--plain { grid-template-areas: "t c"; }
+  .footer .socials { grid-area: s; }
+  .footer .txt { grid-area: t; }
+  .footer .visit-counter { grid-area: c; }
 }
