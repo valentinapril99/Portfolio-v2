@@ -121,7 +121,7 @@ if (filters.length) {
     });
   };
   filters.forEach(btn => btn.addEventListener('click', () => applyFilter(btn)));
-  // раздел по умолчанию задан в разметке (aria-pressed="true") — по умолчанию «Концепты»
+  // раздел по умолчанию задан в разметке (aria-pressed="true") — по умолчанию «Все»
   applyFilter(document.querySelector('.concept-filter[aria-pressed="true"]') || filters[0]);
 }
 
