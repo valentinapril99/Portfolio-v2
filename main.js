@@ -354,7 +354,7 @@ if (soonLinks.length) {
       alt: 'Кот печатает на ноутбуке', text: 'Тут кипит работа...' },
     onboarding: { webp: 'Portfolio%20Resurses/server-rack.webp', gif: 'Portfolio%20Resurses/server-rack.gif', w: 640, h: 382,
       alt: 'Серверная стойка работает на пределе', text: 'Наш сервер работает на&nbsp;пределе, чтобы я&nbsp;успела закончить этот проект' },
-    kiosk: { webp: 'Portfolio%20Resurses/hamster-typing.webp', gif: 'Portfolio%20Resurses/hamster-typing.jpg', w: 318, h: 320,
+    kiosk: { webp: 'Portfolio%20Resurses/hamster-typing.webp?v=2', gif: 'Portfolio%20Resurses/hamster-typing.gif?v=2', w: 220, h: 222,
       alt: 'Хомяк в очках печатает на клавиатуре', text: 'Страница ещё не&nbsp;готова. Специалист работает без&nbsp;перерыва на&nbsp;сон и&nbsp;вкусняшки' }
   };
   modal.innerHTML = '<picture><source type="image/webp"><img class="soon-img" loading="lazy"></picture>'
