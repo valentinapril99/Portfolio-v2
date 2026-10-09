@@ -787,14 +787,14 @@ html.lightbox-open { overflow: hidden; }
 /* Заглушка «Тут кипит работа...» для проектов в разработке */
 html.soon-open { overflow: hidden; }
 /* Гифки всех заглушек — в квадрате (object-fit: cover обрезает по центру).
-   По макету: окно 853 × 966, отступы 180, кот 418, между котом и текстом 49, текст → кнопка 24.
-   На экранах ниже ~970px отступы и кот уменьшаются по высоте окна, чтобы всё помещалось без прокрутки */
+   Окно — квадрат: сторона до 480px (вдвое меньше макета 853 × 966), но не больше экрана.
+   Кот, текст и кнопка масштабируются от стороны окна; на телефоне — на весь экран */
 .soon-modal {
+  --side: min(480px, calc(100vw - 64px), calc(100vh - 32px));
   position: fixed; inset: 0; margin: auto; z-index: 210;
-  width: min(853px, calc(100% - 64px)); max-height: calc(100% - 32px);
-  /* 340px ≈ половина контента (кот + текст + кнопка): окно растёт до 180px отступов, пока помещается по высоте */
-  padding: clamp(40px, calc(50vh - 340px), 180px) 40px;
-  border: 0; border-radius: 64px; overflow: auto;
+  width: var(--side); height: var(--side); max-width: none; max-height: none;
+  padding: 32px; justify-content: center;
+  border: 0; border-radius: 40px; overflow: auto;
   /* лёгкое «зерно», как в макете */
   background: var(--secondary-1) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .07 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   color: var(--el-main); text-align: center;
@@ -802,26 +802,19 @@ html.soon-open { overflow: hidden; }
 .soon-modal::backdrop { background: rgba(14, 18, 24, .6); }
 .soon-modal[open] { display: flex; flex-direction: column; align-items: center; animation: soon-in .2s ease-out; }
 .soon-modal picture { display: contents; }
-.soon-img { width: min(418px, 43vh, 100%); height: auto; aspect-ratio: 1; border-radius: 40px; object-fit: cover; flex: none; }
-.soon-text { width: min(493px, 100%); margin-top: clamp(24px, 5vh, 49px); font-size: 24px; line-height: 32px; letter-spacing: .48px; }
+.soon-img { width: calc(var(--side) * .44); height: auto; aspect-ratio: 1; border-radius: 24px; object-fit: cover; flex: none; }
+.soon-text { width: 100%; margin-top: 24px; font-size: 18px; line-height: 24px; letter-spacing: .36px; }
 .soon-modal .btn {
-  margin-top: 24px; width: 272px; height: 72px; padding: 16px 32px; flex: none; border: 0; border-radius: 40px;
-  font-family: inherit; font-size: 20px; line-height: 24px; letter-spacing: .4px; cursor: pointer;
+  margin-top: 16px; width: 220px; height: 56px; padding: 16px 24px; flex: none; border: 0; border-radius: 40px;
+  font-family: inherit; font-size: 18px; line-height: 24px; letter-spacing: .36px; cursor: pointer;
 }
 @keyframes soon-in { from { opacity: 0; transform: translateY(8px) scale(.98); } }
-/* Планшет: окно уже, скругление меньше */
-@media (min-width: 761px) and (max-width: 1100px) {
-  .soon-modal { width: min(640px, calc(100% - 64px)); border-radius: 48px; }
-  .soon-img { width: min(360px, 40vh, 100%); }
-}
 @media (max-width: 760px) {
   /* На телефоне заглушка на весь экран */
-  .soon-modal {
-    width: 100%; max-width: none; height: 100%; max-height: none; border-radius: 0;
-    justify-content: center; padding: 16px 16px 51px;
-  }
-  .soon-img { width: min(307px, 100%, 45vh); }
-  .soon-text { margin-top: 32px; }
+  .soon-modal { width: 100%; height: 100%; border-radius: 0; padding: 16px 16px 51px; }
+  .soon-img { width: min(307px, 100%, 45vh); border-radius: 40px; }
+  .soon-text { margin-top: 32px; font-size: 24px; line-height: 32px; letter-spacing: .48px; }
+  .soon-modal .btn { margin-top: 24px; width: 272px; height: 72px; padding: 16px 32px; font-size: 20px; letter-spacing: .4px; }
 }
 
 /* =====================================================================
