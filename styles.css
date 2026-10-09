@@ -157,6 +157,8 @@ a.tag:hover { background: var(--secondary-1-hover); }
 .btn--secondary:hover { background: var(--secondary-1-hover); }
 
 /* Hero decorations (позиции из макета, от правого края шапки шириной 1572) */
+/* Группа декора занимает всю шапку; на ноутбуках масштабируется целиком от правого верхнего угла */
+.deco-group { position: absolute; inset: 0; pointer-events: none; transform-origin: right top; }
 .deco { position: absolute; pointer-events: none; }
 
 .deco-avatar {
@@ -816,6 +818,13 @@ html.soon-open { overflow: hidden; }
   .hero { gap: 64px; padding: 64px 40px; border-radius: 48px; }
   .hero-title h1 { font-size: 72px; line-height: 72px; letter-spacing: 1.44px; }
   .hero-lead { font-size: 18px; line-height: 26px; letter-spacing: .36px; max-width: 640px; }
+  /* Декор справа от кнопок, под текстом: группа масштабируется (s), правый край — по внутреннему
+     отступу шапки, верх — на высоте T. translate = (202px·s − 40px, T − 164px·s),
+     где 202/164 — правый и верхний отступы группы в макете */
+  .hero { min-height: 560px; }
+  .deco-avatar { display: flex; }
+  .deco-cursor, .deco-laptop { display: block; }
+  .deco-group { transform: translate(131.7px, 130.6px) scale(.85); } /* s = .85, T = 270px */
 
   /* Кейсы */
   .cases-head { padding: 64px 40px 0; }
@@ -849,4 +858,12 @@ html.soon-open { overflow: hidden; }
   .case-p, .case-list { font-size: 17px; line-height: 28px; letter-spacing: .34px; }
   .case-photo figcaption { font-size: 17px; line-height: 28px; letter-spacing: .34px; }
   .funnel-box b { font-size: 28px; line-height: 32px; letter-spacing: .56px; }
+}
+@media (min-width: 1200px) and (max-width: 1299px) {
+  .deco-group { transform: translate(101.4px, 165.2px) scale(.7); } /* s = .7, T = 280px */
+}
+/* Уже 1200px справа от кнопок места нет — декор опускается под них */
+@media (min-width: 1101px) and (max-width: 1199px) {
+  .hero { min-height: 620px; }
+  .deco-group { transform: translate(81.2px, 301.6px) scale(.6); } /* s = .6, T = 400px */
 }
