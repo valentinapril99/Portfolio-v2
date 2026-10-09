@@ -348,9 +348,26 @@ if (soonLinks.length) {
   const modal = document.createElement('dialog');
   modal.className = 'soon-modal';
   modal.setAttribute('aria-labelledby', 'soon-title');
-  modal.innerHTML = '<picture><source srcset="Portfolio%20Resurses/cat-computer.webp" type="image/webp"><img class="soon-img" src="Portfolio%20Resurses/cat-computer.gif" alt="Кот печатает на ноутбуке" loading="lazy" width="498" height="498"></picture>'
-    + '<p class="soon-text" id="soon-title">Тут кипит работа...</p>'
+  // Заглушки: по умолчанию кот за ноутбуком; у отдельных проектов своя гифка и текст (data-soon="ключ")
+  const presets = {
+    default: { webp: 'Portfolio%20Resurses/cat-computer.webp', gif: 'Portfolio%20Resurses/cat-computer.gif', w: 498, h: 498,
+      alt: 'Кот печатает на ноутбуке', text: 'Тут кипит работа...' },
+    onboarding: { webp: 'Portfolio%20Resurses/server-rack.webp', gif: 'Portfolio%20Resurses/server-rack.gif', w: 640, h: 382,
+      alt: 'Серверная стойка работает на пределе', text: 'Наш сервер работает на&nbsp;пределе, чтобы я&nbsp;успела закончить этот проект' }
+  };
+  modal.innerHTML = '<picture><source type="image/webp"><img class="soon-img" loading="lazy"></picture>'
+    + '<p class="soon-text" id="soon-title"></p>'
     + '<button class="btn btn--primary" type="button">Ок, зайду позже</button>';
+  const soonSource = modal.querySelector('source');
+  const soonImg = modal.querySelector('.soon-img');
+  const soonText = modal.querySelector('.soon-text');
+  const fillSoon = key => {
+    const p = presets[key] || presets.default;
+    soonSource.srcset = p.webp;
+    Object.assign(soonImg, { src: p.gif, alt: p.alt, width: p.w, height: p.h });
+    soonImg.classList.toggle('soon-img--wide', p.w > p.h);
+    soonText.innerHTML = p.text;
+  };
   document.body.append(modal);
   modal.querySelector('button').addEventListener('click', () => modal.close());
   // Клик по затемнению вокруг окна тоже закрывает его
@@ -362,6 +379,7 @@ if (soonLinks.length) {
   modal.addEventListener('close', () => document.documentElement.classList.remove('soon-open'));
   soonLinks.forEach(link => link.addEventListener('click', e => {
     e.preventDefault();
+    fillSoon(link.dataset.soon);
     document.documentElement.classList.add('soon-open');
     modal.showModal();
   }));
