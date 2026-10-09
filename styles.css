@@ -203,6 +203,7 @@ a.tag:hover { background: var(--secondary-1-hover); }
 
 /* Cases */
 .cases { display: flex; flex-direction: column; gap: 40px; }
+.cases-head { padding: 80px 56px 0; }
 .card {
   display: flex; flex-direction: column; gap: 40px;
   padding: 56px; border-radius: 64px;
@@ -265,6 +266,7 @@ a.tag:hover { background: var(--secondary-1-hover); }
   .nav-links a { font-size: 18px; line-height: 24px; }
   .hero { padding: 48px 32px; gap: 48px; }
   .card { padding: 32px; gap: 32px; border-radius: 40px; }
+  .cases-head { padding: 48px 32px 0; }
   .footer { padding: 40px 32px; gap: 32px; }
 }
 @media (max-width: 760px) {
@@ -313,8 +315,8 @@ a.tag:hover { background: var(--secondary-1-hover); }
   .tag { padding: 8px 12px; border-radius: 16px; font-size: 16px; line-height: 18px; letter-spacing: .32px; }
   .hero-lead { font-size: 18px; line-height: 24px; letter-spacing: .36px; }
   .btn { height: auto; padding: 16px 24px; font-size: 18px; line-height: 24px; letter-spacing: .36px; }
-  .hero .btn--primary { display: none; }
-  .hero .btn--secondary { width: auto; background: var(--main-2); color: var(--el-on-main-2); }
+  /* На телефоне в первом экране одна кнопка — «Смотреть кейсы»; контакты есть в меню */
+  .hero .btn--secondary { display: none; }
   .deco.deco-laptop {
     display: block; top: auto; right: -43px; bottom: 92px;
     transform: scale(.715) rotate(-4.3deg);
@@ -322,6 +324,7 @@ a.tag:hover { background: var(--secondary-1-hover); }
 
   /* Кейсы */
   .card { padding: 16px 16px 32px; gap: 16px; border-radius: 40px; }
+  .cases-head { padding: 32px 16px 0; }
   .card h2 { font-weight: 500; font-size: 24px; line-height: 32px; letter-spacing: .48px; }
   .card-arrow { display: inline-flex; }
   /* Карусель фото в карточке: листается свайпом, точки показывают позицию */
