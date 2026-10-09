@@ -367,7 +367,6 @@ if (soonLinks.length) {
     const p = presets[key] || presets.default;
     soonSource.srcset = p.webp;
     Object.assign(soonImg, { src: p.gif, alt: p.alt, width: p.w, height: p.h });
-    soonImg.classList.toggle('soon-img--wide', p.w > p.h);
     soonText.innerHTML = p.text;
   };
   document.body.append(modal);
