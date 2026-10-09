@@ -872,6 +872,14 @@ html.soon-open { overflow: hidden; }
   /* Главная */
   .hero-title h1 { font-size: 64px; line-height: 64px; letter-spacing: 1.28px; }
   .hero-lead { font-size: 18px; line-height: 26px; letter-spacing: .36px; max-width: 600px; }
+  /* Декор справа не помещается — переносим его под кнопки, к левому краю текста.
+     Группа масштабируется (s = .8) от правого верхнего угла шапки; блок декора в макете
+     занимает 202–639px от правого края и 164–456px от верха. Сдвигаем так, чтобы левый край
+     блока встал на отступ 32px, а низ — на нижний отступ 48px; место под него — в padding-bottom. */
+  .hero { padding-bottom: 322px; } /* 48 + 234 (высота блока) + 40 (отступ от кнопок) */
+  .deco-avatar { display: flex; }
+  .deco-cursor, .deco-laptop { display: block; }
+  .deco-group { transform: translate(calc(543.2px - 100%), calc(100% - 412.8px)) scale(.8); }
 
   /* Кейсы */
   .card h2 { font-size: 32px; line-height: 40px; letter-spacing: .64px; }
