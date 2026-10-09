@@ -788,3 +788,65 @@ html.soon-open { overflow: hidden; }
   .soon-text { margin-top: 32px; }
   .soon-modal .btn { height: 72px; padding: 16px 32px; font-size: 20px; line-height: 24px; letter-spacing: .4px; }
 }
+
+/* =====================================================================
+   Ноутбуки 1101–1440px: шрифты и отступы чуть компактнее, чем на больших экранах
+   ===================================================================== */
+@media (min-width: 1101px) and (max-width: 1440px) {
+  /* Меню */
+  .nav { gap: 32px; padding: 64px 32px 64px 40px; }
+  .avatar-sm { width: 64px; height: 64px; }
+  .profile-name { font-size: 18px; line-height: 22px; letter-spacing: .36px; }
+  .profile-role { font-size: 14px; line-height: 18px; letter-spacing: .28px; }
+  .nav-links { gap: 20px; width: 200px; min-width: 180px; }
+  .nav-links li:first-child { width: 150px; }
+  .nav-links a { font-size: 20px; line-height: 28px; letter-spacing: .4px; }
+
+  /* Общее */
+  .btn { height: 64px; padding: 16px 28px; font-size: 18px; line-height: 24px; letter-spacing: .36px; }
+  .tag { padding: 12px 20px; border-radius: 20px; font-size: 20px; line-height: 18px; letter-spacing: .4px; }
+  .tag--sm { padding: 8px 12px; border-radius: 16px; font-size: 14px; line-height: 18px; letter-spacing: .28px; }
+  .section { gap: 64px; padding: 64px 40px; border-radius: 48px; }
+  .section-title { font-size: 40px; line-height: 48px; letter-spacing: .8px; }
+  .section-title-xl { font-size: 48px; line-height: 52px; letter-spacing: .96px; }
+  .footer { gap: 48px; padding: 48px 40px; font-size: 20px; line-height: 28px; letter-spacing: .4px; }
+  .socials img { width: 48px; height: 48px; }
+
+  /* Главная */
+  .hero { gap: 64px; padding: 64px 40px; border-radius: 48px; }
+  .hero-title h1 { font-size: 72px; line-height: 72px; letter-spacing: 1.44px; }
+  .hero-lead { font-size: 18px; line-height: 26px; letter-spacing: .36px; max-width: 640px; }
+
+  /* Кейсы */
+  .cases-head { padding: 64px 40px 0; }
+  .card { gap: 32px; padding: 40px; border-radius: 48px; }
+  .card h2 { font-size: 40px; line-height: 48px; letter-spacing: .8px; }
+  .year { font-size: 26px; line-height: 32px; letter-spacing: .52px; }
+
+  /* Обо мне и Карьера */
+  .about-text { gap: 48px; }
+  .about-text h1 { font-size: 40px; line-height: 48px; letter-spacing: .8px; }
+  .about-copy p { font-size: 18px; line-height: 26px; letter-spacing: .36px; }
+  .about-photo { width: 360px; height: 440px; border-radius: 48px; }
+  .company h3 { font-size: 40px; line-height: 48px; letter-spacing: .8px; }
+  .company p { font-size: 24px; line-height: 32px; letter-spacing: .48px; }
+  .career-desc { font-size: 18px; line-height: 26px; letter-spacing: .36px; }
+  .projects h4 { font-size: 26px; line-height: 36px; letter-spacing: .52px; }
+  .projects-head p { font-size: 18px; line-height: 26px; letter-spacing: .36px; }
+  .mini-title { font-size: 20px; line-height: 28px; letter-spacing: .4px; }
+  .period { gap: 12px; font-size: 26px; line-height: 32px; letter-spacing: .52px; }
+  .manifesto { font-size: 18px; line-height: 26px; letter-spacing: .36px; }
+
+  /* Контакты и Концепты */
+  .contacts-title { font-size: 40px; line-height: 48px; letter-spacing: .8px; }
+  .concept-empty { font-size: 18px; line-height: 26px; letter-spacing: .36px; }
+
+  /* Страница кейса */
+  .case-section { padding: 56px 40px 32px; gap: 56px; }
+  .case-h1 { font-size: 40px; line-height: 48px; letter-spacing: .8px; }
+  .case-h3 { font-size: 28px; line-height: 32px; letter-spacing: .56px; }
+  .case-h4 { font-size: 22px; line-height: 30px; letter-spacing: .44px; }
+  .case-p, .case-list { font-size: 17px; line-height: 28px; letter-spacing: .34px; }
+  .case-photo figcaption { font-size: 17px; line-height: 28px; letter-spacing: .34px; }
+  .funnel-box b { font-size: 28px; line-height: 32px; letter-spacing: .56px; }
+}
