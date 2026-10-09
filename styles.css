@@ -256,31 +256,19 @@ a.tag:hover { background: var(--secondary-1-hover); }
 @media (max-width: 1500px) {
   .deco { display: none; }
 }
-@media (max-width: 1100px) {
-  .body { grid-template-columns: 1fr; gap: 0; }
-  .nav {
-    position: static; flex-direction: row; flex-wrap: wrap; align-items: center; justify-content: space-between;
-    gap: 16px 32px; padding: 24px 32px;
-  }
-  .profile-info { flex: none; min-width: 0; }
-  .nav-links { flex-direction: row; flex-wrap: wrap; width: auto; min-width: 0; gap: 8px 24px; }
-  .nav-links li:first-child { width: auto; }
-  .nav-links a { font-size: 18px; line-height: 24px; }
-  .hero { padding: 48px 32px; gap: 48px; }
-  .card { padding: 32px; gap: 32px; border-radius: 40px; }
-  .cases-head { padding: 48px 32px 0; }
-  .footer { padding: 40px 32px; gap: 32px; }
-}
-@media (max-width: 760px) {
+/* Ноутбук, планшет и телефон: меню как в мобильной версии —
+   в шапке профиль и кнопка «Меню», по нажатию меню открывается на весь экран */
+@media (max-width: 1440px) {
   /* Шапка: профиль + кнопка «Меню» */
   .nav {
-    flex-wrap: wrap; gap: 0 16px; padding: 8px 16px;
+    flex-direction: row; flex-wrap: wrap; align-items: center; justify-content: space-between;
+    gap: 0 16px; padding: 16px 40px;
     /* Закреплена сверху: прячется при прокрутке вниз, появляется при прокрутке вверх */
     position: fixed; top: 0; left: 0; right: 0; z-index: 50;
     background: var(--bg-main); transition: transform .25s ease, box-shadow .25s ease;
   }
-  .body { padding-top: 64px; }
-  html { scroll-padding-top: 64px; }
+  .body { grid-template-columns: 1fr; gap: 0; padding-top: 80px; }
+  html { scroll-padding-top: 80px; }
   .nav.is-scrolled { box-shadow: 0 1px 0 var(--secondary-1); }
   .nav.is-hidden:not(.is-open) { transform: translateY(-100%); box-shadow: none; }
   .profile { contain: none; flex: 1 1 0; min-width: 0; flex-wrap: nowrap; gap: 16px; }
@@ -291,14 +279,14 @@ a.tag:hover { background: var(--secondary-1-hover); }
   .menu-btn { display: inline-flex; }
   .theme-btn { display: none; }
   .nav > nav { display: none; width: 100%; padding-top: 64px; }
-  .nav-links { flex-direction: column; gap: 24px; }
+  .nav-links { flex-direction: column; gap: 24px; width: auto; }
   .nav-links li:first-child { width: 165px; }
   .nav-links a { font-size: 24px; line-height: 32px; }
 
   /* Открытое меню — на весь экран */
   .nav.is-open {
     position: fixed; inset: 0; z-index: 100; align-content: flex-start;
-    overflow-y: auto; background: var(--bg-main); padding-bottom: 64px;
+    overflow-y: auto; background: var(--bg-main); padding-bottom: 80px;
   }
   .nav.is-open > nav { display: block; }
   .nav.is-open .menu-extra { display: flex; flex-direction: column; align-items: flex-start; gap: 16px; width: 100%; margin-top: 64px; }
@@ -308,6 +296,19 @@ a.tag:hover { background: var(--secondary-1-hover); }
   .nav.is-open .menu-btn .label { display: none; }
   .menu-extra .socials { order: 0; justify-content: flex-start; flex: none; }
   html.menu-open { overflow: hidden; }
+}
+@media (max-width: 1100px) {
+  .nav { padding: 16px 32px; }
+  .hero { padding: 48px 32px; gap: 48px; }
+  .card { padding: 32px; gap: 32px; border-radius: 40px; }
+  .cases-head { padding: 48px 32px 0; }
+  .footer { padding: 40px 32px; gap: 32px; }
+}
+@media (max-width: 760px) {
+  .nav { padding: 8px 16px; }
+  .body { padding-top: 64px; }
+  html { scroll-padding-top: 64px; }
+  .nav.is-open { padding-bottom: 64px; }
 
   /* Hero */
   .hero { padding: 80px 16px; gap: 80px; border-radius: 0; overflow: clip; }
@@ -737,20 +738,19 @@ html.lightbox-open { overflow: hidden; }
 .case-role { display: flex; flex-direction: column; gap: 40px; }
 .case-tags { display: flex; flex-wrap: wrap; gap: 16px 24px; }
 
-@media (max-width: 1100px) {
+@media (max-width: 1440px) {
+  /* в шапке профиль + «Меню», «назад» и разделы — в раскрытом меню */
   .nav--case .profile { display: flex; }
+  .nav--case .case-back { display: none; }
+  .nav--case.is-open .case-back { display: inline-flex; flex: none; margin: 40px 100% 0 0; }
+  .nav--case.is-open > nav { padding-top: 40px; }
+}
+@media (max-width: 1100px) {
   .case-section { padding: 48px 32px 32px; }
   .case-cards { flex-direction: column; }
   .case-card { flex: none; min-height: 0; }
 }
-@media (min-width: 761px) and (max-width: 1100px) {
-  .nav--case .profile { display: none; }
-}
 @media (max-width: 760px) {
-  /* мобильный: в шапке профиль + «Меню», «назад» и разделы — в раскрытом меню */
-  .nav--case .case-back { display: none; }
-  .nav--case.is-open .case-back { display: inline-flex; flex: none; margin: 40px 100% 0 0; }
-  .nav--case.is-open > nav { padding-top: 40px; }
   .case-section { padding: 40px 16px 24px; gap: 40px; }
   .case-h1, .case-h3 { font-weight: 500; font-size: 32px; line-height: 36px; letter-spacing: .64px; }
   .case-h3 { font-size: 24px; line-height: 32px; letter-spacing: .48px; }
@@ -795,15 +795,6 @@ html.soon-open { overflow: hidden; }
    Ноутбуки 1101–1440px: шрифты и отступы чуть компактнее, чем на больших экранах
    ===================================================================== */
 @media (min-width: 1101px) and (max-width: 1440px) {
-  /* Меню */
-  .nav { gap: 32px; padding: 64px 32px 64px 40px; }
-  .avatar-sm { width: 64px; height: 64px; }
-  .profile-name { font-size: 18px; line-height: 22px; letter-spacing: .36px; }
-  .profile-role { font-size: 14px; line-height: 18px; letter-spacing: .28px; }
-  .nav-links { gap: 20px; width: 200px; min-width: 180px; }
-  .nav-links li:first-child { width: 150px; }
-  .nav-links a { font-size: 20px; line-height: 28px; letter-spacing: .4px; }
-
   /* Общее */
   .btn { height: 64px; padding: 16px 28px; font-size: 18px; line-height: 24px; letter-spacing: .36px; }
   .tag { padding: 12px 20px; border-radius: 20px; font-size: 20px; line-height: 18px; letter-spacing: .4px; }
@@ -818,13 +809,12 @@ html.soon-open { overflow: hidden; }
   .hero { gap: 64px; padding: 64px 40px; border-radius: 48px; }
   .hero-title h1 { font-size: 72px; line-height: 72px; letter-spacing: 1.44px; }
   .hero-lead { font-size: 18px; line-height: 26px; letter-spacing: .36px; max-width: 640px; }
-  /* Декор справа от кнопок, под текстом: группа масштабируется (s), правый край — по внутреннему
-     отступу шапки, верх — на высоте T. translate = (202px·s − 40px, T − 164px·s),
+  /* Декор справа от заголовка: группа масштабируется (s), правый край — по внутреннему отступу
+     шапки, верх — на уровне заголовка (T = 64px). translate = (202px·s − 40px, T − 164px·s),
      где 202/164 — правый и верхний отступы группы в макете */
-  .hero { min-height: 560px; }
   .deco-avatar { display: flex; }
   .deco-cursor, .deco-laptop { display: block; }
-  .deco-group { transform: translate(131.7px, 130.6px) scale(.85); } /* s = .85, T = 270px */
+  .deco-group { transform: translate(162px, -100px); } /* s = 1 */
 
   /* Кейсы */
   .cases-head { padding: 64px 40px 0; }
@@ -859,11 +849,56 @@ html.soon-open { overflow: hidden; }
   .case-photo figcaption { font-size: 17px; line-height: 28px; letter-spacing: .34px; }
   .funnel-box b { font-size: 28px; line-height: 32px; letter-spacing: .56px; }
 }
-@media (min-width: 1200px) and (max-width: 1299px) {
-  .deco-group { transform: translate(101.4px, 165.2px) scale(.7); } /* s = .7, T = 280px */
+@media (min-width: 1101px) and (max-width: 1279px) {
+  .deco-group { transform: translate(121.6px, -67.2px) scale(.8); } /* s = .8 */
 }
-/* Уже 1200px справа от кнопок места нет — декор опускается под них */
-@media (min-width: 1101px) and (max-width: 1199px) {
-  .hero { min-height: 620px; }
-  .deco-group { transform: translate(81.2px, 301.6px) scale(.6); } /* s = .6, T = 400px */
+
+/* =====================================================================
+   Планшеты 761–1100px: шрифты между ноутбуком и телефоном
+   ===================================================================== */
+@media (min-width: 761px) and (max-width: 1100px) {
+  /* Общее */
+  .btn { height: 56px; padding: 16px 24px; font-size: 18px; line-height: 24px; letter-spacing: .36px; }
+  .tag { padding: 10px 16px; border-radius: 20px; font-size: 18px; line-height: 20px; letter-spacing: .36px; }
+  .tag--sm { padding: 8px 12px; border-radius: 16px; font-size: 14px; line-height: 18px; letter-spacing: .28px; }
+  .section-title { font-size: 36px; line-height: 44px; letter-spacing: .72px; }
+  .section-title-xl { font-size: 40px; line-height: 44px; letter-spacing: .8px; }
+  .footer { font-size: 18px; line-height: 24px; letter-spacing: .36px; }
+  .socials img { width: 48px; height: 48px; }
+
+  /* Главная */
+  .hero-title h1 { font-size: 64px; line-height: 64px; letter-spacing: 1.28px; }
+  .hero-lead { font-size: 18px; line-height: 26px; letter-spacing: .36px; max-width: 600px; }
+
+  /* Кейсы */
+  .card h2 { font-size: 32px; line-height: 40px; letter-spacing: .64px; }
+  .year { font-size: 22px; line-height: 28px; letter-spacing: .44px; }
+
+  /* Обо мне и Карьера */
+  .about-text { gap: 40px; }
+  .about-text h1 { font-size: 36px; line-height: 44px; letter-spacing: .72px; }
+  .about-copy p { font-size: 18px; line-height: 26px; letter-spacing: .36px; }
+  .about-photo { max-width: 400px; border-radius: 48px; }
+  .company-logo { width: 64px; height: 64px; }
+  .company h3 { font-size: 32px; line-height: 40px; letter-spacing: .64px; }
+  .company p { margin-top: 4px; font-size: 20px; line-height: 28px; letter-spacing: .4px; }
+  .career-desc { font-size: 18px; line-height: 26px; letter-spacing: .36px; }
+  .projects h4 { font-size: 22px; line-height: 30px; letter-spacing: .44px; }
+  .projects-head p { font-size: 16px; line-height: 24px; letter-spacing: .32px; }
+  .mini-title { font-size: 18px; line-height: 24px; letter-spacing: .36px; }
+  .period { gap: 8px; font-size: 22px; line-height: 28px; letter-spacing: .44px; }
+  .manifesto { font-size: 18px; line-height: 26px; letter-spacing: .36px; }
+  .tool { width: 64px; height: 64px; }
+
+  /* Контакты и Концепты */
+  .contacts-title { font-size: 36px; line-height: 44px; letter-spacing: .72px; }
+  .concept-empty { font-size: 18px; line-height: 26px; letter-spacing: .36px; }
+
+  /* Страница кейса */
+  .case-h1 { font-size: 36px; line-height: 44px; letter-spacing: .72px; }
+  .case-h3 { font-size: 26px; line-height: 32px; letter-spacing: .52px; }
+  .case-h4 { font-size: 20px; line-height: 28px; letter-spacing: .4px; }
+  .case-p, .case-list { font-size: 17px; line-height: 28px; letter-spacing: .34px; }
+  .case-photo figcaption { font-size: 17px; line-height: 28px; letter-spacing: .34px; }
+  .funnel-box b { font-size: 26px; line-height: 32px; letter-spacing: .52px; }
 }

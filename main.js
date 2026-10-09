@@ -35,7 +35,7 @@ profileLink.addEventListener('click', e => {
   }
 });
 // Меню не должно остаться открытым при переходе на десктопную ширину
-matchMedia('(min-width: 761px)').addEventListener('change', e => { if (e.matches) setMenu(false); });
+matchMedia('(min-width: 1441px)').addEventListener('change', e => { if (e.matches) setMenu(false); });
 
 // Мобильная шапка: при прокрутке вниз прячется, при прокрутке вверх появляется
 let lastY = window.scrollY;
