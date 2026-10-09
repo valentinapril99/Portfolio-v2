@@ -372,7 +372,9 @@ a.tag:hover { background: var(--secondary-1-hover); }
   display: flex; flex-wrap: wrap; gap: 0 24px;
   font-weight: 400; font-size: 56px; line-height: 60px; letter-spacing: 1.12px;
 }
-.section-title-xl .accent { color: var(--main-1); }
+.section-title-xl .accent, .section-title .accent { color: var(--main-1); }
+/* Заголовок раздела с акцентной частью («Опыт работы 4 года 8 месяцев») */
+.section-title--split { display: flex; flex-wrap: wrap; gap: 0 16px; }
 .tag--sm { padding: 8px 12px; border-radius: 16px; font-size: 16px; line-height: 18px; letter-spacing: .32px; }
 
 /* Интро */
@@ -475,7 +477,9 @@ a.tag:hover { background: var(--secondary-1-hover); }
   .about-photo { display: none; }
   .about-text { flex-basis: auto; width: 100%; gap: 40px; }
   .about-text h1, .section-title, .section-title-xl { font-weight: 500; font-size: 32px; line-height: 36px; letter-spacing: .64px; }
-  .section-title-xl { flex-direction: column; gap: 8px; }
+  .section-title-xl, .section-title--split { flex-direction: column; gap: 8px; }
+  /* Заголовок страницы крупнее заголовков разделов */
+  .page-head .section-title-xl { font-size: 40px; line-height: 44px; letter-spacing: .8px; }
   .about-copy p, .career-desc { font-size: 18px; line-height: 24px; letter-spacing: .36px; }
   .about-copy p + p, .career-desc p + p { margin-top: 24px; }
   .about-tags { gap: 24px; }
@@ -867,6 +871,7 @@ html.soon-open { overflow: hidden; }
   .tag--sm { padding: 8px 12px; border-radius: 16px; font-size: 14px; line-height: 18px; letter-spacing: .28px; }
   .section-title { font-size: 36px; line-height: 44px; letter-spacing: .72px; }
   .section-title-xl { font-size: 40px; line-height: 44px; letter-spacing: .8px; }
+  .page-head .section-title-xl { font-size: 44px; line-height: 48px; letter-spacing: .88px; }
   .footer { font-size: 18px; line-height: 24px; letter-spacing: .36px; }
   .socials img { width: 48px; height: 48px; }
 
