@@ -379,8 +379,8 @@ a.tag:hover { background: var(--secondary-1-hover); }
 }
 .about-photo::after {
   content: ""; position: absolute; inset: 0;
-  background: url("Portfolio%20Resurses/avatar-portrait.png") center top / cover no-repeat;
-  background-image: image-set(url("Portfolio%20Resurses/avatar-portrait.webp") type("image/webp"), url("Portfolio%20Resurses/avatar-portrait.png") type("image/png"));
+  background: url("Portfolio%20Resurses/about-photo.jpg") center top / cover no-repeat;
+  background-image: image-set(url("Portfolio%20Resurses/about-photo.webp") type("image/webp"), url("Portfolio%20Resurses/about-photo.jpg") type("image/jpeg"));
 }
 
 /* Карьера и образование */
