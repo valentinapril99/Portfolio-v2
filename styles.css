@@ -205,7 +205,8 @@ a.tag:hover { background: var(--secondary-1-hover); }
 
 /* Cases */
 .cases { display: flex; flex-direction: column; gap: 40px; }
-.cases-head { padding: 80px 56px 0; }
+/* Заголовок страницы (Кейсы, Карьера, Концепты) */
+.page-head { display: flex; flex-direction: column; align-items: flex-start; gap: 40px; padding: 80px 56px 0; }
 .card {
   display: flex; flex-direction: column; gap: 40px;
   padding: 56px; border-radius: 64px;
@@ -303,7 +304,7 @@ a.tag:hover { background: var(--secondary-1-hover); }
   .nav { padding: 16px 32px; }
   .hero { padding: 48px 32px; gap: 48px; }
   .card { padding: 32px; gap: 32px; border-radius: 40px; }
-  .cases-head { padding: 48px 32px 0; }
+  .page-head { padding: 48px 32px 0; }
   .footer { padding: 40px 32px; gap: 32px; }
 }
 @media (max-width: 760px) {
@@ -329,7 +330,7 @@ a.tag:hover { background: var(--secondary-1-hover); }
 
   /* Кейсы */
   .card { padding: 16px 16px 32px; gap: 16px; border-radius: 40px; }
-  .cases-head { padding: 32px 16px 0; }
+  .page-head { gap: 24px; padding: 32px 16px 0; }
   .card h2 { font-weight: 500; font-size: 24px; line-height: 32px; letter-spacing: .48px; }
   .card-arrow { display: inline-flex; }
   /* Карусель фото в карточке: листается свайпом, точки показывают позицию */
@@ -820,7 +821,7 @@ html.soon-open { overflow: hidden; }
   .deco-group { transform: translate(162px, -100px); } /* s = 1 */
 
   /* Кейсы */
-  .cases-head { padding: 64px 40px 0; }
+  .page-head { padding: 64px 40px 0; }
   .card { gap: 32px; padding: 40px; border-radius: 48px; }
   .card h2 { font-size: 40px; line-height: 48px; letter-spacing: .8px; }
   .year { font-size: 26px; line-height: 32px; letter-spacing: .52px; }
