@@ -6,7 +6,11 @@
 <script>
   // Тема: по умолчанию светлая, тёмная — если она включена на устройстве.
   // Ручной выбор посетителя хранится, только пока отличается от системной темы.
+  // Тёмная тема временно отключена: чтобы вернуть, поставьте DARK_THEME_ENABLED = true
+  // здесь, во всех HTML-страницах, и в main.js, и удалите блок «Тёмная тема скрыта» в styles.css.
   (function () {
+    const DARK_THEME_ENABLED = false;
+    if (!DARK_THEME_ENABLED) { document.documentElement.dataset.theme = 'light'; return; }
     let t = null;
     try { t = localStorage.getItem('theme'); } catch (e) {}
     if (t !== 'light' && t !== 'dark') t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
@@ -17,7 +21,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=7">
+<link rel="stylesheet" href="styles.css?v=23">
 </head>
 <body>
 <div class="page">
@@ -35,9 +39,9 @@
       <button class="menu-btn" type="button" aria-expanded="false" aria-controls="nav-menu" aria-label="Открыть меню"><span class="label">Меню</span><svg class="i-close" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
       <nav id="nav-menu">
         <ul class="nav-links">
-          <li><a href="#cases">Продуктовые кейсы</a></li>
+          <li><a href="cases.html">Продуктовые кейсы</a></li>
           <li><a href="about.html">Обо&nbsp;мне</a></li>
-          <li><a href="about.html#career">Карьера</a></li>
+          <li><a href="career.html">Карьера</a></li>
           <li><a href="concepts.html">Концепты</a></li>
           <li><a href="contacts.html">Контакты</a></li>
         </ul>
@@ -63,76 +67,26 @@
         <div class="hero-text">
           <div class="hero-title">
             <h1>Product Designer</h1>
-            <span class="tag tag--accent">Middle ++</span>
           </div>
-          <p class="hero-lead">Проектирую продукты, в&nbsp;которых чувствуется рука человека, а&nbsp;не&nbsp;инструмента. Умею находить порядок в&nbsp;хаосе, но&nbsp;важнее для&nbsp;меня та&nbsp;деталь, из-за&nbsp;которой с&nbsp;продуктом хочется остаться.</p>
+          <div class="hero-lead"><p>Продуктовый дизайнер с&nbsp;бэкграундом художника и&nbsp;программиста.</p><p>Превращаю сложную логику систем в&nbsp;понятные сценарии, проверяю идеи на&nbsp;рабочих прототипах в&nbsp;коде с&nbsp;помощью Claude и&nbsp;довожу решения до&nbsp;продакшена.</p></div>
         </div>
         <div class="btn-group">
-          <a class="btn btn--primary" href="#cases">Смотреть кейсы</a>
+          <a class="btn btn--primary" href="cases.html">Смотреть кейсы</a>
           <a class="btn btn--secondary" href="contacts.html">Связаться со&nbsp;мной</a>
         </div>
 
         <!-- Декор -->
-        <div class="deco deco-cursor" aria-hidden="true">
-          <div class="label">Valentina Pril</div>
-          <div class="arrow"><div class="arrow-inner"><span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 2l18 7.5-7.6 2.3L11 20z" fill="var(--main-1)" stroke="#fff" stroke-width="1.5" stroke-linejoin="round"/></svg></span></div></div>
+        <div class="deco-group">
+          <div class="deco deco-cursor" aria-hidden="true">
+            <div class="label">Valentina Pril</div>
+            <div class="arrow"><div class="arrow-inner"><span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 2l18 7.5-7.6 2.3L11 20z" fill="var(--main-1)" stroke="#fff" stroke-width="1.5" stroke-linejoin="round"/></svg></span></div></div>
+          </div>
+          <div class="deco deco-avatar" aria-hidden="true"><div class="ph"></div></div>
+          <button class="deco deco-laptop" type="button" aria-label="Click me">
+            <div class="inner"><picture><source srcset="Portfolio%20Resurses/Laptop.webp" type="image/webp"><img src="Portfolio%20Resurses/Laptop.png" alt="" width="460" height="415" loading="lazy" decoding="async"></picture></div>
+          </button>
         </div>
-        <div class="deco deco-avatar" aria-hidden="true"><div class="ph"></div></div>
-        <button class="deco deco-laptop" type="button" aria-label="Click me">
-          <div class="inner"><picture><source srcset="Portfolio%20Resurses/Laptop.webp" type="image/webp"><img src="Portfolio%20Resurses/Laptop.png" alt="" width="460" height="415" loading="lazy" decoding="async"></picture></div>
-        </button>
       </header>
-
-      <section class="cases" id="cases">
-        <a class="card card--green" href="case-basket.html">
-          <div class="card-head">
-            <h2>Обновление корзины</h2>
-            <span class="card-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor" aria-hidden="true"><path d="M13.4697 5.46967C13.7626 5.17678 14.2374 5.17678 14.5303 5.46967L20.5303 11.4697C20.8232 11.7626 20.8232 12.2373 20.5303 12.5302L14.5303 18.5302C14.2374 18.8231 13.7626 18.8231 13.4697 18.5302C13.1768 18.2373 13.1768 17.7626 13.4697 17.4697L18.1895 12.7499H9.5C9.08579 12.7499 8.75 12.4142 8.75 11.9999C8.75 11.5857 9.08579 11.2499 9.5 11.2499H18.1895L13.4697 6.53022C13.1768 6.23732 13.1768 5.76256 13.4697 5.46967ZM6.5 11.2499C6.91421 11.2499 7.25 11.5857 7.25 11.9999C7.25 12.4142 6.91421 12.7499 6.5 12.7499H4C3.58579 12.7499 3.25 12.4142 3.25 11.9999C3.25 11.5857 3.58579 11.2499 4 11.2499H6.5Z"/></svg></span>
-          </div>
-          <div class="gallery"><div><picture><source srcset="Portfolio%20Resurses/basket-1.webp" type="image/webp"><img src="Portfolio%20Resurses/basket-1.jpg" alt="Гибкие настройки корзины" fetchpriority="high" width="890" height="890" decoding="async"></picture></div><div><picture><source srcset="Portfolio%20Resurses/basket-2.webp" type="image/webp"><img src="Portfolio%20Resurses/basket-2.jpg" alt="Рефакторинг смарт-групп" width="890" height="890" decoding="async"></picture></div><div><picture><source srcset="Portfolio%20Resurses/basket-3.webp" type="image/webp"><img src="Portfolio%20Resurses/basket-3.jpg" alt="Информация по&nbsp;остаткам" width="890" height="890" decoding="async"></picture></div><span class="btn btn--primary" aria-hidden="true">Смотреть кейс</span></div>
-          <span class="gallery-dots" aria-hidden="true"><i class="is-active"></i><i></i><i></i></span>
-          <div class="meta">
-            <div class="tags"><span class="tag">B2C</span><span class="tag">E-grocery</span><span class="tag">Web&amp;Mobile app</span></div>
-            <span class="year">2025</span>
-          </div>
-        </a>
-        <a class="card" href="#" data-soon>
-          <div class="card-head">
-            <h2>Заказ горячей пиццы</h2>
-            <span class="card-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor" aria-hidden="true"><path d="M13.4697 5.46967C13.7626 5.17678 14.2374 5.17678 14.5303 5.46967L20.5303 11.4697C20.8232 11.7626 20.8232 12.2373 20.5303 12.5302L14.5303 18.5302C14.2374 18.8231 13.7626 18.8231 13.4697 18.5302C13.1768 18.2373 13.1768 17.7626 13.4697 17.4697L18.1895 12.7499H9.5C9.08579 12.7499 8.75 12.4142 8.75 11.9999C8.75 11.5857 9.08579 11.2499 9.5 11.2499H18.1895L13.4697 6.53022C13.1768 6.23732 13.1768 5.76256 13.4697 5.46967ZM6.5 11.2499C6.91421 11.2499 7.25 11.5857 7.25 11.9999C7.25 12.4142 6.91421 12.7499 6.5 12.7499H4C3.58579 12.7499 3.25 12.4142 3.25 11.9999C3.25 11.5857 3.58579 11.2499 4 11.2499H6.5Z"/></svg></span>
-          </div>
-          <div class="gallery"><div><picture><source srcset="Portfolio%20Resurses/pizza-1.webp" type="image/webp"><img src="Portfolio%20Resurses/pizza-1.jpg" alt="Доступность в&nbsp;каталоге" width="890" height="890" loading="lazy" decoding="async"></picture></div><div><picture><source srcset="Portfolio%20Resurses/pizza-2.webp" type="image/webp"><img src="Portfolio%20Resurses/pizza-2.jpg" alt="Быстрый выбор магазина" width="890" height="890" loading="lazy" decoding="async"></picture></div><div><picture><source srcset="Portfolio%20Resurses/pizza-3.webp" type="image/webp"><img src="Portfolio%20Resurses/pizza-3.jpg" alt="Отображение на&nbsp;карте" width="890" height="890" loading="lazy" decoding="async"></picture></div><span class="btn btn--primary" aria-hidden="true">Смотреть кейс</span></div>
-          <span class="gallery-dots" aria-hidden="true"><i class="is-active"></i><i></i><i></i></span>
-          <div class="meta">
-            <div class="tags"><span class="tag">B2C</span><span class="tag">Foodtech</span><span class="tag">Mobile app</span></div>
-            <span class="year">2025</span>
-          </div>
-        </a>
-        <a class="card" href="#" data-soon>
-          <div class="card-head">
-            <h2>Онбординг</h2>
-            <span class="card-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor" aria-hidden="true"><path d="M13.4697 5.46967C13.7626 5.17678 14.2374 5.17678 14.5303 5.46967L20.5303 11.4697C20.8232 11.7626 20.8232 12.2373 20.5303 12.5302L14.5303 18.5302C14.2374 18.8231 13.7626 18.8231 13.4697 18.5302C13.1768 18.2373 13.1768 17.7626 13.4697 17.4697L18.1895 12.7499H9.5C9.08579 12.7499 8.75 12.4142 8.75 11.9999C8.75 11.5857 9.08579 11.2499 9.5 11.2499H18.1895L13.4697 6.53022C13.1768 6.23732 13.1768 5.76256 13.4697 5.46967ZM6.5 11.2499C6.91421 11.2499 7.25 11.5857 7.25 11.9999C7.25 12.4142 6.91421 12.7499 6.5 12.7499H4C3.58579 12.7499 3.25 12.4142 3.25 11.9999C3.25 11.5857 3.58579 11.2499 4 11.2499H6.5Z"/></svg></span>
-          </div>
-          <div class="gallery"><div><picture><source srcset="Portfolio%20Resurses/onboarding-1.webp" type="image/webp"><img src="Portfolio%20Resurses/onboarding-1.jpg" alt="Подтверждение возраста" width="890" height="890" loading="lazy" decoding="async"></picture></div><div><picture><source srcset="Portfolio%20Resurses/onboarding-2.webp" type="image/webp"><img src="Portfolio%20Resurses/onboarding-2.jpg" alt="Вход в&nbsp;Клуб Друзей КуулКлевер" width="890" height="890" loading="lazy" decoding="async"></picture></div><div><picture><source srcset="Portfolio%20Resurses/onboarding-3.webp" type="image/webp"><img src="Portfolio%20Resurses/onboarding-3.jpg" alt="Знакомство в&nbsp;чате" width="890" height="890" loading="lazy" decoding="async"></picture></div><span class="btn btn--primary" aria-hidden="true">Смотреть кейс</span></div>
-          <span class="gallery-dots" aria-hidden="true"><i class="is-active"></i><i></i><i></i></span>
-          <div class="meta">
-            <div class="tags"><span class="tag">B2C</span><span class="tag">Growth</span><span class="tag">Mobile app</span></div>
-            <span class="year">2026</span>
-          </div>
-        </a>
-        <a class="card" href="#" data-soon>
-          <div class="card-head">
-            <h2>Кассы самообслуживания на&nbsp;1С</h2>
-            <span class="card-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor" aria-hidden="true"><path d="M13.4697 5.46967C13.7626 5.17678 14.2374 5.17678 14.5303 5.46967L20.5303 11.4697C20.8232 11.7626 20.8232 12.2373 20.5303 12.5302L14.5303 18.5302C14.2374 18.8231 13.7626 18.8231 13.4697 18.5302C13.1768 18.2373 13.1768 17.7626 13.4697 17.4697L18.1895 12.7499H9.5C9.08579 12.7499 8.75 12.4142 8.75 11.9999C8.75 11.5857 9.08579 11.2499 9.5 11.2499H18.1895L13.4697 6.53022C13.1768 6.23732 13.1768 5.76256 13.4697 5.46967ZM6.5 11.2499C6.91421 11.2499 7.25 11.5857 7.25 11.9999C7.25 12.4142 6.91421 12.7499 6.5 12.7499H4C3.58579 12.7499 3.25 12.4142 3.25 11.9999C3.25 11.5857 3.58579 11.2499 4 11.2499H6.5Z"/></svg></span>
-          </div>
-          <div class="gallery"><div><picture><source srcset="Portfolio%20Resurses/kiosk-1.webp" type="image/webp"><img src="Portfolio%20Resurses/kiosk-1.jpg" alt="Сканирование" width="890" height="890" loading="lazy" decoding="async"></picture></div><div><picture><source srcset="Portfolio%20Resurses/kiosk-2.webp" type="image/webp"><img src="Portfolio%20Resurses/kiosk-2.jpg" alt="Оплата" width="890" height="890" loading="lazy" decoding="async"></picture></div><div><picture><source srcset="Portfolio%20Resurses/kiosk-3.webp" type="image/webp"><img src="Portfolio%20Resurses/kiosk-3.jpg" alt="Авторизация" width="890" height="890" loading="lazy" decoding="async"></picture></div><span class="btn btn--primary" aria-hidden="true">Смотреть кейс</span></div>
-          <span class="gallery-dots" aria-hidden="true"><i class="is-active"></i><i></i><i></i></span>
-          <div class="meta">
-            <div class="tags"><span class="tag">Offline retail</span><span class="tag">MVP</span><span class="tag">1С</span></div>
-            <span class="year">2024</span>
-          </div>
-        </a>
-      </section>
     </main>
   </div>
 
@@ -148,6 +102,6 @@
   </footer>
 </div>
 
-<script src="main.js?v=7"></script>
+<script src="main.js?v=13"></script>
 </body>
 </html>

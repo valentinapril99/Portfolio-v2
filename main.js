@@ -35,7 +35,7 @@ profileLink.addEventListener('click', e => {
   }
 });
 // Меню не должно остаться открытым при переходе на десктопную ширину
-matchMedia('(min-width: 761px)').addEventListener('change', e => { if (e.matches) setMenu(false); });
+matchMedia('(min-width: 1441px)').addEventListener('change', e => { if (e.matches) setMenu(false); });
 
 // Мобильная шапка: при прокрутке вниз прячется, при прокрутке вверх появляется
 let lastY = window.scrollY;
@@ -48,33 +48,36 @@ window.addEventListener('scroll', () => {
   lastY = y;
 }, { passive: true });
 
-// Переключение темы
+// Переключение темы (тёмная тема временно отключена)
+const DARK_THEME_ENABLED = false;
 const root = document.documentElement;
-const themeBtn = document.querySelector('.theme-btn');
-const themeLabel = themeBtn.querySelector('span');
-const syncThemeBtn = () => {
-  const dark = root.dataset.theme === 'dark';
-  themeLabel.textContent = dark ? 'Светлая тема' : 'Тёмная тема';
-  themeBtn.setAttribute('aria-label', themeLabel.textContent);
-};
-syncThemeBtn();
-const systemDark = matchMedia('(prefers-color-scheme: dark)');
-const systemTheme = () => systemDark.matches ? 'dark' : 'light';
-themeBtn.addEventListener('click', () => {
-  const next = root.dataset.theme === 'dark' ? 'light' : 'dark';
-  root.dataset.theme = next;
-  try {
-    if (next === systemTheme()) localStorage.removeItem('theme');
-    else localStorage.setItem('theme', next);
-  } catch (e) {}
+if (DARK_THEME_ENABLED) {
+  const themeBtn = document.querySelector('.theme-btn');
+  const themeLabel = themeBtn.querySelector('span');
+  const syncThemeBtn = () => {
+    const dark = root.dataset.theme === 'dark';
+    themeLabel.textContent = dark ? 'Светлая тема' : 'Тёмная тема';
+    themeBtn.setAttribute('aria-label', themeLabel.textContent);
+  };
   syncThemeBtn();
-});
-// Смена темы на устройстве — сайт следует за ней сразу
-systemDark.addEventListener('change', () => {
-  try { localStorage.removeItem('theme'); } catch (e) {}
-  root.dataset.theme = systemTheme();
-  syncThemeBtn();
-});
+  const systemDark = matchMedia('(prefers-color-scheme: dark)');
+  const systemTheme = () => systemDark.matches ? 'dark' : 'light';
+  themeBtn.addEventListener('click', () => {
+    const next = root.dataset.theme === 'dark' ? 'light' : 'dark';
+    root.dataset.theme = next;
+    try {
+      if (next === systemTheme()) localStorage.removeItem('theme');
+      else localStorage.setItem('theme', next);
+    } catch (e) {}
+    syncThemeBtn();
+  });
+  // Смена темы на устройстве — сайт следует за ней сразу
+  systemDark.addEventListener('change', () => {
+    try { localStorage.removeItem('theme'); } catch (e) {}
+    root.dataset.theme = systemTheme();
+    syncThemeBtn();
+  });
+}
 
 // Фильтр работ на странице «Концепты»
 const filters = document.querySelectorAll('.concept-filter');
@@ -118,7 +121,7 @@ if (filters.length) {
     });
   };
   filters.forEach(btn => btn.addEventListener('click', () => applyFilter(btn)));
-  // раздел по умолчанию задан в разметке (aria-pressed="true") — по умолчанию «Концепты»
+  // раздел по умолчанию задан в разметке (aria-pressed="true") — по умолчанию «Все»
   applyFilter(document.querySelector('.concept-filter[aria-pressed="true"]') || filters[0]);
 }
 
@@ -345,9 +348,27 @@ if (soonLinks.length) {
   const modal = document.createElement('dialog');
   modal.className = 'soon-modal';
   modal.setAttribute('aria-labelledby', 'soon-title');
-  modal.innerHTML = '<picture><source srcset="Portfolio%20Resurses/cat-computer.webp" type="image/webp"><img class="soon-img" src="Portfolio%20Resurses/cat-computer.gif" alt="Кот печатает на ноутбуке" loading="lazy" width="498" height="498"></picture>'
-    + '<p class="soon-text" id="soon-title">Тут кипит работа...</p>'
+  // Заглушки: по умолчанию кот за ноутбуком; у отдельных проектов своя гифка и текст (data-soon="ключ")
+  const presets = {
+    default: { webp: 'Portfolio%20Resurses/cat-computer.webp', gif: 'Portfolio%20Resurses/cat-computer.gif', w: 498, h: 498,
+      alt: 'Кот печатает на ноутбуке', text: 'Тут кипит работа...' },
+    onboarding: { webp: 'Portfolio%20Resurses/server-rack.webp', gif: 'Portfolio%20Resurses/server-rack.gif', w: 640, h: 382,
+      alt: 'Серверная стойка работает на пределе', text: 'Наш сервер работает на&nbsp;пределе, чтобы я&nbsp;успела закончить этот проект' },
+    kiosk: { webp: 'Portfolio%20Resurses/hamster-typing.webp?v=2', gif: 'Portfolio%20Resurses/hamster-typing.gif?v=2', w: 220, h: 222,
+      alt: 'Хомяк в очках печатает на клавиатуре', text: 'Страница ещё не&nbsp;готова. Специалист работает без&nbsp;перерыва на&nbsp;сон и&nbsp;вкусняшки' }
+  };
+  modal.innerHTML = '<picture><source type="image/webp"><img class="soon-img" loading="lazy"></picture>'
+    + '<p class="soon-text" id="soon-title"></p>'
     + '<button class="btn btn--primary" type="button">Ок, зайду позже</button>';
+  const soonSource = modal.querySelector('source');
+  const soonImg = modal.querySelector('.soon-img');
+  const soonText = modal.querySelector('.soon-text');
+  const fillSoon = key => {
+    const p = presets[key] || presets.default;
+    soonSource.srcset = p.webp;
+    Object.assign(soonImg, { src: p.gif, alt: p.alt, width: p.w, height: p.h });
+    soonText.innerHTML = p.text;
+  };
   document.body.append(modal);
   modal.querySelector('button').addEventListener('click', () => modal.close());
   // Клик по затемнению вокруг окна тоже закрывает его
@@ -359,6 +380,7 @@ if (soonLinks.length) {
   modal.addEventListener('close', () => document.documentElement.classList.remove('soon-open'));
   soonLinks.forEach(link => link.addEventListener('click', e => {
     e.preventDefault();
+    fillSoon(link.dataset.soon);
     document.documentElement.classList.add('soon-open');
     modal.showModal();
   }));

@@ -6,7 +6,11 @@
 <script>
   // Тема: по умолчанию светлая, тёмная — если она включена на устройстве.
   // Ручной выбор посетителя хранится, только пока отличается от системной темы.
+  // Тёмная тема временно отключена: чтобы вернуть, поставьте DARK_THEME_ENABLED = true
+  // здесь, во всех HTML-страницах, и в main.js, и удалите блок «Тёмная тема скрыта» в styles.css.
   (function () {
+    const DARK_THEME_ENABLED = false;
+    if (!DARK_THEME_ENABLED) { document.documentElement.dataset.theme = 'light'; return; }
     let t = null;
     try { t = localStorage.getItem('theme'); } catch (e) {}
     if (t !== 'light' && t !== 'dark') t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
@@ -17,7 +21,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=7">
+<link rel="stylesheet" href="styles.css?v=23">
 </head>
 <body>
 <div class="page">
@@ -35,9 +39,9 @@
       <button class="menu-btn" type="button" aria-expanded="false" aria-controls="nav-menu" aria-label="Открыть меню"><span class="label">Меню</span><svg class="i-close" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
       <nav id="nav-menu">
         <ul class="nav-links">
-          <li><a href="index.html#cases">Продуктовые кейсы</a></li>
+          <li><a href="cases.html">Продуктовые кейсы</a></li>
           <li><a href="about.html">Обо&nbsp;мне</a></li>
-          <li><a href="about.html#career">Карьера</a></li>
+          <li><a href="career.html">Карьера</a></li>
           <li><a href="concepts.html" aria-current="page">Концепты</a></li>
           <li><a href="contacts.html">Контакты</a></li>
         </ul>
@@ -59,11 +63,12 @@
 
     <!-- Контент -->
     <main class="content">
+      <header class="page-head"><h1 class="section-title-xl">Концепты</h1></header>
+
       <section class="section concepts">
-        <h1 class="visually-hidden">Концепты</h1>
         <div class="concept-filters" role="group" aria-label="Фильтр работ">
-          <button class="tag concept-filter" type="button" data-filter="all" aria-pressed="false">Все</button>
-          <button class="tag concept-filter tag--accent" type="button" data-filter="concepts" aria-pressed="true">Концепты</button>
+          <button class="tag concept-filter tag--accent" type="button" data-filter="all" aria-pressed="true">Все</button>
+          <button class="tag concept-filter" type="button" data-filter="concepts" aria-pressed="false">Концепты</button>
           <button class="tag concept-filter" type="button" data-filter="illustrations" aria-pressed="false">Иллюстрации</button>
           <button class="tag concept-filter" type="button" data-filter="animation" aria-pressed="false">Анимация</button>
           <button class="tag concept-filter" type="button" data-filter="logo" aria-pressed="false">Лого</button>
@@ -73,7 +78,6 @@
         <div class="concept-gallery">
           <div class="concept-col">
             <figure class="concept-tile" data-cat="concepts" style="aspect-ratio: 600 / 378"><picture><source srcset="Concepts/concept-nn-tours-laptop.webp" type="image/webp"><img src="Concepts/concept-nn-tours-laptop.jpg" alt="Концепт сайта на ноутбуке" width="600" height="378" loading="lazy" decoding="async"></picture></figure>
-            <figure class="concept-tile" data-cat="concepts" style="aspect-ratio: 600 / 600"><picture><source srcset="Concepts/concept-snowboard-app.webp" type="image/webp"><img src="Concepts/concept-snowboard-app.jpg" alt="Концепт приложения проката сноубордов" width="600" height="600" loading="lazy" decoding="async"></picture></figure>
             <figure class="concept-tile" data-cat="concepts" style="aspect-ratio: 600 / 337"><picture><source srcset="Concepts/concept-food-delivery.webp" type="image/webp"><img src="Concepts/concept-food-delivery.jpg" alt="Концепт приложения доставки еды" width="600" height="337" loading="lazy" decoding="async"></picture></figure>
             <figure class="concept-tile" data-cat="arts" hidden style="aspect-ratio: 1208 / 1280"><picture><source srcset="Portfolio%20Resurses/art-house-sea.webp" type="image/webp"><img src="Portfolio%20Resurses/art-house-sea.jpg" alt="Картина: жёлтый дом у&nbsp;моря" width="1208" height="1280" loading="lazy" decoding="async"></picture></figure>
             <figure class="concept-tile" data-cat="arts" hidden style="aspect-ratio: 600 / 600"><picture><source srcset="Concepts/art-portrait-sketches.webp" type="image/webp"><img src="Concepts/art-portrait-sketches.jpg" alt="Портретные скетчи" width="600" height="600" loading="lazy" decoding="async"></picture></figure>
@@ -121,6 +125,6 @@
   </footer>
 </div>
 
-<script src="main.js?v=7"></script>
+<script src="main.js?v=13"></script>
 </body>
 </html>

@@ -6,7 +6,11 @@
 <script>
   // Тема: по умолчанию светлая, тёмная — если она включена на устройстве.
   // Ручной выбор посетителя хранится, только пока отличается от системной темы.
+  // Тёмная тема временно отключена: чтобы вернуть, поставьте DARK_THEME_ENABLED = true
+  // здесь, во всех HTML-страницах, и в main.js, и удалите блок «Тёмная тема скрыта» в styles.css.
   (function () {
+    const DARK_THEME_ENABLED = false;
+    if (!DARK_THEME_ENABLED) { document.documentElement.dataset.theme = 'light'; return; }
     let t = null;
     try { t = localStorage.getItem('theme'); } catch (e) {}
     if (t !== 'light' && t !== 'dark') t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
@@ -17,7 +21,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=7">
+<link rel="stylesheet" href="styles.css?v=23">
 </head>
 <body>
 <div class="page">
@@ -33,7 +37,7 @@
         </div>
       </a>
       <button class="menu-btn" type="button" aria-expanded="false" aria-controls="nav-menu" aria-label="Открыть меню"><span class="label">Меню</span><svg class="i-close" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
-      <a class="case-back" href="index.html#cases" aria-label="Назад к кейсам"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg></a>
+      <a class="case-back" href="cases.html" aria-label="Назад к кейсам"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg></a>
       <nav id="nav-menu" aria-label="Разделы кейса">
         <ul class="nav-links case-links">
           <li><a href="#context">Контекст и&nbsp;проблема</a></li>
@@ -97,11 +101,11 @@
         <div class="case-stack-40">
           <h3 class="case-h3">Аудит приложения КуулКлевер</h3>
           <figure class="case-photo">
-            <div class="case-photo-img" style="background:#cadeb9"><picture><source srcset="Project%201%20resurses/1946.webp" type="image/webp"><img src="Project%201%20resurses/1946.png" alt="Аудит смарт-групп в приложении КуулКлевер 1/2" width="932" height="432" loading="lazy" decoding="async"></picture></div>
+            <div class="case-photo-img" style="background:#f0f0f2"><picture><source srcset="Project%201%20resurses/1946.webp?v=3" type="image/webp"><img src="Project%201%20resurses/1946.jpg?v=3" alt="Аудит смарт-групп в приложении КуулКлевер 1/2" width="932" height="432" loading="lazy" decoding="async"></picture></div>
             <figcaption>Аудит смарт-групп в&nbsp;приложении КуулКлевер 1/2</figcaption>
           </figure>
           <figure class="case-photo">
-            <div class="case-photo-img" style="background:#cadeb9"><picture><source srcset="Project%201%20resurses/1947.webp" type="image/webp"><img src="Project%201%20resurses/1947.png" alt="Аудит смарт-групп в приложении КуулКлевер 2/2" width="932" height="432" loading="lazy" decoding="async"></picture></div>
+            <div class="case-photo-img" style="background:#f0f0f2"><picture><source srcset="Project%201%20resurses/1947.webp?v=3" type="image/webp"><img src="Project%201%20resurses/1947.jpg?v=3" alt="Аудит смарт-групп в приложении КуулКлевер 2/2" width="932" height="432" loading="lazy" decoding="async"></picture></div>
             <figcaption>Аудит смарт-групп в&nbsp;приложении КуулКлевер 2/2</figcaption>
           </figure>
           <figure class="case-photo">
@@ -166,7 +170,7 @@
             <h4 class="case-h4">Качественное исследование</h4>
             <p class="case-p">Формат: живые разговоры, созвоны по&nbsp;телефону и&nbsp;видеосвязи. Вопрос задавался открыто, после свободного ответа респондент выбирал ближайший вариант из&nbsp;карточек.</p>
             <div class="case-scroll"><div class="qtable">
-              <div class="qt-head">Ключевые тейки</div><div class="qt-head">Ответы</div><div class="qt-head">Важные поинты</div>
+              <div class="qt-head">Ключевые вопросы</div><div class="qt-head">Ответы</div><div class="qt-head">Важные ответы</div>
               <div class="qt-cell">Бывало ли, что&nbsp;вы&nbsp;разбивали покупку на&nbsp;несколько заказов? Как&nbsp;это&nbsp;было?</div><div class="qt-cell qt-ans"><div class="ans"><span>Нет, не&nbsp;разбивал(а)</span><span class="ans-n">7/12</span></div><div class="ans"><span>Да, разбивал(а), но&nbsp;редко</span><span class="ans-n">4/12</span></div><div class="ans"><span>Не&nbsp;было такого случая</span><span class="ans-n">1/12</span></div><div class="ans"><span>Не&nbsp;готов(а) ответить</span><span class="ans-n">0/12</span></div></div><div class="qt-cell qt-quotes"><p>«Если товаров нужных мне нет на&nbsp;сегодня, то&nbsp;мне проще заказать из&nbsp;другого магазина»</p></div><div class="qt-cell">Бывало ли, что&nbsp;из-за&nbsp;части товаров вы&nbsp;перенесли весь заказ на&nbsp;другой день? Как&nbsp;вы&nbsp;к&nbsp;этому отнеслись?</div><div class="qt-cell qt-ans"><div class="ans"><span>Нет, не&nbsp;переносил(а)</span><span class="ans-n">4/12</span></div><div class="ans"><span>Не&nbsp;было такого случая</span><span class="ans-n">4/12</span></div><div class="ans"><span>Да, переносил(а)</span><span class="ans-n">3/12</span></div><div class="ans"><span>Не&nbsp;готов(а) ответить</span><span class="ans-n">1/12</span></div></div><div class="qt-cell qt-quotes"><p>«Я&nbsp;заказываю только то, что&nbsp;есть на&nbsp;сегодня»</p><p>«Переносил только если мне нужно не&nbsp;сегодня»</p><p>«Нет, ибо заказываю заранее, за&nbsp;2-3 дня, чтобы наверняка был товар»</p></div><div class="qt-cell">Что&nbsp;для&nbsp;вас важнее: получить всё вместе или&nbsp;быстрее получить хотя бы&nbsp;часть?</div><div class="qt-cell qt-ans"><div class="ans"><span>Только все вместе</span><span class="ans-n">7/12</span></div><div class="ans"><span>Согласен(а) на&nbsp;часть</span><span class="ans-n">5/12</span></div></div><div class="qt-cell qt-quotes"><p>«Я&nbsp;готова отказаться от&nbsp;молока или&nbsp;овощей, т.к. могу купить их&nbsp;у&nbsp;дома, но&nbsp;вот если нет мяса или&nbsp;хинкалей, то&nbsp;и&nbsp;смысл брать остальное»</p></div><div class="qt-cell">Пробовали ли&nbsp;вы&nbsp;сменить магазин, чтобы получить всё сразу? Что&nbsp;получилось?</div><div class="qt-cell qt-ans"><div class="ans"><span>Да, пробовал(а)</span><span class="ans-n">9/12</span></div><div class="ans"><span>Нет, не&nbsp;пробовал(а)</span><span class="ans-n">3/12</span></div><div class="ans"><span>Не&nbsp;было такого случая</span><span class="ans-n">0/12</span></div><div class="ans"><span>Не&nbsp;готов(а) ответить</span><span class="ans-n">0/12</span></div></div><div class="qt-cell qt-quotes"><p>«Я&nbsp;пробовала разобраться как&nbsp;сменить магазин, но&nbsp;не&nbsp;догадалась, что&nbsp;в&nbsp;плашке в&nbsp;корзине можно изменить магазин, только спустя время разобралась»</p><p>«Заказывала продукты на&nbsp;завтра для&nbsp;поездки на&nbsp;дачу, но&nbsp;не&nbsp;все продукты были в&nbsp;онлайн-магазине, я&nbsp;не&nbsp;стала разбираться и&nbsp;просто по&nbsp;пути заехала в&nbsp;ближайший магазин»</p></div><div class="qt-cell">Вспомните случай, когда нужного количества не&nbsp;было. Что&nbsp;вы&nbsp;сделали?</div><div class="qt-cell qt-ans"><div class="ans"><span>Удаляю из&nbsp;корзины</span><span class="ans-n">6/12</span></div><div class="ans"><span>Уменьшаю количество</span><span class="ans-n">4/12</span></div><div class="ans"><span>Не&nbsp;было такого случая</span><span class="ans-n">2/12</span></div><div class="ans"><span>Не&nbsp;готов(а) ответить</span><span class="ans-n">0/12</span></div></div><div class="qt-cell qt-quotes"><p>«Удалила, зачем мне 100 г из&nbsp;800 г, которые я&nbsp;хотела»</p><p>«Попробовала уменьшить, но&nbsp;товар не&nbsp;стал доступным, поэтому я&nbsp;удалила его»</p><p>«Я&nbsp;перешел в&nbsp;товар и&nbsp;там уже увидел, что&nbsp;есть меньше»</p></div>
             </div></div>
             <p class="case-p">Важно учитывать, что&nbsp;в&nbsp;случае, когда товара на&nbsp;40% меньше, чем нужно пользователю, их&nbsp;поведение с&nbsp;удалением товара логично и&nbsp;приемлемо.</p>
@@ -180,11 +184,11 @@
         <div class="case-stack-24"><h2 class="case-h1">Гипотезы</h2><p class="case-p">По&nbsp;методу ICE: Impact × Confidence × Ease</p></div>
         <div class="case-scroll"><div class="htable">
           <div class="ht-row ht-head"><div>Гипотеза</div><div>I</div><div>C</div><div>E</div><div>ICE</div></div>
-          <div class="ht-row"><div class="ht-cell ht-text">1. Подсказка о&nbsp;частичной доступности и&nbsp;уменьшение количества без&nbsp;удаления: пользователь берёт доступный остаток, бизнес распродаёт остатки.</div><div class="ht-cell">6</div><div class="ht-cell">7</div><div class="ht-cell">8</div><div class="ht-cell">336</div></div><div class="ht-row ht-row--hl"><div class="ht-cell ht-text">2. Добавить каждой смарт-группе ключевое действие для&nbsp;быстрой смены настроек корзины, чтобы не&nbsp;удалять недоступные товары</div><div class="ht-cell">9</div><div class="ht-cell">7</div><div class="ht-cell">4</div><div class="ht-cell">252</div></div><div class="ht-row"><div class="ht-cell ht-text">3. Добавить виджет «В&nbsp;другом магазине» с&nbsp;магазином, где доступно больше всего товаров, чтобы пользователь собрал полный заказ без&nbsp;ручного перебора</div><div class="ht-cell">8</div><div class="ht-cell">6</div><div class="ht-cell">5</div><div class="ht-cell">240</div></div><div class="ht-row"><div class="ht-cell ht-text">4. Сохранять корзину при&nbsp;смене магазина, чтобы пользователь не&nbsp;терял собранные товары</div><div class="ht-cell">7</div><div class="ht-cell">6</div><div class="ht-cell">4</div><div class="ht-cell">168</div></div><div class="ht-row"><div class="ht-cell ht-text">5. Предлагать отложенные товары в&nbsp;рекомендациях к&nbsp;следующему заказу, для&nbsp;повышения заказов.</div><div class="ht-cell">5</div><div class="ht-cell">4</div><div class="ht-cell">5</div><div class="ht-cell">100</div></div><div class="ht-row"><div class="ht-cell ht-text">6. Предлагать аналог вместо недоступного товара, чтобы пользователь получил нужное, а&nbsp;не&nbsp;меньшее количество</div><div class="ht-cell">8</div><div class="ht-cell">5</div><div class="ht-cell">2</div><div class="ht-cell">80</div></div><div class="ht-row"><div class="ht-cell ht-text">7. Дать возможность оформлять несколько корзин с&nbsp;разными условиями, для&nbsp;повышения среднего чека заказа.</div><div class="ht-cell">3</div><div class="ht-cell">2</div><div class="ht-cell">3</div><div class="ht-cell">18</div></div>
+          <div class="ht-row" id="hyp-1"><div class="ht-cell ht-text">1. Если мы&nbsp;покажем подсказку о&nbsp;частичной доступности и&nbsp;дадим уменьшить количество без&nbsp;удаления товара, то&nbsp;пользователь заберёт доступный остаток, а&nbsp;бизнес распродаст остатки.</div><div class="ht-cell">6</div><div class="ht-cell">7</div><div class="ht-cell">8</div><div class="ht-cell">336</div></div><div class="ht-row ht-row--hl" id="hyp-2"><div class="ht-cell ht-text">2. Если мы&nbsp;добавим каждой смарт-группе ключевое действие для&nbsp;быстрой смены настроек корзины, то&nbsp;пользователю не&nbsp;придётся удалять недоступные товары.</div><div class="ht-cell">9</div><div class="ht-cell">7</div><div class="ht-cell">4</div><div class="ht-cell">252</div></div><div class="ht-row" id="hyp-3"><div class="ht-cell ht-text">3. Если мы&nbsp;добавим виджет «В&nbsp;другом магазине» с&nbsp;магазином, где доступно больше всего товаров, то&nbsp;пользователь соберёт полный заказ без&nbsp;ручного перебора магазинов.</div><div class="ht-cell">8</div><div class="ht-cell">6</div><div class="ht-cell">5</div><div class="ht-cell">240</div></div><div class="ht-row" id="hyp-4"><div class="ht-cell ht-text">4. Если мы&nbsp;будем сохранять корзину при&nbsp;смене магазина, то&nbsp;пользователь не&nbsp;потеряет собранные товары.</div><div class="ht-cell">7</div><div class="ht-cell">6</div><div class="ht-cell">4</div><div class="ht-cell">168</div></div><div class="ht-row" id="hyp-5"><div class="ht-cell ht-text">5. Если мы&nbsp;будем предлагать отложенные товары в&nbsp;рекомендациях к&nbsp;следующему заказу, то&nbsp;количество заказов вырастет.</div><div class="ht-cell">5</div><div class="ht-cell">4</div><div class="ht-cell">5</div><div class="ht-cell">100</div></div><div class="ht-row" id="hyp-6"><div class="ht-cell ht-text">6. Если мы&nbsp;предложим аналог вместо недоступного товара, то&nbsp;пользователь получит нужное, а&nbsp;не&nbsp;меньшее количество.</div><div class="ht-cell">8</div><div class="ht-cell">5</div><div class="ht-cell">2</div><div class="ht-cell">80</div></div><div class="ht-row" id="hyp-7"><div class="ht-cell ht-text">7. Если мы&nbsp;дадим возможность оформлять несколько корзин с&nbsp;разными условиями, то&nbsp;средний чек заказа вырастет.</div><div class="ht-cell">3</div><div class="ht-cell">2</div><div class="ht-cell">3</div><div class="ht-cell">18</div></div>
         </div></div>
         <div class="case-stack-24">
           <h3 class="case-h4">Что&nbsp;реализовали</h3>
-          <p class="case-p">Гипотезы: 1, 2, 3, 4, 5 реализовали.<br>Гипотезу 6 перенесли на&nbsp;следующий релиз из-за&nbsp;технической сложности разработки.<br>От&nbsp;гипотезы 7 отказались, т.к. она&nbsp;сложна в&nbsp;технической реализации и&nbsp;проигрывает более простым решениям в&nbsp;эффективности.</p>
+          <p class="case-p">Гипотезы: <a class="hyp-link" href="#hyp-1">1</a>, <a class="hyp-link" href="#hyp-2">2</a>, <a class="hyp-link" href="#hyp-3">3</a>, <a class="hyp-link" href="#hyp-4">4</a>, <a class="hyp-link" href="#hyp-5">5</a> реализовали.<br>Гипотезу <a class="hyp-link" href="#hyp-6">6</a> перенесли на&nbsp;следующий релиз из-за&nbsp;технической сложности разработки.<br>От&nbsp;гипотезы <a class="hyp-link" href="#hyp-7">7</a> отказались, т.к. она&nbsp;сложна в&nbsp;технической реализации и&nbsp;проигрывает более простым решениям в&nbsp;эффективности.</p>
         </div>
       </section>
 
@@ -203,31 +207,31 @@
           <h3 class="case-h3">Виджет «Из&nbsp;другого магазина»</h3>
           <div class="case-p case-paras"><p>Решение, основанное на&nbsp;гипотезах 3 и&nbsp;4, даёт пользователю быстрый функционал выбора магазина с&nbsp;наибольшим числом доступных на&nbsp;сегодня товаров.</p><p>Если в&nbsp;выбранном магазине нет части товаров, корзина сама находит ближайший магазин, где их&nbsp;больше всего, и&nbsp;предлагает доставку оттуда. Пользователь больше не&nbsp;перебирает магазины вручную, а&nbsp;сразу видит, что&nbsp;и&nbsp;откуда получит.</p></div>
           <figure class="case-photo">
-            <div class="case-photo-img" style="background:#cadeb9"><picture><source srcset="Project%201%20resurses/1951.webp" type="image/webp"><img src="Project%201%20resurses/1951.png" alt="Виджет «Из другого магазина»" width="932" height="432" loading="lazy" decoding="async"></picture></div>
+            <div class="case-photo-img" style="background:#ddeec4"><picture><source srcset="Project%201%20resurses/1951.webp?v=3" type="image/webp"><img src="Project%201%20resurses/1951.jpg?v=3" alt="Виджет «Из другого магазина»" width="932" height="432" loading="lazy" decoding="async"></picture></div>
             <figcaption>Виджет «Из&nbsp;другого магазина»</figcaption>
           </figure>
         </div>
         <div class="case-stack-40">
           <div class="case-stack-24"><h3 class="case-h3">Смарт группы</h3><p class="case-p">Спроектировала систему смарт-групп с&nbsp;логикой приоритезации на&nbsp;основе гипотезы 2.<br>У&nbsp;каждой смарт-группы есть быстрое действие для&nbsp;смены под&nbsp;её&nbsp;параметры настроек корзины.<br>Поэтому недоступные товары больше не&nbsp;ограничивают заказ.</p></div>
           <figure class="case-photo">
-            <div class="case-photo-img" style="background:#cadeb9"><picture><source srcset="Project%201%20resurses/1952.webp" type="image/webp"><img src="Project%201%20resurses/1952.png" alt="Смарт-группы с быстрыми действиями" width="932" height="432" loading="lazy" decoding="async"></picture></div>
+            <div class="case-photo-img" style="background:#ddeec4"><picture><source srcset="Project%201%20resurses/1952.webp?v=3" type="image/webp"><img src="Project%201%20resurses/1952.jpg?v=3" alt="Смарт-группы с быстрыми действиями" width="932" height="432" loading="lazy" decoding="async"></picture></div>
             <figcaption>Смарт-группы с&nbsp;быстрыми действиями</figcaption>
           </figure>
           <figure class="case-photo">
-            <div class="case-photo-img" style="background:#cadeb9"><picture><source srcset="Project%201%20resurses/1953.webp" type="image/webp"><img src="Project%201%20resurses/1953.png" alt="Смарт-группы предзаказа" width="932" height="432" loading="lazy" decoding="async"></picture></div>
+            <div class="case-photo-img" style="background:#ddeec4"><picture><source srcset="Project%201%20resurses/1953.webp?v=3" type="image/webp"><img src="Project%201%20resurses/1953.jpg?v=3" alt="Смарт-группы предзаказа" width="932" height="432" loading="lazy" decoding="async"></picture></div>
             <figcaption>Смарт-группы предзаказа</figcaption>
           </figure>
         </div>
         <div class="case-stack-40">
           <div class="case-stack-24"><h3 class="case-h3">Умные рекомендации</h3><p class="case-p">Товары, которые не&nbsp;вошли в&nbsp;текущий заказ, не&nbsp;теряются: корзина предлагает их&nbsp;в&nbsp;следующем заказе. Покупатель возвращается за&nbsp;отложенным, а&nbsp;бизнес не&nbsp;теряет продажу. Рекомендации имеют такой же&nbsp;приоритет как&nbsp;и&nbsp;соответствующие смарт-группы.</p></div>
           <figure class="case-photo">
-            <div class="case-photo-img" style="background:var(--cover-empty)"><picture><source srcset="Project%201%20resurses/1954.webp" type="image/webp"><img src="Project%201%20resurses/1954.png" alt="Умные рекомендации" width="932" height="432" loading="lazy" decoding="async"></picture></div>
+            <div class="case-photo-img" style="background:#ddeec4"><picture><source srcset="Project%201%20resurses/1954.webp?v=3" type="image/webp"><img src="Project%201%20resurses/1954.jpg?v=3" alt="Умные рекомендации" width="932" height="432" loading="lazy" decoding="async"></picture></div>
           </figure>
         </div>
         <div class="case-stack-40">
           <div class="case-stack-24"><h3 class="case-h3">Подсказка о&nbsp;частичной доступности</h3><p class="case-p">Если в&nbsp;магазине есть хотя бы&nbsp;40% от&nbsp;количества в&nbsp;корзине, подсвечиваем пользователю возможность уменьшить количество товара. Пользователь получает товар сегодня без&nbsp;удаления и&nbsp;повторного добавления, а&nbsp;магазин продаёт остатки. Если остатка меньше, подсказку не&nbsp;показываем, т.к. брать 100 г из&nbsp;1 кг нет смысла.</p></div>
           <figure class="case-photo">
-            <div class="case-photo-img" style="background:var(--cover-empty)"><picture><source srcset="Project%201%20resurses/1955.webp" type="image/webp"><img src="Project%201%20resurses/1955.png" alt="Подсказка о частичной доступности" width="932" height="432" loading="lazy" decoding="async"></picture></div>
+            <div class="case-photo-img" style="background:#ddeec4"><picture><source srcset="Project%201%20resurses/1955.webp?v=3" type="image/webp"><img src="Project%201%20resurses/1955.jpg?v=3" alt="Подсказка о частичной доступности" width="932" height="432" loading="lazy" decoding="async"></picture></div>
           </figure>
         </div>
       </section>
@@ -266,6 +270,6 @@
   </footer>
 </div>
 
-<script src="main.js?v=7"></script>
+<script src="main.js?v=13"></script>
 </body>
 </html>

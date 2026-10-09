@@ -104,6 +104,8 @@ img { display: block; }
 .theme-btn svg { width: 20px; height: 20px; flex: none; }
 .theme-btn .i-sun, :root[data-theme="dark"] .theme-btn .i-moon { display: none; }
 :root[data-theme="dark"] .theme-btn .i-sun { display: block; }
+/* Тёмная тема скрыта — удалить, чтобы вернуть переключатель */
+.theme-btn, .nav.is-open .theme-btn { display: none !important; }
 
 /* Блок с контактами внутри мобильного меню */
 .menu-extra { display: none; }
@@ -140,6 +142,7 @@ a.tag { transition: background-color .15s; }
 a.tag:hover { background: var(--secondary-1-hover); }
 .hero-title .tag { position: absolute; left: 639px; top: 63px; }
 .hero-lead { font-size: 20px; line-height: 28px; letter-spacing: .4px; max-width: 754px; }
+.hero-lead p + p { margin-top: 1lh; } /* пустая строка между абзацами */
 
 .btn-group { display: flex; flex-wrap: wrap; gap: 16px; }
 .btn {
@@ -155,6 +158,8 @@ a.tag:hover { background: var(--secondary-1-hover); }
 .btn--secondary:hover { background: var(--secondary-1-hover); }
 
 /* Hero decorations (позиции из макета, от правого края шапки шириной 1572) */
+/* Группа декора занимает всю шапку; на ноутбуках масштабируется целиком от правого верхнего угла */
+.deco-group { position: absolute; inset: 0; pointer-events: none; transform-origin: right top; }
 .deco { position: absolute; pointer-events: none; }
 
 .deco-avatar {
@@ -201,6 +206,8 @@ a.tag:hover { background: var(--secondary-1-hover); }
 
 /* Cases */
 .cases { display: flex; flex-direction: column; gap: 40px; }
+/* Заголовок страницы (Кейсы, Карьера, Концепты) */
+.page-head { display: flex; flex-direction: column; align-items: flex-start; gap: 40px; padding: 80px 56px 0; }
 .card {
   display: flex; flex-direction: column; gap: 40px;
   padding: 56px; border-radius: 64px;
@@ -235,10 +242,12 @@ a.tag:hover { background: var(--secondary-1-hover); }
   display: flex; align-items: center; gap: 64px; padding: 56px;
   font-weight: 500; font-size: 24px; line-height: 32px; letter-spacing: .48px;
 }
-.footer .txt { display: flex; flex-wrap: wrap; gap: 16px; white-space: nowrap; }
+.footer .txt { flex: 1 1 0; display: flex; flex-wrap: wrap; gap: 16px; white-space: nowrap; }
+/* Текст слева и счётчик справа делят место поровну — иконки соцсетей ровно по центру футера */
+.footer .visit-counter { justify-content: flex-end; text-align: right; }
 /* Счётчик посетителей показывается, когда номер известен (место под него держим, чтобы футер не прыгал) */
 .visit-counter:not(.is-ready) { visibility: hidden; }
-.socials { flex: 1 1 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 24px; }
+.socials { flex: none; display: flex; flex-wrap: wrap; justify-content: center; gap: 24px; }
 .socials a { width: 56px; height: 56px; transition: transform .15s; }
 .socials a:hover { transform: translateY(-2px); }
 .socials img { width: 56px; height: 56px; }
@@ -251,30 +260,19 @@ a.tag:hover { background: var(--secondary-1-hover); }
 @media (max-width: 1500px) {
   .deco { display: none; }
 }
-@media (max-width: 1100px) {
-  .body { grid-template-columns: 1fr; gap: 0; }
-  .nav {
-    position: static; flex-direction: row; flex-wrap: wrap; align-items: center; justify-content: space-between;
-    gap: 16px 32px; padding: 24px 32px;
-  }
-  .profile-info { flex: none; min-width: 0; }
-  .nav-links { flex-direction: row; flex-wrap: wrap; width: auto; min-width: 0; gap: 8px 24px; }
-  .nav-links li:first-child { width: auto; }
-  .nav-links a { font-size: 18px; line-height: 24px; }
-  .hero { padding: 48px 32px; gap: 48px; }
-  .card { padding: 32px; gap: 32px; border-radius: 40px; }
-  .footer { padding: 40px 32px; gap: 32px; }
-}
-@media (max-width: 760px) {
+/* Ноутбук, планшет и телефон: меню как в мобильной версии —
+   в шапке профиль и кнопка «Меню», по нажатию меню открывается на весь экран */
+@media (max-width: 1440px) {
   /* Шапка: профиль + кнопка «Меню» */
   .nav {
-    flex-wrap: wrap; gap: 0 16px; padding: 8px 16px;
+    flex-direction: row; flex-wrap: wrap; align-items: center; justify-content: space-between;
+    gap: 0 16px; padding: 16px 40px;
     /* Закреплена сверху: прячется при прокрутке вниз, появляется при прокрутке вверх */
     position: fixed; top: 0; left: 0; right: 0; z-index: 50;
     background: var(--bg-main); transition: transform .25s ease, box-shadow .25s ease;
   }
-  .body { padding-top: 64px; }
-  html { scroll-padding-top: 64px; }
+  .body { grid-template-columns: 1fr; gap: 0; padding-top: 80px; }
+  html { scroll-padding-top: 80px; }
   .nav.is-scrolled { box-shadow: 0 1px 0 var(--secondary-1); }
   .nav.is-hidden:not(.is-open) { transform: translateY(-100%); box-shadow: none; }
   .profile { contain: none; flex: 1 1 0; min-width: 0; flex-wrap: nowrap; gap: 16px; }
@@ -285,14 +283,14 @@ a.tag:hover { background: var(--secondary-1-hover); }
   .menu-btn { display: inline-flex; }
   .theme-btn { display: none; }
   .nav > nav { display: none; width: 100%; padding-top: 64px; }
-  .nav-links { flex-direction: column; gap: 24px; }
+  .nav-links { flex-direction: column; gap: 24px; width: auto; }
   .nav-links li:first-child { width: 165px; }
   .nav-links a { font-size: 24px; line-height: 32px; }
 
   /* Открытое меню — на весь экран */
   .nav.is-open {
     position: fixed; inset: 0; z-index: 100; align-content: flex-start;
-    overflow-y: auto; background: var(--bg-main); padding-bottom: 64px;
+    overflow-y: auto; background: var(--bg-main); padding-bottom: 80px;
   }
   .nav.is-open > nav { display: block; }
   .nav.is-open .menu-extra { display: flex; flex-direction: column; align-items: flex-start; gap: 16px; width: 100%; margin-top: 64px; }
@@ -302,6 +300,19 @@ a.tag:hover { background: var(--secondary-1-hover); }
   .nav.is-open .menu-btn .label { display: none; }
   .menu-extra .socials { order: 0; justify-content: flex-start; flex: none; }
   html.menu-open { overflow: hidden; }
+}
+@media (max-width: 1100px) {
+  .nav { padding: 16px 32px; }
+  .hero { padding: 48px 32px; gap: 48px; }
+  .card { padding: 32px; gap: 32px; border-radius: 40px; }
+  .page-head { padding: 48px 32px 0; }
+  .footer { padding: 40px 32px; gap: 32px; }
+}
+@media (max-width: 760px) {
+  .nav { padding: 8px 16px; }
+  .body { padding-top: 64px; }
+  html { scroll-padding-top: 64px; }
+  .nav.is-open { padding-bottom: 64px; }
 
   /* Hero */
   .hero { padding: 80px 16px; gap: 80px; border-radius: 0; overflow: clip; }
@@ -311,8 +322,8 @@ a.tag:hover { background: var(--secondary-1-hover); }
   .tag { padding: 8px 12px; border-radius: 16px; font-size: 16px; line-height: 18px; letter-spacing: .32px; }
   .hero-lead { font-size: 18px; line-height: 24px; letter-spacing: .36px; }
   .btn { height: auto; padding: 16px 24px; font-size: 18px; line-height: 24px; letter-spacing: .36px; }
-  .hero .btn--primary { display: none; }
-  .hero .btn--secondary { width: auto; background: var(--main-2); color: var(--el-on-main-2); }
+  /* На телефоне в первом экране одна кнопка — «Смотреть кейсы»; контакты есть в меню */
+  .hero .btn--secondary { display: none; }
   .deco.deco-laptop {
     display: block; top: auto; right: -43px; bottom: 92px;
     transform: scale(.715) rotate(-4.3deg);
@@ -320,6 +331,7 @@ a.tag:hover { background: var(--secondary-1-hover); }
 
   /* Кейсы */
   .card { padding: 16px 16px 32px; gap: 16px; border-radius: 40px; }
+  .page-head { gap: 24px; padding: 32px 16px 0; }
   .card h2 { font-weight: 500; font-size: 24px; line-height: 32px; letter-spacing: .48px; }
   .card-arrow { display: inline-flex; }
   /* Карусель фото в карточке: листается свайпом, точки показывают позицию */
@@ -345,6 +357,7 @@ a.tag:hover { background: var(--secondary-1-hover); }
     font-weight: 400; font-size: 18px; line-height: 24px; letter-spacing: .36px;
   }
   .socials { order: -1; flex: none; justify-content: center; }
+  .footer .txt, .footer .visit-counter { flex: none; justify-content: center; row-gap: 0; text-align: center; }
 }
 
 /* =====================================================================
@@ -360,7 +373,9 @@ a.tag:hover { background: var(--secondary-1-hover); }
   display: flex; flex-wrap: wrap; gap: 0 24px;
   font-weight: 400; font-size: 56px; line-height: 60px; letter-spacing: 1.12px;
 }
-.section-title-xl .accent { color: var(--main-1); }
+.section-title-xl .accent, .section-title .accent { color: var(--main-1); }
+/* Заголовок раздела с акцентной частью («Опыт работы 4 года 8 месяцев») */
+.section-title--split { display: flex; flex-wrap: wrap; gap: 0 16px; }
 .tag--sm { padding: 8px 12px; border-radius: 16px; font-size: 16px; line-height: 18px; letter-spacing: .32px; }
 
 /* Интро */
@@ -377,8 +392,8 @@ a.tag:hover { background: var(--secondary-1-hover); }
 }
 .about-photo::after {
   content: ""; position: absolute; inset: 0;
-  background: url("Portfolio%20Resurses/avatar-portrait.png") center top / cover no-repeat;
-  background-image: image-set(url("Portfolio%20Resurses/avatar-portrait.webp") type("image/webp"), url("Portfolio%20Resurses/avatar-portrait.png") type("image/png"));
+  background: url("Portfolio%20Resurses/about-photo.jpg") center top / cover no-repeat;
+  background-image: image-set(url("Portfolio%20Resurses/about-photo.webp") type("image/webp"), url("Portfolio%20Resurses/about-photo.jpg") type("image/jpeg"));
 }
 
 /* Карьера и образование */
@@ -394,7 +409,10 @@ a.tag:hover { background: var(--secondary-1-hover); }
 .career-context { font-weight: 500; }
 .projects { display: flex; flex-direction: column; gap: 24px; }
 .projects[hidden] { display: none; }
-.projects h4 { font-weight: 400; font-size: 32px; line-height: 48px; letter-spacing: .64px; }
+.projects h4, .achievements h4 { font-weight: 400; font-size: 32px; line-height: 48px; letter-spacing: .64px; }
+/* Достижения: заголовок как у «Ключевых проектов», нумерованный список */
+.achievements { display: flex; flex-direction: column; gap: 24px; }
+.achievements-list { display: flex; flex-direction: column; gap: 16px; padding-left: 28px; font-size: 20px; line-height: 28px; letter-spacing: .4px; }
 .projects-head p { margin-top: 8px; font-size: 20px; line-height: 28px; letter-spacing: .4px; }
 
 .mini-cards {
@@ -463,7 +481,9 @@ a.tag:hover { background: var(--secondary-1-hover); }
   .about-photo { display: none; }
   .about-text { flex-basis: auto; width: 100%; gap: 40px; }
   .about-text h1, .section-title, .section-title-xl { font-weight: 500; font-size: 32px; line-height: 36px; letter-spacing: .64px; }
-  .section-title-xl { flex-direction: column; gap: 8px; }
+  .section-title-xl, .section-title--split { flex-direction: column; gap: 8px; }
+  /* Заголовок страницы крупнее заголовков разделов */
+  .page-head .section-title-xl { font-size: 40px; line-height: 44px; letter-spacing: .8px; }
   .about-copy p, .career-desc { font-size: 18px; line-height: 24px; letter-spacing: .36px; }
   .about-copy p + p, .career-desc p + p { margin-top: 24px; }
   .about-tags { gap: 24px; }
@@ -476,12 +496,15 @@ a.tag:hover { background: var(--secondary-1-hover); }
   .company { order: 1; gap: 16px; }
   .periods { order: 2; gap: 16px; flex-direction: column; }
   .career-desc { order: 3; }
-  .projects { order: 4; }
+  .achievements { order: 4; }
+  .projects { order: 5; }
   .company-logo { width: 56px; height: 56px; }
   .company h3 { font-size: 24px; line-height: 32px; letter-spacing: .48px; }
   .company p { font-size: 18px; line-height: 24px; letter-spacing: .36px; }
   .period { flex-direction: row; gap: 8px; font-size: 18px; line-height: 24px; letter-spacing: .36px; }
-  .projects h4 { font-weight: 500; font-size: 18px; line-height: 24px; letter-spacing: .36px; }
+  .projects h4, .achievements h4 { font-weight: 500; font-size: 18px; line-height: 24px; letter-spacing: .36px; }
+  .achievements { gap: 16px; }
+  .achievements-list { gap: 12px; padding-left: 24px; font-size: 18px; line-height: 24px; letter-spacing: .36px; }
   .projects-head p { font-size: 18px; line-height: 24px; letter-spacing: .36px; }
   .mini-card { flex-basis: 320px; }
 
@@ -725,25 +748,30 @@ html.lightbox-open { overflow: hidden; }
 .ht-cell { padding: 16px 24px; border-radius: 24px; background: var(--secondary-1); font-size: 18px; line-height: 32px; }
 .ht-text { padding: 16px; }
 .ht-row--hl .ht-cell { background: var(--case-green); }
+/* Номера гипотез в «Что реализовали» ведут к строке таблицы; строка коротко подсвечивается */
+.hyp-link { color: var(--main-1); text-decoration: underline; text-underline-offset: 3px; }
+.hyp-link:hover { text-decoration-thickness: 2px; }
+.ht-row { scroll-margin-top: 120px; }
+.ht-row:target .ht-cell { animation: hyp-flash 1.6s ease-out; }
+@keyframes hyp-flash { 0%, 40% { box-shadow: inset 0 0 0 2px var(--main-1); } 100% { box-shadow: inset 0 0 0 2px transparent; } }
 
 /* Команда */
 .case-role { display: flex; flex-direction: column; gap: 40px; }
 .case-tags { display: flex; flex-wrap: wrap; gap: 16px 24px; }
 
-@media (max-width: 1100px) {
+@media (max-width: 1440px) {
+  /* в шапке профиль + «Меню», «назад» и разделы — в раскрытом меню */
   .nav--case .profile { display: flex; }
+  .nav--case .case-back { display: none; }
+  .nav--case.is-open .case-back { display: inline-flex; flex: none; margin: 40px 100% 0 0; }
+  .nav--case.is-open > nav { padding-top: 40px; }
+}
+@media (max-width: 1100px) {
   .case-section { padding: 48px 32px 32px; }
   .case-cards { flex-direction: column; }
   .case-card { flex: none; min-height: 0; }
 }
-@media (min-width: 761px) and (max-width: 1100px) {
-  .nav--case .profile { display: none; }
-}
 @media (max-width: 760px) {
-  /* мобильный: в шапке профиль + «Меню», «назад» и разделы — в раскрытом меню */
-  .nav--case .case-back { display: none; }
-  .nav--case.is-open .case-back { display: inline-flex; flex: none; margin: 40px 100% 0 0; }
-  .nav--case.is-open > nav { padding-top: 40px; }
   .case-section { padding: 40px 16px 24px; gap: 40px; }
   .case-h1, .case-h3 { font-weight: 500; font-size: 32px; line-height: 36px; letter-spacing: .64px; }
   .case-h3 { font-size: 24px; line-height: 32px; letter-spacing: .48px; }
@@ -759,27 +787,164 @@ html.lightbox-open { overflow: hidden; }
 
 /* Заглушка «Тут кипит работа...» для проектов в разработке */
 html.soon-open { overflow: hidden; }
+/* Гифки всех заглушек — в квадрате (object-fit: cover обрезает по центру).
+   Окно — квадрат: сторона до 480px (вдвое меньше макета 853 × 966), но не больше экрана.
+   Кот, текст и кнопка масштабируются от стороны окна; на телефоне — на весь экран */
 .soon-modal {
+  --side: min(480px, calc(100vw - 64px), calc(100vh - 32px));
   position: fixed; inset: 0; margin: auto; z-index: 210;
-  width: min(640px, calc(100% - 32px)); max-height: calc(100% - 32px);
-  padding: clamp(32px, 7vh, 72px) 40px;
-  border: 0; border-radius: 64px; overflow: auto;
-  background: var(--secondary-1); color: var(--el-main); text-align: center;
+  width: var(--side); height: var(--side); max-width: none; max-height: none;
+  padding: 32px; justify-content: center;
+  border: 0; border-radius: 40px; overflow: auto;
+  /* лёгкое «зерно», как в макете */
+  background: var(--secondary-1) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .07 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  color: var(--el-main); text-align: center;
 }
 .soon-modal::backdrop { background: rgba(14, 18, 24, .6); }
 .soon-modal[open] { display: flex; flex-direction: column; align-items: center; animation: soon-in .2s ease-out; }
 .soon-modal picture { display: contents; }
-.soon-img { width: min(418px, 40vh); height: auto; aspect-ratio: 1; border-radius: 40px; object-fit: cover; flex: none; }
-.soon-text { margin-top: clamp(24px, 4vh, 40px); font-size: 24px; line-height: 32px; letter-spacing: .48px; }
-.soon-modal .btn { margin-top: 24px; width: 272px; flex: none; border: 0; font-family: inherit; cursor: pointer; }
+.soon-img { width: calc(var(--side) * .44); height: auto; aspect-ratio: 1; border-radius: 24px; object-fit: cover; flex: none; }
+.soon-text { width: 100%; margin-top: 24px; font-size: 18px; line-height: 24px; letter-spacing: .36px; }
+.soon-modal .btn {
+  margin-top: 16px; width: 220px; height: 56px; padding: 16px 24px; flex: none; border: 0; border-radius: 40px;
+  font-family: inherit; font-size: 18px; line-height: 24px; letter-spacing: .36px; cursor: pointer;
+}
 @keyframes soon-in { from { opacity: 0; transform: translateY(8px) scale(.98); } }
 @media (max-width: 760px) {
   /* На телефоне заглушка на весь экран */
-  .soon-modal {
-    width: 100%; max-width: none; height: 100%; max-height: none; border-radius: 0;
-    justify-content: center; padding: 16px 16px 51px;
+  .soon-modal { width: 100%; height: 100%; border-radius: 0; padding: 16px 16px 51px; }
+  .soon-img { width: min(307px, 100%, 45vh); border-radius: 40px; }
+  .soon-text { margin-top: 32px; font-size: 24px; line-height: 32px; letter-spacing: .48px; }
+  .soon-modal .btn { margin-top: 24px; width: 272px; height: 72px; padding: 16px 32px; font-size: 20px; letter-spacing: .4px; }
+}
+
+/* =====================================================================
+   Ноутбуки 1101–1440px: шрифты и отступы чуть компактнее, чем на больших экранах
+   ===================================================================== */
+@media (min-width: 1101px) and (max-width: 1440px) {
+  /* Общее */
+  .btn { height: 64px; padding: 16px 28px; font-size: 18px; line-height: 24px; letter-spacing: .36px; }
+  .tag { padding: 12px 20px; border-radius: 20px; font-size: 20px; line-height: 18px; letter-spacing: .4px; }
+  .tag--sm { padding: 8px 12px; border-radius: 16px; font-size: 14px; line-height: 18px; letter-spacing: .28px; }
+  .section { gap: 64px; padding: 64px 40px; border-radius: 48px; }
+  .section-title { font-size: 40px; line-height: 48px; letter-spacing: .8px; }
+  .section-title-xl { font-size: 48px; line-height: 52px; letter-spacing: .96px; }
+  .footer { gap: 48px; padding: 48px 40px; font-size: 20px; line-height: 28px; letter-spacing: .4px; }
+  .socials img { width: 48px; height: 48px; }
+
+  /* Главная */
+  .hero { gap: 64px; padding: 64px 40px; border-radius: 48px; }
+  .hero-title h1 { font-size: 72px; line-height: 72px; letter-spacing: 1.44px; }
+  .hero-lead { font-size: 18px; line-height: 26px; letter-spacing: .36px; max-width: 640px; }
+  /* Декор справа от заголовка: группа масштабируется (s), правый край — по внутреннему отступу
+     шапки, верх — на уровне заголовка (T = 64px). translate = (202px·s − 40px, T − 164px·s),
+     где 202/164 — правый и верхний отступы группы в макете */
+  .deco-avatar { display: flex; }
+  .deco-cursor, .deco-laptop { display: block; }
+  .deco-group { transform: translate(162px, -100px); } /* s = 1 */
+
+  /* Кейсы */
+  .page-head { padding: 64px 40px 0; }
+  .card { gap: 32px; padding: 40px; border-radius: 48px; }
+  .card h2 { font-size: 40px; line-height: 48px; letter-spacing: .8px; }
+  .year { font-size: 26px; line-height: 32px; letter-spacing: .52px; }
+
+  /* Обо мне и Карьера */
+  .about-text { gap: 48px; }
+  .about-text h1 { font-size: 40px; line-height: 48px; letter-spacing: .8px; }
+  .about-copy p { font-size: 18px; line-height: 26px; letter-spacing: .36px; }
+  .about-photo { width: 360px; height: 440px; border-radius: 48px; }
+  .company h3 { font-size: 40px; line-height: 48px; letter-spacing: .8px; }
+  .company p { font-size: 24px; line-height: 32px; letter-spacing: .48px; }
+  .career-desc { font-size: 18px; line-height: 26px; letter-spacing: .36px; }
+  .projects h4, .achievements h4 { font-size: 26px; line-height: 36px; letter-spacing: .52px; }
+  .achievements-list { font-size: 18px; line-height: 26px; letter-spacing: .36px; }
+  .projects-head p { font-size: 18px; line-height: 26px; letter-spacing: .36px; }
+  .mini-title { font-size: 20px; line-height: 28px; letter-spacing: .4px; }
+  .period { gap: 12px; font-size: 26px; line-height: 32px; letter-spacing: .52px; }
+  .manifesto { font-size: 18px; line-height: 26px; letter-spacing: .36px; }
+
+  /* Контакты и Концепты */
+  .contacts-title { font-size: 40px; line-height: 48px; letter-spacing: .8px; }
+  .concept-empty { font-size: 18px; line-height: 26px; letter-spacing: .36px; }
+
+  /* Страница кейса */
+  .case-section { padding: 56px 40px 32px; gap: 56px; }
+  .case-h1 { font-size: 40px; line-height: 48px; letter-spacing: .8px; }
+  .case-h3 { font-size: 28px; line-height: 32px; letter-spacing: .56px; }
+  .case-h4 { font-size: 22px; line-height: 30px; letter-spacing: .44px; }
+  .case-p, .case-list { font-size: 17px; line-height: 28px; letter-spacing: .34px; }
+  .case-photo figcaption { font-size: 17px; line-height: 28px; letter-spacing: .34px; }
+  .funnel-box b { font-size: 28px; line-height: 32px; letter-spacing: .56px; }
+}
+@media (min-width: 1101px) and (max-width: 1279px) {
+  .deco-group { transform: translate(121.6px, -67.2px) scale(.8); } /* s = .8 */
+}
+
+/* =====================================================================
+   Планшеты 761–1100px: шрифты между ноутбуком и телефоном
+   ===================================================================== */
+@media (min-width: 761px) and (max-width: 1100px) {
+  /* Общее */
+  .btn { height: 56px; padding: 16px 24px; font-size: 18px; line-height: 24px; letter-spacing: .36px; }
+  .tag { padding: 10px 16px; border-radius: 20px; font-size: 18px; line-height: 20px; letter-spacing: .36px; }
+  .tag--sm { padding: 8px 12px; border-radius: 16px; font-size: 14px; line-height: 18px; letter-spacing: .28px; }
+  .section-title { font-size: 36px; line-height: 44px; letter-spacing: .72px; }
+  .section-title-xl { font-size: 40px; line-height: 44px; letter-spacing: .8px; }
+  .page-head .section-title-xl { font-size: 44px; line-height: 48px; letter-spacing: .88px; }
+  .footer { font-size: 18px; line-height: 24px; letter-spacing: .36px; }
+  .socials img { width: 48px; height: 48px; }
+
+  /* Главная */
+  .hero-title h1 { font-size: 64px; line-height: 64px; letter-spacing: 1.28px; }
+  .hero-lead { font-size: 18px; line-height: 26px; letter-spacing: .36px; max-width: 600px; }
+  /* Декор как в мобильной версии: только ноутбук «Click me» у правого края шапки */
+  .hero { overflow: clip; }
+  .deco.deco-laptop {
+    display: block; top: auto; right: -43px; bottom: 92px;
+    transform: scale(.715) rotate(-4.3deg);
   }
-  .soon-img { width: min(307px, 100%, 45vh); }
-  .soon-text { margin-top: 32px; }
-  .soon-modal .btn { height: 72px; padding: 16px 32px; font-size: 20px; line-height: 24px; letter-spacing: .4px; }
+
+  /* Кейсы */
+  .card h2 { font-size: 32px; line-height: 40px; letter-spacing: .64px; }
+  .year { font-size: 22px; line-height: 28px; letter-spacing: .44px; }
+
+  /* Обо мне и Карьера */
+  .about-text { gap: 40px; }
+  .about-text h1 { font-size: 36px; line-height: 44px; letter-spacing: .72px; }
+  .about-copy p { font-size: 18px; line-height: 26px; letter-spacing: .36px; }
+  .about-photo { max-width: 400px; border-radius: 48px; }
+  .company-logo { width: 64px; height: 64px; }
+  .company h3 { font-size: 32px; line-height: 40px; letter-spacing: .64px; }
+  .company p { margin-top: 4px; font-size: 20px; line-height: 28px; letter-spacing: .4px; }
+  .career-desc { font-size: 18px; line-height: 26px; letter-spacing: .36px; }
+  .projects h4, .achievements h4 { font-size: 22px; line-height: 30px; letter-spacing: .44px; }
+  .achievements-list { font-size: 18px; line-height: 26px; letter-spacing: .36px; }
+  .projects-head p { font-size: 16px; line-height: 24px; letter-spacing: .32px; }
+  .mini-title { font-size: 18px; line-height: 24px; letter-spacing: .36px; }
+  .period { gap: 8px; font-size: 22px; line-height: 28px; letter-spacing: .44px; }
+  .manifesto { font-size: 18px; line-height: 26px; letter-spacing: .36px; }
+  .tool { width: 64px; height: 64px; }
+
+  /* Контакты и Концепты */
+  .contacts-title { font-size: 36px; line-height: 44px; letter-spacing: .72px; }
+  .concept-empty { font-size: 18px; line-height: 26px; letter-spacing: .36px; }
+
+  /* Страница кейса */
+  .case-h1 { font-size: 36px; line-height: 44px; letter-spacing: .72px; }
+  .case-h3 { font-size: 26px; line-height: 32px; letter-spacing: .52px; }
+  .case-h4 { font-size: 20px; line-height: 28px; letter-spacing: .4px; }
+  .case-p, .case-list { font-size: 17px; line-height: 28px; letter-spacing: .34px; }
+  .case-photo figcaption { font-size: 17px; line-height: 28px; letter-spacing: .34px; }
+  .funnel-box b { font-size: 26px; line-height: 32px; letter-spacing: .52px; }
+}
+
+/* Футер на планшете и узком ноутбуке: в одну строку не помещается —
+   иконки сверху по центру, ниже копирайт слева и счётчик справа */
+@media (min-width: 761px) and (max-width: 1279px) {
+  .footer { display: grid; grid-template-columns: 1fr auto; grid-template-areas: "s s" "t c"; gap: 24px 32px; }
+  .footer--plain { grid-template-areas: "t c"; }
+  .footer .socials { grid-area: s; }
+  .footer .txt { grid-area: t; }
+  .footer .visit-counter { grid-area: c; }
 }
