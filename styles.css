@@ -142,6 +142,7 @@ a.tag { transition: background-color .15s; }
 a.tag:hover { background: var(--secondary-1-hover); }
 .hero-title .tag { position: absolute; left: 639px; top: 63px; }
 .hero-lead { font-size: 20px; line-height: 28px; letter-spacing: .4px; max-width: 754px; }
+.hero-lead p + p { margin-top: 1lh; } /* пустая строка между абзацами */
 
 .btn-group { display: flex; flex-wrap: wrap; gap: 16px; }
 .btn {
