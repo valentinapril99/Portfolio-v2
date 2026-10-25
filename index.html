@@ -636,7 +636,8 @@ picture{display:contents}
 .btn--cv .cv__l{max-width:0;opacity:0}
 .btn--cv:hover .cv__s,.btn--cv:focus-visible .cv__s{max-width:0;opacity:0}
 .btn--cv:hover .cv__l,.btn--cv:focus-visible .cv__l{max-width:12em;opacity:1}
-@media (hover:none){.btn--cv:hover .cv__s{max-width:3em;opacity:1}.btn--cv:hover .cv__l{max-width:0;opacity:0}}  /* на тач-экранах кнопка не раскрывается от «залипшего» hover */
+/* на телефонах и тач-экранах кнопка всегда «CV»: не раскрывается ни от касания, ни от фокуса после закрытия предпросмотра */
+@media (hover:none),(pointer:coarse),(max-width:767px){.btn--cv .cv__s,.btn--cv:hover .cv__s,.btn--cv:focus-visible .cv__s{max-width:3em;opacity:1}.btn--cv .cv__l,.btn--cv:hover .cv__l,.btn--cv:focus-visible .cv__l{max-width:0;opacity:0}.btn--cv>span{transition:none}}
 @media (prefers-reduced-motion: reduce){.btn--cv>span{transition:none}}
 
 
