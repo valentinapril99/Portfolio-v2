@@ -522,7 +522,7 @@ window.__renderAudio = async function(sr=48000){
 
 // ---------------- clock & controls ----------------
 const seekEl=$('seek'); seekEl.max=Math.round(DURATION*1000);
-let t=0, playing=!RENDER, last=null, soundOn=false;
+let t=0, playing=false,  /* на сайте стартует по команде страницы */ last=null, soundOn=false;
 function setPlaying(v){ playing=v; last=null; $('play').textContent=v?'Пауза':'Играть'; if(v) audioStart(t); else audioStop(); }
 function loop(now){ if(playing){ if(last!=null){ t+=(now-last)/1000; if(t>=DURATION){ if(C.loop!==false){ t=0; audioStart(0);} else { t=DURATION; setPlaying(false);} } } last=now; render(t); } requestAnimationFrame(loop); }
 $('play').onclick=()=>setPlaying(!playing);
@@ -538,6 +538,8 @@ window.addEventListener('resize',resize); resize();
 window.__duration=DURATION; window.__acts=ACTS.map(a=>({do:a.do,t:+a.t.toFixed(3),dur:a.dur})); window.__seek=x=>render(x); window.__ready=Promise.all([READY,(document.fonts?document.fonts.ready:Promise.resolve()),(window.CUSTOM_READY||Promise.resolve())]);
 window.__ready.then(()=>{ render(0); if(!RENDER){ if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) setPlaying(false); requestAnimationFrame(loop);} });
 render(0);
+/* управление со страницы сайта */
+window.__ctl={play:function(){ setPlaying(true); }, pause:function(){ setPlaying(false); }, reset:function(){ t=0; last=null; render(0); }};
 })();
 </script>
 </body>

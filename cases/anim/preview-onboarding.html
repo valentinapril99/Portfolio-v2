@@ -244,8 +244,9 @@ render(0);
 const imgs=[...document.images];
 Promise.all(imgs.map(i=>i.decode?i.decode().catch(()=>{}):Promise.resolve())).then(()=>{
   if(location.hash==='#end'){ time=DURATION; render(time); setPlaying(false); return; }
-  setPlaying(true);
+  /* на сайте стартует по команде страницы */
 });
+window.__ctl={play:function(){ setPlaying(true); }, pause:function(){ setPlaying(false); }, reset:function(){ time=0; render(0); }};
 
 </script>
 </body>

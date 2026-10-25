@@ -1440,7 +1440,7 @@ img{max-width:100%;display:block}
 })();
 /* Анимации в кейсах: грузятся, когда блок подходит к экрану; пока анимация не заиграла или если не загрузилась — видно фото */
 (function(){
-  var els=document.querySelectorAll('.anim[data-anim]');
+  var els=document.querySelectorAll('.anim[data-anim]:not(.pmedia)');  /* превью в карточках — отдельный блок ниже */
   if(!els.length||!('IntersectionObserver' in window)) return;
   if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   if(navigator.connection&&navigator.connection.saveData) return;
@@ -1460,6 +1460,69 @@ img{max-width:100%;display:block}
     });
   },{rootMargin:'0px 0px 15% 0px',threshold:0.25});
   els.forEach(function(el){io.observe(el)});
+})();
+/* Превью кейсов в карточках «Проектов»: на десктопе играют при наведении и плавно гаснут, когда курсор ушёл;
+   на тач-экранах играет одна карточка — верхняя из почти целиком видимых, иначе та, что видна больше всего */
+(function(){
+  var cards=[].slice.call(document.querySelectorAll('.pmedia.anim[data-anim]'));
+  if(!cards.length||!('IntersectionObserver' in window)) return;
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  if(navigator.connection&&navigator.connection.saveData) return;
+  var FADE=500;
+  var st=cards.map(function(el){ return {el:el,f:null,ctl:null,want:false,timer:0}; });
+  function load(c){
+    if(c.f) return;
+    var f=c.f=document.createElement('iframe');
+    f.title=c.el.getAttribute('data-title')||''; f.tabIndex=-1; f.setAttribute('aria-hidden','true');
+    f.addEventListener('load',function(){
+      try{ c.ctl=f.contentWindow.__ctl||null; }catch(e){}
+      if(!c.ctl){ f.remove(); return; }  /* не загрузилось — остаётся картинка */
+      if(c.want) start(c);
+    });
+    f.src=c.el.getAttribute('data-anim'); c.el.appendChild(f);
+  }
+  function start(c){
+    clearTimeout(c.timer); c.want=true;
+    if(!c.ctl){ load(c); return; }
+    if(!c.el.classList.contains('is-playing')){ c.ctl.reset(); }
+    c.ctl.play(); c.el.classList.add('is-playing');
+  }
+  function stop(c){
+    c.want=false;
+    if(!c.ctl||!c.el.classList.contains('is-playing')) return;
+    c.el.classList.remove('is-playing');  /* плавно возвращаемся к картинке */
+    clearTimeout(c.timer);
+    c.timer=setTimeout(function(){ if(!c.want){ c.ctl.pause(); c.ctl.reset(); } },FADE);
+  }
+  // подгружаем заранее, когда карточка рядом с экраном
+  var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ io.unobserve(e.target); load(st[cards.indexOf(e.target)]); } }); },{rootMargin:'300px 0px'});
+  cards.forEach(function(el){ io.observe(el); });
+
+  var hover=window.matchMedia('(hover: hover) and (pointer: fine)');
+  st.forEach(function(c){
+    var card=c.el.closest('.pblock')||c.el;
+    card.addEventListener('mouseenter',function(){ if(hover.matches) start(c); });
+    card.addEventListener('mouseleave',function(){ if(hover.matches) stop(c); });
+  });
+
+  var raf=0;
+  function pick(){
+    raf=0; if(hover.matches) return;
+    var vh=window.innerHeight, best=null, bestTop=Infinity, most=null, mostV=0;
+    st.forEach(function(c){
+      var r=c.el.getBoundingClientRect(); if(!r.height) return;
+      var v=Math.max(0,Math.min(r.bottom,vh)-Math.max(r.top,0))/r.height;
+      if(v>=0.6&&r.top<bestTop){ best=c; bestTop=r.top; }
+      if(v>mostV){ most=c; mostV=v; }
+    });
+    var active=best||(mostV>=0.35?most:null);
+    st.forEach(function(c){ if(c===active) start(c); else stop(c); });
+  }
+  function schedule(){ if(!raf) raf=requestAnimationFrame(pick); }
+  window.addEventListener('scroll',schedule,{passive:true});
+  window.addEventListener('resize',schedule);
+  window.addEventListener('hashchange',function(){ setTimeout(schedule,50); });
+  schedule();
 })();
 /* Модалка «Все права защищены»: закрывается крестиком, Esc и кликом по фону */
 (function(){
