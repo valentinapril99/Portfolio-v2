@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>
+  // Тема: по умолчанию светлая, тёмная — если она включена на устройстве.
+  // Ручной выбор посетителя хранится, только пока отличается от системной темы.
+  (function () {
+    let t = null;
+    try { t = localStorage.getItem('theme'); } catch (e) {}
+    if (t !== 'light' && t !== 'dark') t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    document.documentElement.dataset.theme = t;
+  })();
+</script>
+<title>Концепты — Валентина Михеева</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css?v=7">
+</head>
+<body>
+<div class="page">
+  <div class="body">
+
+    <!-- Навигация -->
+    <aside class="nav">
+      <a class="profile" href="index.html" title="На главную">
+        <div class="avatar-sm" role="img" aria-label="Фото Валентины"></div>
+        <div class="profile-info">
+          <div class="profile-name">Валентина Михеева</div>
+          <div class="profile-role">Продуктовый дизайнер</div>
+        </div>
+      </a>
+      <button class="menu-btn" type="button" aria-expanded="false" aria-controls="nav-menu" aria-label="Открыть меню"><span class="label">Меню</span><svg class="i-close" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+      <nav id="nav-menu">
+        <ul class="nav-links">
+          <li><a href="index.html#cases">Продуктовые кейсы</a></li>
+          <li><a href="about.html">Обо&nbsp;мне</a></li>
+          <li><a href="about.html#career">Карьера</a></li>
+          <li><a href="concepts.html" aria-current="page">Концепты</a></li>
+          <li><a href="contacts.html">Контакты</a></li>
+        </ul>
+      </nav>
+      <div class="menu-extra">
+        <a class="btn btn--primary" href="contacts.html">Связаться со&nbsp;мной</a>
+        <div class="socials">
+          <a href="https://t.me/ValentinaPril" target="_blank" rel="noopener noreferrer" aria-label="Telegram"><img src="Portfolio%20Resurses/socials.png" alt="" width="56" height="56"></a>
+          <a href="https://www.behance.net/ValPri" target="_blank" rel="noopener noreferrer" aria-label="Behance"><img src="Portfolio%20Resurses/socials-2.png" alt="" width="56" height="56"></a>
+          <a href="https://set.ki/bn5hV6G" target="_blank" rel="noopener noreferrer" aria-label="Сетка"><img src="Portfolio%20Resurses/socials-3.png" alt="" width="56" height="56"></a>
+        </div>
+      </div>
+      <button class="theme-btn" type="button">
+        <svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        <span>Тёмная тема</span>
+      </button>
+    </aside>
+
+    <!-- Контент -->
+    <main class="content">
+      <section class="section concepts">
+        <h1 class="visually-hidden">Концепты</h1>
+        <div class="concept-filters" role="group" aria-label="Фильтр работ">
+          <button class="tag concept-filter" type="button" data-filter="all" aria-pressed="false">Все</button>
+          <button class="tag concept-filter tag--accent" type="button" data-filter="concepts" aria-pressed="true">Концепты</button>
+          <button class="tag concept-filter" type="button" data-filter="illustrations" aria-pressed="false">Иллюстрации</button>
+          <button class="tag concept-filter" type="button" data-filter="animation" aria-pressed="false">Анимация</button>
+          <button class="tag concept-filter" type="button" data-filter="logo" aria-pressed="false">Лого</button>
+          <button class="tag concept-filter" type="button" data-filter="arts" aria-pressed="false">Арты</button>
+          <button class="tag concept-filter" type="button" data-filter="3d" aria-pressed="false">3D</button>
+        </div>
+        <div class="concept-gallery">
+          <div class="concept-col">
+            <figure class="concept-tile" data-cat="concepts" style="aspect-ratio: 600 / 378"><picture><source srcset="Concepts/concept-nn-tours-laptop.webp" type="image/webp"><img src="Concepts/concept-nn-tours-laptop.jpg" alt="Концепт сайта на ноутбуке" width="600" height="378" loading="lazy" decoding="async"></picture></figure>
+            <figure class="concept-tile" data-cat="concepts" style="aspect-ratio: 600 / 600"><picture><source srcset="Concepts/concept-snowboard-app.webp" type="image/webp"><img src="Concepts/concept-snowboard-app.jpg" alt="Концепт приложения проката сноубордов" width="600" height="600" loading="lazy" decoding="async"></picture></figure>
+            <figure class="concept-tile" data-cat="concepts" style="aspect-ratio: 600 / 337"><picture><source srcset="Concepts/concept-food-delivery.webp" type="image/webp"><img src="Concepts/concept-food-delivery.jpg" alt="Концепт приложения доставки еды" width="600" height="337" loading="lazy" decoding="async"></picture></figure>
+            <figure class="concept-tile" data-cat="arts" hidden style="aspect-ratio: 1208 / 1280"><picture><source srcset="Portfolio%20Resurses/art-house-sea.webp" type="image/webp"><img src="Portfolio%20Resurses/art-house-sea.jpg" alt="Картина: жёлтый дом у&nbsp;моря" width="1208" height="1280" loading="lazy" decoding="async"></picture></figure>
+            <figure class="concept-tile" data-cat="arts" hidden style="aspect-ratio: 600 / 600"><picture><source srcset="Concepts/art-portrait-sketches.webp" type="image/webp"><img src="Concepts/art-portrait-sketches.jpg" alt="Портретные скетчи" width="600" height="600" loading="lazy" decoding="async"></picture></figure>
+            <figure class="concept-tile concept-tile--border" data-cat="illustrations" hidden style="aspect-ratio: 600 / 806"><picture><source srcset="Concepts/illustration-lantern-boy.webp" type="image/webp"><img src="Concepts/illustration-lantern-boy.jpg" alt="Иллюстрация: мальчик с фонарём" width="600" height="806" loading="lazy" decoding="async"></picture></figure>
+          </div>
+          <div class="concept-col">
+            <figure class="concept-tile concept-tile--border" data-cat="concepts" style="aspect-ratio: 600 / 338"><picture><source srcset="Concepts/concept-404.webp" type="image/webp"><img src="Concepts/concept-404.jpg" alt="Концепт страницы 404" width="600" height="338" loading="lazy" decoding="async"></picture></figure>
+            <figure class="concept-tile" data-cat="arts" hidden style="aspect-ratio: 600 / 800"><picture><source srcset="Concepts/art-warrior.webp" type="image/webp"><img src="Concepts/art-warrior.jpg" alt="Арт: воительница" width="600" height="800" loading="lazy" decoding="async"></picture></figure>
+            <figure class="concept-tile concept-tile--border" data-cat="animation" data-video="Portfolio%20Resurses/coolclever-404.mp4" data-preview="Portfolio%20Resurses/coolclever-404-preview.mp4" hidden style="aspect-ratio: 1242 / 720"><picture><source srcset="Portfolio%20Resurses/coolclever-404-poster.webp" type="image/webp"><img src="Portfolio%20Resurses/coolclever-404-poster.jpg" alt="Анимация страницы 404 для&nbsp;КуулКлевер" width="1242" height="720" loading="lazy" decoding="async"></picture></figure>
+            <figure class="concept-tile" data-cat="animation 3d" hidden style="aspect-ratio: 600 / 450"><picture><source srcset="Concepts/animation-pixar.webp" type="image/webp"><img src="Concepts/animation-pixar.jpg" alt="Анимация в стиле Pixar" width="600" height="450" loading="lazy" decoding="async"></picture></figure>
+            <figure class="concept-tile" data-cat="illustrations" hidden style="aspect-ratio: 600 / 393"><picture><source srcset="Concepts/illustration-city-people.webp" type="image/webp"><img src="Concepts/illustration-city-people.jpg" alt="Иллюстрация: люди в городе" width="600" height="393" loading="lazy" decoding="async"></picture></figure>
+            <figure class="concept-tile" data-cat="logo" hidden style="aspect-ratio: 600 / 800"><picture><source srcset="Concepts/logo-idea.webp" type="image/webp"><img src="Concepts/logo-idea.jpg" alt="Логотип iDEa" width="600" height="800" loading="lazy" decoding="async"></picture></figure>
+          </div>
+          <div class="concept-col">
+            <figure class="concept-tile" data-cat="concepts" style="aspect-ratio: 600 / 600"><picture><source srcset="Concepts/concept-easter-egg-app.webp" type="image/webp"><img src="Concepts/concept-easter-egg-app.jpg" alt="Концепт приложения: подарок-сюрприз" width="600" height="600" loading="lazy" decoding="async"></picture></figure>
+            <figure class="concept-tile concept-tile--border" data-cat="logo" hidden style="aspect-ratio: 600 / 450"><picture><source srcset="Concepts/logo-ngtu-white.webp" type="image/webp"><img src="Concepts/logo-ngtu-white.jpg" alt="Логотип Передовой инженерной школы НГТУ" width="600" height="450" loading="lazy" decoding="async"></picture></figure>
+            <figure class="concept-tile" data-cat="logo" hidden style="aspect-ratio: 600 / 430"><picture><source srcset="Concepts/logo-ngtu-blue.webp" type="image/webp"><img src="Concepts/logo-ngtu-blue.jpg" alt="Логотип Передовой инженерной школы НГТУ на&nbsp;синем фоне" width="600" height="430" loading="lazy" decoding="async"></picture></figure>
+            <figure class="concept-tile" data-cat="logo" hidden style="aspect-ratio: 600 / 450"><picture><source srcset="Concepts/logo-graphic-conference.webp" type="image/webp"><img src="Concepts/logo-graphic-conference.jpg" alt="Логотип Graphic Conference" width="600" height="450" loading="lazy" decoding="async"></picture></figure>
+            <figure class="concept-tile" data-cat="arts" hidden style="aspect-ratio: 600 / 889"><picture><source srcset="Concepts/art-city-sunset.webp" type="image/webp"><img src="Concepts/art-city-sunset.jpg" alt="Арт: закат над городом" width="600" height="889" loading="lazy" decoding="async"></picture></figure>
+            <figure class="concept-tile" data-cat="arts" hidden style="aspect-ratio: 600 / 800"><picture><source srcset="Concepts/art-red-moon.webp" type="image/webp"><img src="Concepts/art-red-moon.jpg" alt="Арт: красная луна" width="600" height="800" loading="lazy" decoding="async"></picture></figure>
+          </div>
+          <div class="concept-col">
+            <figure class="concept-tile" data-cat="illustrations" hidden style="aspect-ratio: 600 / 892"><picture><source srcset="Concepts/illustration-witches-party.webp" type="image/webp"><img src="Concepts/illustration-witches-party.jpg" alt="Иллюстрация-постер Witches Party" width="600" height="892" loading="lazy" decoding="async"></picture></figure>
+            <figure class="concept-tile" data-cat="arts" hidden style="aspect-ratio: 600 / 338"><picture><source srcset="Concepts/art-sketch-to-portrait.webp" type="image/webp"><img src="Concepts/art-sketch-to-portrait.jpg" alt="Арт: от скетча до портрета по фотографии" width="600" height="338" loading="lazy" decoding="async"></picture></figure>
+            <figure class="concept-tile" data-cat="arts" hidden style="aspect-ratio: 600 / 800"><picture><source srcset="Concepts/art-samurai.webp" type="image/webp"><img src="Concepts/art-samurai.jpg" alt="Арт: самурай в цветах" width="600" height="800" loading="lazy" decoding="async"></picture></figure>
+            <figure class="concept-tile" data-cat="logo animation" data-video="Portfolio%20Resurses/ngtu-logo-animation.mp4" data-preview="Portfolio%20Resurses/ngtu-logo-animation-preview.mp4" hidden style="aspect-ratio: 1920 / 1080"><picture><source srcset="Portfolio%20Resurses/ngtu-logo-animation-poster.webp" type="image/webp"><img src="Portfolio%20Resurses/ngtu-logo-animation-poster.jpg" alt="Анимация логотипа Передовой инженерной школы НГТУ" width="1280" height="720" loading="lazy" decoding="async"></picture></figure>
+            <figure class="concept-tile" data-cat="arts" hidden style="aspect-ratio: 600 / 949"><picture><source srcset="Concepts/art-foggy-forest.webp" type="image/webp"><img src="Concepts/art-foggy-forest.jpg" alt="Арт: туманный лес" width="600" height="949" loading="lazy" decoding="async"></picture></figure>
+            <figure class="concept-tile" data-cat="concepts" style="aspect-ratio: 600 / 600"><picture><source srcset="Concepts/concept-music-app.webp" type="image/webp"><img src="Concepts/concept-music-app.jpg" alt="Концепт музыкального приложения" width="600" height="600" loading="lazy" decoding="async"></picture></figure>
+          </div>
+        </div>
+        <p class="concept-empty" hidden>В&nbsp;этой категории пока нет работ</p>
+      </section>
+    </main>
+  </div>
+
+  <!-- Футер -->
+  <footer class="footer" id="contacts">
+    <div class="txt"><span>© 2026</span><span>Разработала сама</span></div>
+    <div class="socials">
+      <a href="https://t.me/ValentinaPril" target="_blank" rel="noopener noreferrer" aria-label="Telegram"><img src="Portfolio%20Resurses/socials.png" alt="" width="56" height="56"></a>
+      <a href="https://www.behance.net/ValPri" target="_blank" rel="noopener noreferrer" aria-label="Behance"><img src="Portfolio%20Resurses/socials-2.png" alt="" width="56" height="56"></a>
+      <a href="https://set.ki/bn5hV6G" target="_blank" rel="noopener noreferrer" aria-label="Сетка"><img src="Portfolio%20Resurses/socials-3.png" alt="" width="56" height="56"></a>
+    </div>
+    <div class="txt visit-counter"><span>Вы&nbsp;были посетителем номер</span><span class="visit-number"></span></div>
+  </footer>
+</div>
+
+<script src="main.js?v=7"></script>
+</body>
+</html>
