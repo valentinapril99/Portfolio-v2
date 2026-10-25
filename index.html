@@ -567,7 +567,7 @@ img{max-width:100%;display:block}
 @media (prefers-reduced-motion: reduce){.btn--cv>span{transition:none}}
 
 /* ================= Одностраничная главная (тестовая структура) ================= */
-.sp{display:flex;flex-direction:column;gap:120px;overflow-x:clip;background:var(--surface)}
+.sp{display:flex;flex-direction:column;gap:120px;overflow-x:clip;background:var(--surface);padding-bottom:68px}  /* до текста футера 160px: + его верхний отступ 92 */
 .sp-col{width:min(1044px,100%);margin:0 auto;padding:0 56px}
 .sp-top{position:sticky;top:0;z-index:10;background:var(--surface);padding:24px 0 16px;margin-bottom:-72px}
 .sp-top__in{display:flex;align-items:center;justify-content:space-between;gap:16px}
@@ -600,12 +600,13 @@ img{max-width:100%;display:block}
 .sp .works__track{flex-direction:row;width:max-content;animation:scroll-x 48s linear infinite}
 .sp .card{width:335px;height:335px;cursor:zoom-in}
 @media (min-width:1440px){
+  .sp{padding-bottom:132px}  /* + отступ футера 28 = 160 */
   .sp-top{display:block}
   .sp .topbar{display:flex}
   .menu{display:flex}
 }
 @media (max-width:767px){
-  .sp{gap:80px;background:var(--page-mobile)}
+  .sp{gap:80px;background:var(--page-mobile);padding-bottom:72px}  /* + отступ футера 24 = 96 на телефоне */
   .sp-col{padding:0 16px}
   .sp-top{padding:8px 0;margin-bottom:-48px;background:var(--page-mobile)}
   .sp-top .avatar{width:48px;height:48px;border-radius:16px}
