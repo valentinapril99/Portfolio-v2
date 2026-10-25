@@ -552,6 +552,15 @@ img{max-width:100%;display:block}
 .pmedia.anim>iframe{transition:opacity .5s ease,transform .3s ease}
 .pblock--link:hover .pmedia.anim>iframe{transform:scale(1.02)}
 @media (max-width:767px){.pmedia.anim{border-radius:28px}}
+
+/* кнопка CV: при наведении раскрывается в «Скачать резюме» */
+.btn--cv{gap:0;overflow:hidden}
+.btn--cv>span{display:inline-block;white-space:nowrap;overflow:hidden;transition:max-width .35s cubic-bezier(.4,0,.2,1),opacity .25s ease}
+.btn--cv .cv__s{max-width:3em;opacity:1}
+.btn--cv .cv__l{max-width:0;opacity:0}
+.btn--cv:hover .cv__s,.btn--cv:focus-visible .cv__s{max-width:0;opacity:0}
+.btn--cv:hover .cv__l,.btn--cv:focus-visible .cv__l{max-width:12em;opacity:1}
+@media (prefers-reduced-motion: reduce){.btn--cv>span{transition:none}}
 /* ---------- галерея фото на весь экран ---------- */
 .case__fig img,.case__photo,.gcell>img:not(.trophy){cursor:zoom-in}
 .lb{position:fixed;inset:0;width:100%;height:100%;max-width:none;max-height:none;margin:0;padding:0;border:0;background:rgba(9,12,15,.97);color:#f0f0f2;overflow:hidden}
@@ -632,7 +641,7 @@ img{max-width:100%;display:block}
       </div>
       <div class="btn-group">
         <a class="btn btn--primary" href="#contacts">Связаться со мной</a>
-        <a class="btn btn--secondary" href="#career">CV</a>
+        <a class="btn btn--secondary btn--cv" href="https://nn.hh.ru/resume/2e5553f3ff0c245fa60039ed1f70507867554d" target="_blank" rel="noopener" aria-label="Скачать резюме"><span class="cv__s" aria-hidden="true">CV</span><span class="cv__l" aria-hidden="true">Скачать резюме</span></a>
       </div>
     </section>
 
