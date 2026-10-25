@@ -37,7 +37,7 @@
   --name:#f5f5f7; --surface:#141518; --page:#141518; --page-mobile:#141518; --overlay:rgba(20,21,24,.97); --card-m:#26272b;
   color-scheme: dark;
 }
-html{scroll-padding-top:env(safe-area-inset-top,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px);scrollbar-gutter:stable}  /* место под полосу прокрутки не пропадает, когда меню или галерея блокируют прокрутку */
 *,*::before,*::after{box-sizing:border-box}
 body{margin:0;background:var(--page);color:var(--el-main);font-family:var(--font-text);-webkit-font-smoothing:antialiased;
   display:flex;flex-direction:column;min-height:calc(100svh - env(safe-area-inset-top,0px) - env(safe-area-inset-bottom,0px))}
