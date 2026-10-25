@@ -539,6 +539,13 @@ img{max-width:100%;display:block}
   .next-case__t{font-size:40px}
   .next-case__s{font-size:20px;line-height:28px}
 }
+
+/* анимации в кейсах: фото — заглушка, поверх неё подгружается анимация */
+.anim{position:relative;border-radius:48px;overflow:hidden;background:#f6f7fa}
+.anim>img{display:block}
+.anim>iframe{position:absolute;inset:0;width:100%;height:100%;border:0;opacity:0;transition:opacity .5s ease;pointer-events:none;background:#f6f7fa}
+.anim.is-playing>iframe{opacity:1}
+@media (max-width:767px){.anim{border-radius:24px}}
 /* ---------- галерея фото на весь экран ---------- */
 .case__fig img,.case__photo,.gcell>img:not(.trophy){cursor:zoom-in}
 .lb{position:fixed;inset:0;width:100%;height:100%;max-width:none;max-height:none;margin:0;padding:0;border:0;background:rgba(9,12,15,.97);color:#f0f0f2;overflow:hidden}
@@ -757,7 +764,7 @@ img{max-width:100%;display:block}
       <h2 class="p-title">Исследование</h2>
       <p class="case__text">Аудит приложения КуулКлевер</p>
     </div>
-    <figure class="case__fig"><img src="cases/basket/audit-1.webp" width="1864" height="1280" alt="Корзина приложения КуулКлевер до редизайна" loading="lazy"><figcaption>Аудит смарт-групп в приложении 1/2</figcaption></figure>
+    <figure class="case__fig"><div class="anim" data-anim="cases/anim/basket-storyboard.html" data-title="Анимация: аудит смарт-групп в корзине"><img src="cases/basket/audit-1.webp" width="1864" height="1280" alt="Корзина приложения КуулКлевер до редизайна" loading="lazy"></div><figcaption>Аудит смарт-групп в приложении 1/2</figcaption></figure>
     <figure class="case__fig"><img src="cases/basket/audit-2.webp" width="1864" height="1280" alt="Смарт-группы корзины до редизайна: доступно на другую дату, самовывозом, недоступно" loading="lazy"><figcaption>Аудит смарт-групп в приложении 2/2</figcaption></figure>
     <figure class="case__fig"><div class="hscroll" tabindex="0" role="region" aria-label="Путь пользователя: 7 экранов, прокрутите вбок"><img src="cases/basket/path-1.webp" width="494" height="1088" alt="Каталог" loading="lazy" draggable="false"><img src="cases/basket/path-2.webp" width="494" height="1088" alt="Корзина" loading="lazy" draggable="false"><img src="cases/basket/path-3.webp" width="494" height="1088" alt="Настройки корзины" loading="lazy" draggable="false"><img src="cases/basket/path-4.webp" width="494" height="1088" alt="Настройки корзины: выбраны адрес и дата" loading="lazy" draggable="false"><img src="cases/basket/path-5.webp" width="494" height="1088" alt="Корзина: доступно для заказа 20 мая" loading="lazy" draggable="false"><img src="cases/basket/path-6.webp" width="494" height="1088" alt="Оформление" loading="lazy" draggable="false"><img src="cases/basket/path-7.webp" width="494" height="1088" alt="Заказ оформлен" loading="lazy" draggable="false"></div><figcaption>Путь пользователя</figcaption></figure>
 
@@ -849,6 +856,7 @@ img{max-width:100%;display:block}
     <div class="case__group">
       <div class="case__block"><h3 class="case__h3">Смарт группы с быстрыми действиями</h3><p class="case__text">Спроектировала систему смарт-групп с логикой приоритезации.</p></div>
       <figure class="case__fig"><img src="cases/basket/smart-groups.webp" width="1864" height="1116" alt="Смарт-группы корзины с быстрыми действиями: изменить дату, забрать из магазина, выбрать магазин" loading="lazy"><figcaption>Смарт-группы с быстрыми действиями</figcaption></figure>
+      <figure class="case__fig"><div class="anim" data-anim="cases/anim/basket-date.html" data-title="Анимация: изменение даты доставки в корзине"><img src="cases/basket/date-change.webp" width="1864" height="1116" alt="Корзина: изменение даты доставки для смарт-группы" loading="lazy"></div><figcaption>Изменение даты</figcaption></figure>
       <p class="case__text">Разделили смарт-группу предзаказа на даты для заказа в удобный для пользователя день</p>
       <figure class="case__fig"><img src="cases/basket/preorder.webp" width="1864" height="1228" alt="Смарт-группа предзаказа до и после: товары разделены по датам доставки" loading="lazy"><figcaption>Смарт-группы предзаказа</figcaption></figure>
     </div>
@@ -1029,7 +1037,7 @@ img{max-width:100%;display:block}
     </div>
     <div class="case__group">
       <div class="case__block"><h3 class="case__h3">Предпочтения по сборке</h3><p class="case__text">Что делать, если товар «Ешь скорее» закончится к моменту сборки? Дали пользователям возможность самим принимать решения о том, какие товары будут заменены.</p></div>
-      <figure class="case__fig"><img src="cases/eat-fast/preferences.webp" width="1864" height="1116" alt="Шторка «Настроить Ешь скорее»: заменить все, настроить для каждого товара или ничего не менять" loading="lazy"><figcaption>Предпочтения по сборке</figcaption></figure>
+      <figure class="case__fig"><div class="anim" data-anim="cases/anim/eat-fast-replace.html" data-title="Анимация: настройка замены товаров «Ешь скорее»"><img src="cases/eat-fast/preferences.webp" width="1864" height="1116" alt="Шторка «Настроить Ешь скорее»: заменить все, настроить для каждого товара или ничего не менять" loading="lazy"></div><figcaption>Предпочтения по сборке</figcaption></figure>
     </div>
     <div class="case__group">
       <div class="case__block"><h3 class="case__h3">Настройка уведомлений</h3><p class="case__text">Для продвижения товаров «Ешь скорее» были добавлены подписки на уведомления о новых товарах в разделе.</p></div>
@@ -1425,6 +1433,29 @@ img{max-width:100%;display:block}
     if(x0===null)return; var dx=e.changedTouches[0].clientX-x0, dy=e.changedTouches[0].clientY-y0; x0=null; img.style.transform='';
     if(Math.abs(dx)>50&&Math.abs(dx)>Math.abs(dy)) show(dx<0?i+1:i-1);
   });
+})();
+/* Анимации в кейсах: грузятся, когда блок подходит к экрану; пока анимация не заиграла или если не загрузилась — видно фото */
+(function(){
+  var els=document.querySelectorAll('.anim[data-anim]');
+  if(!els.length||!('IntersectionObserver' in window)) return;
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  if(navigator.connection&&navigator.connection.saveData) return;
+  var io=new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if(!en.isIntersecting) return;
+      var el=en.target; io.unobserve(el);
+      var f=document.createElement('iframe'), done=false;
+      f.title=el.getAttribute('data-title')||''; f.tabIndex=-1; f.setAttribute('aria-hidden','true');
+      var fail=setTimeout(function(){ if(!done) f.remove(); },10000);
+      f.addEventListener('load',function(){
+        var ok=false; try{ var d=f.contentDocument; ok=!!(d&&d.title&&d.querySelector('script')); }catch(e){}  /* страница с ошибкой загрузки недоступна или пустая */
+        if(!ok){ clearTimeout(fail); f.remove(); return; }
+        setTimeout(function(){ if(f.isConnected){ done=true; clearTimeout(fail); el.classList.add('is-playing'); } },600);
+      });
+      f.src=el.getAttribute('data-anim'); el.appendChild(f);
+    });
+  },{rootMargin:'0px 0px 15% 0px',threshold:0.25});
+  els.forEach(function(el){io.observe(el)});
 })();
 /* Модалка «Все права защищены»: закрывается крестиком, Esc и кликом по фону */
 (function(){
