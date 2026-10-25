@@ -677,6 +677,10 @@ picture{display:contents}
   .sp .btn-group .btn{height:56px}
 }
 @media (prefers-reduced-motion: reduce){.sp .works__track{animation:none}}
+/* ленты на главной двигает JS: автопрокрутка + перетаскивание мышью и пальцем */
+.sp .works.is-js .works__track{animation:none;will-change:transform}
+.sp .works.is-js{cursor:grab;touch-action:pan-y;user-select:none;-webkit-user-select:none}
+.sp .works.is-js.is-drag,.sp .works.is-js.is-drag .card{cursor:grabbing}
 
 /* опыт и образование: подробности раскрываются по нажатию */
 .sp-job__sum{display:flex;align-items:flex-start;justify-content:space-between;gap:24px;cursor:pointer;list-style:none}
@@ -1647,6 +1651,44 @@ document.querySelectorAll('.works').forEach(function(el,n){
   closeB.addEventListener('click',function(){set(false)});
   m.addEventListener('click',function(e){if(e.target===m)set(false)});
   document.addEventListener('keydown',function(e){if(e.key==='Escape'&&m.classList.contains('is-open'))set(false)});
+})();
+/* Ленты фото и концептов: едут сами (как раньше, 48 с на круг), на наведении стоят; их можно тянуть мышью или пальцем */
+(function(){
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  document.querySelectorAll('.sp .works').forEach(function(el){
+    var tr=el.querySelector('.works__track'); if(!tr) return;
+    var dir=el.classList.contains('works--photos')?1:-1, DUR=48;
+    var x=0, P=0, hover=false, down=false, moved=false, x0=0, px0=0, id=null, last=0, vis=true;
+    el.classList.add('is-js');
+    function measure(){ var g=parseFloat(getComputedStyle(tr).columnGap)||0; P=tr.scrollWidth/2+g/2; }
+    function wrap(){ if(P){ x%=P; if(x>0) x-=P; } }
+    function draw(){ tr.style.transform='translate3d('+x+'px,0,0)'; }
+    function tick(now){
+      var dt=last?Math.min((now-last)/1000,.1):0; last=now;
+      if(vis&&!hover&&!down&&P){ x+=dir*P/DUR*dt; wrap(); draw(); }
+      requestAnimationFrame(tick);
+    }
+    el.addEventListener('pointerenter',function(e){ if(e.pointerType==='mouse') hover=true; });
+    el.addEventListener('pointerleave',function(e){ if(e.pointerType==='mouse') hover=false; });
+    el.addEventListener('dragstart',function(e){ e.preventDefault(); });
+    el.addEventListener('pointerdown',function(e){
+      if(e.pointerType==='mouse'&&e.button!==0) return;
+      down=true; moved=false; x0=x; px0=e.clientX; id=e.pointerId;
+    });
+    el.addEventListener('pointermove',function(e){
+      if(!down||e.pointerId!==id) return;
+      var dx=e.clientX-px0;
+      if(!moved&&Math.abs(dx)>5){ moved=true; el.classList.add('is-drag'); try{el.setPointerCapture(id)}catch(_){} }
+      if(moved){ x=x0+dx; wrap(); draw(); }
+    });
+    function up(e){ if(!down||(e&&e.pointerId!==id)) return; down=false; el.classList.remove('is-drag'); }
+    el.addEventListener('pointerup',up); el.addEventListener('pointercancel',up);
+    el.addEventListener('click',function(e){ if(moved){ e.stopPropagation(); e.preventDefault(); moved=false; } },true);
+    if('IntersectionObserver' in window) new IntersectionObserver(function(en){ vis=en[0].isIntersecting; }).observe(el);
+    if('ResizeObserver' in window) new ResizeObserver(function(){ measure(); wrap(); draw(); }).observe(tr); else window.addEventListener('resize',measure);
+    tr.querySelectorAll('img').forEach(function(i){ if(!i.complete) i.addEventListener('load',measure); });
+    measure(); requestAnimationFrame(tick);
+  });
 })();
 /* Блоки с экранами и мини-карточки проектов: мышью можно тянуть вбок; после перетаскивания клик не срабатывает */
 (function(){
