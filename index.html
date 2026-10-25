@@ -138,6 +138,26 @@ img{max-width:100%;display:block}
 .rights p+p{margin-top:16px}
 .rights__close{position:absolute;top:24px;right:24px;width:48px;height:48px;display:flex;align-items:center;justify-content:center;
   border:0;border-radius:50%;background:var(--btn-secondary);color:var(--el-main);cursor:pointer}
+/* ---------- предпросмотр резюме ---------- */
+.cvd{width:min(880px,calc(100% - 32px));height:calc(100% - 32px);max-width:none;max-height:none;margin:auto;padding:0;border:0;border-radius:24px;
+  background:var(--surface);color:var(--el-main);box-shadow:0 24px 64px rgba(0,0,0,.16);overflow:hidden}
+.cvd[open]{display:flex;flex-direction:column}
+.cvd::backdrop{background:rgba(9,12,15,.4);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+.cvd__bar{display:flex;align-items:center;gap:12px;padding:16px 16px 16px 24px}
+.cvd__t{margin:0 auto 0 0;font:600 24px/32px var(--font-text);letter-spacing:.48px;color:var(--el-main)}
+.cvd__dl{height:48px;padding:12px 20px;gap:8px;font-size:16px;letter-spacing:.32px}
+.cvd__size{opacity:.6;font-weight:400}
+.cvd .rights__close{position:static;flex:none}
+.cvd__pages{flex:1;overflow:auto;overscroll-behavior:contain;display:flex;flex-direction:column;align-items:center;gap:16px;padding:24px;background:var(--btn-secondary)}
+.cvd__pages img{width:100%;max-width:794px;height:auto;border-radius:8px;background:#fff;box-shadow:0 2px 12px rgba(0,0,0,.08)}
+@media (max-width:767px){
+  .cvd{width:100%;height:100%;border-radius:0}
+  .cvd__bar{padding:12px 12px 12px 16px;gap:8px}
+  .cvd__t{font-size:20px;line-height:28px;letter-spacing:.4px}
+  .cvd__dl{height:40px;padding:8px 16px}
+  .cvd__pages{padding:12px;gap:12px}
+  .cvd__pages img{border-radius:4px}
+}
 @media (max-width:767px){
   .rights{padding:24px 16px}
   .rights__t{margin-right:48px;font-size:24px;line-height:32px;letter-spacing:.48px}
@@ -834,7 +854,7 @@ picture{display:contents}
 
   <section class="sp-col sp-hero" aria-label="О себе коротко">
     <h1 class="sp-hero__t">Продуктовый дизайнер в Москве и Нижнем Новгороде с 5+ лет опыта в e-commerce.</h1>
-    <div class="btn-group"><a class="btn btn--primary" href="#contacts">Связаться со мной</a><a class="btn btn--secondary btn--cv" href="Mikheeva-Valentina-CV.pdf" download="Mikheeva_Valentina_CV.pdf" aria-label="Скачать резюме"><span class="cv__s" aria-hidden="true">CV</span><span class="cv__l" aria-hidden="true">Скачать резюме</span></a></div>
+    <div class="btn-group"><a class="btn btn--primary" href="#contacts">Связаться со мной</a><a class="btn btn--secondary btn--cv" href="Mikheeva-Valentina-CV.pdf" download="Mikheeva_Valentina_CV.pdf" aria-label="Резюме: предпросмотр и скачивание" data-cv-open><span class="cv__s" aria-hidden="true">CV</span><span class="cv__l" aria-hidden="true">Скачать резюме</span></a></div>
   </section>
 
   <section class="sp-col sp-sec" id="projects" aria-labelledby="t-projects">
@@ -1516,6 +1536,19 @@ picture{display:contents}
   <button type="button" class="lb__btn lb__next" aria-label="Следующее фото"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
 </dialog>
 
+<dialog class="cvd" id="cvd" aria-labelledby="cvd-t">
+  <div class="cvd__bar">
+    <h2 class="cvd__t" id="cvd-t">Резюме</h2>
+    <a class="btn btn--primary cvd__dl" href="Mikheeva-Valentina-CV.pdf" download="Mikheeva_Valentina_CV.pdf">Скачать PDF <span class="cvd__size" data-cv-size>504 КБ</span></a>
+    <button type="button" class="rights__close" data-cv-close aria-label="Закрыть"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+  </div>
+  <div class="cvd__pages" tabindex="0">
+    <img src="cv/page-1.webp" width="1241" height="1754" alt="Резюме, страница 1 из 3" loading="lazy">
+    <img src="cv/page-2.webp" width="1241" height="1754" alt="Резюме, страница 2 из 3" loading="lazy">
+    <img src="cv/page-3.webp" width="1241" height="1754" alt="Резюме, страница 3 из 3" loading="lazy">
+  </div>
+</dialog>
+
 <dialog class="rights" id="rights" aria-labelledby="rights-t">
   <button type="button" class="rights__close" data-rights-close aria-label="Закрыть"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
   <h2 class="rights__t" id="rights-t">Интеллектуальная собственность</h2>
@@ -1867,7 +1900,7 @@ document.querySelectorAll('.works').forEach(function(el,n){
   window.addEventListener('hashchange',function(){ setTimeout(schedule,50); });
   schedule();
 })();
-/* Кнопка CV на тач-экранах: первое нажатие раскрывает «Скачать резюме», второе скачивает */
+/* Кнопка CV на тач-экранах: первое нажатие раскрывает «Скачать резюме», второе открывает предпросмотр */
 (function(){
   var b=document.querySelector('.btn--cv'); if(!b) return;
   var touch=window.matchMedia('(hover: none)');
@@ -1904,6 +1937,21 @@ document.querySelectorAll('.works').forEach(function(el,n){
   window.addEventListener('scroll',sched,{passive:true}); window.addEventListener('hashchange',function(){setTimeout(mark,60)});
   document.querySelectorAll('[data-menu-open]').forEach(function(b){ b.addEventListener('click',mark); });
   mark();
+})();
+/* Резюме: кнопка CV открывает предпросмотр PDF, скачивание — из шапки модалки */
+(function(){
+  var d=document.getElementById('cvd'), b=document.querySelector('[data-cv-open]'); if(!d||!b||!d.showModal) return;
+  var size=d.querySelector('[data-cv-size]'), dl=d.querySelector('.cvd__dl');
+  function fmt(n){ return n>=1048576?(n/1048576).toFixed(1).replace('.',',')+' МБ':Math.round(n/1024)+' КБ'; }
+  /* размер берём у самого файла, чтобы подпись не устарела после замены PDF */
+  if(window.fetch) fetch(dl.getAttribute('href'),{method:'HEAD'}).then(function(r){ var n=+r.headers.get('content-length'); if(r.ok&&n) size.textContent=fmt(n); }).catch(function(){});
+  b.addEventListener('click',function(e){
+    if(e.defaultPrevented) return;  /* на тач-экранах первое нажатие только раскрывает кнопку */
+    e.preventDefault(); d.showModal(); document.body.style.overflow='hidden';
+  });
+  d.querySelector('[data-cv-close]').addEventListener('click',function(){d.close()});
+  d.addEventListener('click',function(e){if(e.target===d)d.close()});
+  d.addEventListener('close',function(){document.body.style.overflow=''});
 })();
 /* Модалка «Все права защищены»: закрывается крестиком, Esc и кликом по фону */
 (function(){
