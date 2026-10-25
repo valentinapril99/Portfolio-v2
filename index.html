@@ -108,6 +108,25 @@ img{max-width:100%;display:block}
 .footer p{margin:0;font:400 18px/28px var(--font-text);letter-spacing:.36px;color:var(--el-disable)}
 .footer a{text-decoration:underline dotted;text-underline-offset:4px;text-decoration-thickness:11%}
 .footer a:hover{color:var(--el-main)}
+.footer__link{padding:0;border:0;background:none;font:inherit;letter-spacing:inherit;color:inherit;cursor:pointer;
+  text-decoration:underline dotted;text-underline-offset:4px;text-decoration-thickness:11%}
+.footer__link:hover{color:var(--el-main)}
+
+/* ---------- модалка «Все права защищены» ---------- */
+.rights{width:min(640px,calc(100% - 32px));max-height:calc(100% - 32px);margin:auto;padding:40px;border:0;border-radius:24px;
+  background:var(--surface);color:var(--el-secondary);box-shadow:0 24px 64px rgba(0,0,0,.16)}
+.rights::backdrop{background:rgba(9,12,15,.4);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+.rights__t{margin:0 48px 24px 0;font:600 32px/40px var(--font-text);letter-spacing:.64px;color:var(--el-main)}
+.rights p{margin:0;font:400 16px/28px var(--font-text);letter-spacing:.32px}
+.rights p+p{margin-top:16px}
+.rights__close{position:absolute;top:24px;right:24px;width:48px;height:48px;display:flex;align-items:center;justify-content:center;
+  border:0;border-radius:50%;background:var(--btn-secondary);color:var(--el-main);cursor:pointer}
+@media (max-width:767px){
+  .rights{padding:24px 16px}
+  .rights__t{margin-right:48px;font-size:24px;line-height:32px;letter-spacing:.48px}
+  .rights p{font-size:15px;line-height:24px}
+  .rights__close{top:12px;right:12px;width:40px;height:40px}
+}
 
 /* ===== Tablet / 1200 variant ===== */
 .hero__inner{padding:40px 44px 0;display:flex;flex-direction:column;gap:40px}
@@ -452,8 +471,16 @@ img{max-width:100%;display:block}
 </div>
 
 <footer class="footer">
-  <p>© 2026 Valentina Mikheeva · <a href="#privacy">Политика конфиденциальности</a></p>
+  <p>© 2026 Valentina Mikheeva · <button type="button" class="footer__link" data-rights-open aria-haspopup="dialog">Все права защищены</button></p>
 </footer>
+
+<dialog class="rights" id="rights" aria-labelledby="rights-t">
+  <button type="button" class="rights__close" data-rights-close aria-label="Закрыть"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+  <h2 class="rights__t" id="rights-t">Интеллектуальная собственность</h2>
+  <p>Если прямо не указано иное, тексты, структура и оформление сайта, графика, иллюстрации, изображения и другие созданные мной материалы являются объектами авторского права.</p>
+  <p>Копирование, воспроизведение, изменение, публикация, распространение, размещение на других ресурсах и иное использование этих материалов в коммерческих или некоммерческих целях без предварительного письменного разрешения не допускается.</p>
+  <p>Товарные знаки, логотипы, названия компаний и материалы третьих лиц принадлежат соответствующим правообладателям и представлены на сайте исключительно в составе портфолио.</p>
+</dialog>
 
 <div class="menu" id="menu" role="dialog" aria-modal="true" aria-label="Меню">
   <div class="topbar">
@@ -547,6 +574,13 @@ img{max-width:100%;display:block}
     window.scrollTo(0,0);
   }
   window.addEventListener('hashchange',route); route();
+})();
+/* Модалка «Все права защищены»: закрывается крестиком, Esc и кликом по фону */
+(function(){
+  var d=document.getElementById('rights');
+  document.querySelector('[data-rights-open]').addEventListener('click',function(){d.showModal()});
+  d.querySelector('[data-rights-close]').addEventListener('click',function(){d.close()});
+  d.addEventListener('click',function(e){if(e.target===d)d.close()});
 })();
 </script>
 </body>
