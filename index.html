@@ -510,6 +510,9 @@ img{max-width:100%;display:block}
 .hscroll{display:flex;gap:24px;overflow-x:auto;padding:48px;border-radius:48px;background:#f6f7fa;scroll-snap-type:x proximity;
   scrollbar-width:thin;scrollbar-color:#c4c6ca transparent;cursor:grab;-webkit-overflow-scrolling:touch}
 .hscroll.is-drag{cursor:grabbing;scroll-snap-type:none;user-select:none}
+.minis{cursor:grab}
+.minis.is-drag{cursor:grabbing;scroll-snap-type:none;user-select:none}
+.minis.is-drag .mini{pointer-events:none}
 .hscroll:focus-visible{outline:2px solid var(--main-1);outline-offset:4px}
 .case__fig .hscroll img{width:247px;height:auto;flex:none;border-radius:0;scroll-snap-align:start;scroll-margin-left:48px}
 @media (max-width:767px){
@@ -1423,9 +1426,10 @@ img{max-width:100%;display:block}
   }
   window.addEventListener('scroll',mark,{passive:true}); window.addEventListener('hashchange',function(){setTimeout(mark)}); mark();
 })();
-/* Блоки с экранами: мышью можно тянуть вбок; после перетаскивания клик не открывает фото */
+/* Блоки с экранами и мини-карточки проектов: мышью можно тянуть вбок; после перетаскивания клик не срабатывает */
 (function(){
-  document.querySelectorAll('.hscroll').forEach(function(el){
+  document.querySelectorAll('.hscroll, .minis').forEach(function(el){
+    el.addEventListener('dragstart',function(e){e.preventDefault()});  /* не таскать картинки и ссылки как файлы */
     var x0=0,s0=0,down=false,moved=false;
     el.addEventListener('pointerdown',function(e){if(e.pointerType!=='mouse'||e.button!==0)return;down=true;moved=false;x0=e.clientX;s0=el.scrollLeft});
     window.addEventListener('pointermove',function(e){if(!down)return;var dx=e.clientX-x0;if(Math.abs(dx)>5){moved=true;el.classList.add('is-drag')}if(moved)el.scrollLeft=s0-dx});
