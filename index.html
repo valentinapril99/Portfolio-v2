@@ -503,6 +503,17 @@ img{max-width:100%;display:block}
   .case__stat,.case__card,.case__read,.case__tag,.case__tags li,.cmp__table tbody td,.cmp__table tbody th,.ice__row>*{background-color:var(--surface)}
 }
 
+
+/* горизонтальная прокрутка внутри блока с экранами */
+.hscroll{display:flex;gap:24px;overflow-x:auto;padding:48px;border-radius:48px;background:#f6f7fa;scroll-snap-type:x proximity;
+  scrollbar-width:thin;scrollbar-color:#c4c6ca transparent;cursor:grab;-webkit-overflow-scrolling:touch}
+.hscroll.is-drag{cursor:grabbing;scroll-snap-type:none;user-select:none}
+.hscroll:focus-visible{outline:2px solid var(--main-1);outline-offset:4px}
+.case__fig .hscroll img{width:247px;height:auto;flex:none;border-radius:0;scroll-snap-align:start;scroll-margin-left:48px}
+@media (max-width:767px){
+  .hscroll{gap:16px;padding:24px;border-radius:24px}
+  .case__fig .hscroll img{width:180px;scroll-margin-left:24px}
+}
 /* ---------- галерея фото на весь экран ---------- */
 .case__fig img,.case__photo,.gcell>img:not(.trophy){cursor:zoom-in}
 .lb{position:fixed;inset:0;width:100%;height:100%;max-width:none;max-height:none;margin:0;padding:0;border:0;background:rgba(9,12,15,.97);color:#f0f0f2;overflow:hidden}
@@ -711,7 +722,7 @@ img{max-width:100%;display:block}
     </div>
     <figure class="case__fig"><img src="cases/basket/audit-1.webp" width="1864" height="1280" alt="Корзина приложения КуулКлевер до редизайна" loading="lazy"><figcaption>Аудит смарт-групп в приложении 1/2</figcaption></figure>
     <figure class="case__fig"><img src="cases/basket/audit-2.webp" width="1864" height="1280" alt="Смарт-группы корзины до редизайна: доступно на другую дату, самовывозом, недоступно" loading="lazy"><figcaption>Аудит смарт-групп в приложении 2/2</figcaption></figure>
-    <figure class="case__fig"><img src="cases/basket/user-path.webp" width="1398" height="960" alt="Путь пользователя: каталог, корзина, настройки корзины" loading="lazy"><figcaption>Путь пользователя</figcaption></figure>
+    <figure class="case__fig"><div class="hscroll" tabindex="0" role="region" aria-label="Путь пользователя: 7 экранов, прокрутите вбок"><img src="cases/basket/path-1.webp" width="494" height="1088" alt="Каталог" loading="lazy" draggable="false"><img src="cases/basket/path-2.webp" width="494" height="1088" alt="Корзина" loading="lazy" draggable="false"><img src="cases/basket/path-3.webp" width="494" height="1088" alt="Настройки корзины" loading="lazy" draggable="false"><img src="cases/basket/path-4.webp" width="494" height="1088" alt="Настройки корзины: выбраны адрес и дата" loading="lazy" draggable="false"><img src="cases/basket/path-5.webp" width="494" height="1088" alt="Корзина: доступно для заказа 20 мая" loading="lazy" draggable="false"><img src="cases/basket/path-6.webp" width="494" height="1088" alt="Оформление" loading="lazy" draggable="false"><img src="cases/basket/path-7.webp" width="494" height="1088" alt="Заказ оформлен" loading="lazy" draggable="false"></div><figcaption>Путь пользователя</figcaption></figure>
 
     <div class="case__group">
       <div class="case__row"><h3 class="case__h3">Анализ конкурентов</h3><span class="case__tag">12 продуктов</span></div>
@@ -1151,12 +1162,22 @@ img{max-width:100%;display:block}
   }
   window.addEventListener('scroll',mark,{passive:true}); window.addEventListener('hashchange',function(){setTimeout(mark)}); mark();
 })();
+/* Блоки с экранами: мышью можно тянуть вбок; после перетаскивания клик не открывает фото */
+(function(){
+  document.querySelectorAll('.hscroll').forEach(function(el){
+    var x0=0,s0=0,down=false,moved=false;
+    el.addEventListener('pointerdown',function(e){if(e.pointerType!=='mouse'||e.button!==0)return;down=true;moved=false;x0=e.clientX;s0=el.scrollLeft});
+    window.addEventListener('pointermove',function(e){if(!down)return;var dx=e.clientX-x0;if(Math.abs(dx)>5){moved=true;el.classList.add('is-drag')}if(moved)el.scrollLeft=s0-dx});
+    window.addEventListener('pointerup',function(){if(!down)return;down=false;el.classList.remove('is-drag')});
+    el.addEventListener('click',function(e){if(moved){e.stopPropagation();e.preventDefault();moved=false}},true);
+  });
+})();
 /* Фото в кейсах и концептах открываются на весь экран; листаются стрелками, клавишами и свайпом */
 (function(){
-  var SEL='.case__fig img, .case__photo, .gcell>img:not(.trophy)';
+  var SEL='.case__fig img, .case__photo, .gcell>img:not(.trophy)';  /* экраны в .hscroll тоже входят: .case__fig img */
   var lb=document.getElementById('lb'), img=lb.querySelector('.lb__img'), text=lb.querySelector('.lb__text'), count=lb.querySelector('.lb__count'),
       prev=lb.querySelector('.lb__prev'), next=lb.querySelector('.lb__next'), list=[], i=0;
-  function caption(el){var f=el.closest('figure'), c=f&&f.querySelector('figcaption'); return c?c.textContent:el.alt}
+  function caption(el){var f=el.closest('figure'), c=f&&f.querySelector('figcaption'); if(el.closest('.hscroll')) return (c?c.textContent+' — ':'')+el.alt; return c?c.textContent:el.alt}
   function show(n){
     i=Math.max(0,Math.min(list.length-1,n)); var el=list[i];
     img.src=el.currentSrc||el.src; img.alt=el.alt; text.textContent=caption(el);
