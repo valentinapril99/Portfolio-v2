@@ -232,7 +232,8 @@ img{max-width:100%;display:block}
 /* projects */
 .pblock{display:flex;flex-direction:column;gap:24px}
 .pmedia{aspect-ratio:932/558;border-radius:48px;overflow:hidden;background:var(--btn-secondary);position:relative}
-.pmedia>img{width:100%;height:100%;object-fit:cover}
+picture{display:contents}
+.pmedia>img,.pmedia>picture>img{width:100%;height:100%;object-fit:cover}
 .pmedia--phones{display:flex;align-items:center;justify-content:center;gap:24px}
 .phone{height:91.4%;aspect-ratio:247/510;background:#000;border-radius:16.4%/7.95%;position:relative;flex:none}
 .phone::before{content:"";position:absolute;inset:1px;border:2.5px solid #c8bba8;border-radius:inherit;box-shadow:0 0 0 1px #a39a8e}
@@ -518,7 +519,7 @@ img{max-width:100%;display:block}
 
 
 /* горизонтальная прокрутка внутри блока с экранами */
-.hscroll{display:flex;gap:24px;overflow-x:auto;padding:48px;border-radius:48px;background:#f6f7fa;scroll-snap-type:x proximity;
+.hscroll{display:flex;gap:24px;overflow-x:auto;padding:48px;border-radius:48px;background:var(--btn-secondary);scroll-snap-type:x proximity;
   scrollbar-width:thin;scrollbar-color:#c4c6ca transparent;cursor:grab;-webkit-overflow-scrolling:touch}
 .hscroll.is-drag{cursor:grabbing;scroll-snap-type:none;user-select:none}
 .minis{cursor:grab}
@@ -534,10 +535,10 @@ img{max-width:100%;display:block}
 /* края блока с экранами: плавное затухание и стрелки при наведении */
 .hsw{position:relative;border-radius:48px;overflow:hidden}
 .hsw::before,.hsw::after{content:"";position:absolute;top:0;bottom:0;width:96px;z-index:1;pointer-events:none;opacity:0;transition:opacity .2s ease}
-.hsw::before{left:0;background:linear-gradient(90deg,#f6f7fa 20%,rgba(246,247,250,0))}
-.hsw::after{right:0;background:linear-gradient(270deg,#f6f7fa 20%,rgba(246,247,250,0))}
+.hsw::before{left:0;background:linear-gradient(90deg,var(--btn-secondary) 20%,transparent)}
+.hsw::after{right:0;background:linear-gradient(270deg,var(--btn-secondary) 20%,transparent)}
 .hsw.has-prev::before,.hsw.has-next::after{opacity:1}
-.hsw__btn{position:absolute;top:50%;z-index:2;width:44px;height:44px;margin-top:-22px;border:0;border-radius:50%;background:#fff;color:#0f0f0f;
+.hsw__btn{position:absolute;top:50%;z-index:2;width:44px;height:44px;margin-top:-22px;border:0;border-radius:50%;background:var(--surface);color:var(--name);
   box-shadow:0 4px 16px rgba(15,15,15,.12);display:grid;place-items:center;cursor:pointer;opacity:0;visibility:hidden;transition:opacity .2s ease,visibility .2s,transform .2s ease}
 .hsw__btn--prev{left:16px}
 .hsw__btn--next{right:16px}
@@ -555,7 +556,7 @@ img{max-width:100%;display:block}
 /* экраны с подписями внутри горизонтальной прокрутки */
 .hscroll__item{margin:0;display:flex;flex-direction:column;align-items:center;gap:16px;flex:none;scroll-snap-align:start;scroll-margin-left:48px}
 .case__fig .hscroll__item img{scroll-snap-align:none}
-.hscroll__item figcaption{font:400 18px/28px var(--font-text);letter-spacing:.36px;color:#0f0f0f;text-align:center;max-width:247px}
+.hscroll__item figcaption{font:400 18px/28px var(--font-text);letter-spacing:.36px;color:var(--name);text-align:center;max-width:247px}
 /* гипотезы без оценок */
 .hyps{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:24px}
 .hyps li{padding:16px 24px;border-radius:24px;background:var(--btn-secondary);font:400 18px/28px var(--font-text);letter-spacing:.36px;color:var(--name)}
@@ -578,9 +579,9 @@ img{max-width:100%;display:block}
 }
 
 /* анимации в кейсах: фото — заглушка, поверх неё подгружается анимация */
-.anim{position:relative;border-radius:48px;overflow:hidden;background:#f6f7fa}
-.anim>img{display:block}
-.anim>iframe{position:absolute;inset:0;width:100%;height:100%;border:0;opacity:0;transition:opacity .5s ease;pointer-events:none;background:#f6f7fa}
+.anim{position:relative;border-radius:48px;overflow:hidden;background:var(--btn-secondary)}
+.anim>img,.anim>picture>img{display:block}
+.anim>iframe{position:absolute;inset:0;width:100%;height:100%;border:0;opacity:0;transition:opacity .5s ease;pointer-events:none;background:var(--btn-secondary)}
 .anim.is-playing>iframe{opacity:1}
 @media (max-width:767px){.anim{border-radius:24px}}
 .pmedia.anim{border-radius:48px}
@@ -822,7 +823,7 @@ img{max-width:100%;display:block}
   <!-- Скрыто временно: AntiDetect
   <article class="pblock"><div class="pmedia"></div><div class="ptitle"><div class="ptags"><span>AntiDetect</span><span>2025 г</span></div><p class="pname">Разработка дизайн-системы и веб сервиса</p></div></article>
   -->
-  <article class="pblock"><div class="pmedia"><img src="cases/covers/kiosk.webp" width="1864" height="1116" alt="Касса самообслуживания КуулКлевер: экран выбора способа оплаты" loading="lazy"></div><div class="ptitle"><div class="ptags"><span>Coolclever</span><span>2025 г</span></div><p class="pname">Кассы самообслуживания</p></div></article>
+  <article class="pblock"><div class="pmedia"><picture><source srcset="cases/covers/kiosk-dark.webp" media="(prefers-color-scheme: dark)"><img src="cases/covers/kiosk.webp" width="1864" height="1116" alt="Касса самообслуживания КуулКлевер: экран выбора способа оплаты" loading="lazy"></picture></div><div class="ptitle"><div class="ptags"><span>Coolclever</span><span>2025 г</span></div><p class="pname">Кассы самообслуживания</p></div></article>
 </div>
   </section>
 
@@ -937,7 +938,7 @@ img{max-width:100%;display:block}
         <p class="case__lead">Как мы внедрили быстрый функционал для заказа товаров, доступных под разные условия корзины.</p>
       </div>
     </div>
-    <figure class="case__fig"><img src="cases/basket/hero.webp" width="1864" height="1116" alt="Три экрана обновлённой корзины: доставка из другого магазина, группы по доступности, предзаказ после оформления"><figcaption>Основные решения</figcaption></figure>
+    <figure class="case__fig"><picture><source srcset="cases/basket/hero-dark.webp" media="(prefers-color-scheme: dark)"><img src="cases/basket/hero.webp" width="1864" height="1116" alt="Три экрана обновлённой корзины: доставка из другого магазина, группы по доступности, предзаказ после оформления"></picture><figcaption>Основные решения</figcaption></figure>
   </div>
 
   <div class="case__sec" id="cb-context">
@@ -976,8 +977,8 @@ img{max-width:100%;display:block}
       <h2 class="p-title">Исследование</h2>
       <p class="case__text">Анализ приложения КуулКлевер</p>
     </div>
-    <figure class="case__fig"><div class="anim" data-anim="cases/anim/basket-storyboard.html" data-title="Анимация: анализ корзины в приложении"><img src="cases/basket/audit-1.webp" width="1864" height="1280" alt="Корзина приложения КуулКлевер до редизайна" loading="lazy"></div><figcaption>Анализ корзины в приложении 1/2</figcaption></figure>
-    <figure class="case__fig"><img src="cases/basket/audit-2.webp" width="1864" height="1280" alt="Группы товаров в корзине до редизайна: доступно на другую дату, самовывозом, недоступно" loading="lazy"><figcaption>Анализ корзины в приложении 2/2</figcaption></figure>
+    <figure class="case__fig"><div class="anim" data-anim="cases/anim/basket-storyboard.html" data-title="Анимация: анализ корзины в приложении"><picture><source srcset="cases/basket/audit-1-dark.webp" media="(prefers-color-scheme: dark)"><img src="cases/basket/audit-1.webp" width="1864" height="1280" alt="Корзина приложения КуулКлевер до редизайна" loading="lazy"></picture></div><figcaption>Анализ корзины в приложении 1/2</figcaption></figure>
+    <figure class="case__fig"><picture><source srcset="cases/basket/audit-2-dark.webp" media="(prefers-color-scheme: dark)"><img src="cases/basket/audit-2.webp" width="1864" height="1280" alt="Группы товаров в корзине до редизайна: доступно на другую дату, самовывозом, недоступно" loading="lazy"></picture><figcaption>Анализ корзины в приложении 2/2</figcaption></figure>
     <figure class="case__fig"><div class="hscroll" tabindex="0" role="region" aria-label="Путь пользователя: 7 экранов, прокрутите вбок"><img src="cases/basket/path-1.webp" width="494" height="1088" alt="Каталог" loading="lazy" draggable="false"><img src="cases/basket/path-2.webp" width="494" height="1088" alt="Корзина" loading="lazy" draggable="false"><img src="cases/basket/path-3.webp" width="494" height="1088" alt="Настройки корзины" loading="lazy" draggable="false"><img src="cases/basket/path-4.webp" width="494" height="1088" alt="Настройки корзины: выбраны адрес и дата" loading="lazy" draggable="false"><img src="cases/basket/path-5.webp" width="494" height="1088" alt="Корзина: доступно для заказа 20 мая" loading="lazy" draggable="false"><img src="cases/basket/path-6.webp" width="494" height="1088" alt="Оформление" loading="lazy" draggable="false"><img src="cases/basket/path-7.webp" width="494" height="1088" alt="Заказ оформлен" loading="lazy" draggable="false"></div><figcaption>Путь пользователя</figcaption></figure>
 
     <div class="case__group">
@@ -1063,22 +1064,22 @@ img{max-width:100%;display:block}
     <div class="case__group">
       <h3 class="case__h3">Виджет «Из другого магазина»</h3>
       <p class="case__text">Решение дает пользователю быстрый функционал выбора магазина с наибольшим числом доступных на сегодня товаров.</p>
-      <figure class="case__fig"><img src="cases/basket/widget.webp" width="1864" height="1116" alt="Виджет «Доставка из другого магазина», список магазинов и корзина после смены магазина" loading="lazy"><figcaption>Виджет «Из другого магазина»</figcaption></figure>
+      <figure class="case__fig"><picture><source srcset="cases/basket/widget-dark.webp" media="(prefers-color-scheme: dark)"><img src="cases/basket/widget.webp" width="1864" height="1116" alt="Виджет «Доставка из другого магазина», список магазинов и корзина после смены магазина" loading="lazy"></picture><figcaption>Виджет «Из другого магазина»</figcaption></figure>
     </div>
     <div class="case__group">
       <div class="case__block"><h3 class="case__h3">Группы по доступности с быстрыми действиями</h3><p class="case__text">Спроектировала систему групп по доступности с логикой приоритезации.</p></div>
-      <figure class="case__fig"><img src="cases/basket/smart-groups.webp" width="1864" height="1116" alt="Группы по доступности в корзине с быстрыми действиями: изменить дату, забрать из магазина, выбрать магазин" loading="lazy"><figcaption>Группы по доступности с быстрыми действиями</figcaption></figure>
-      <figure class="case__fig"><div class="anim" data-anim="cases/anim/basket-date.html" data-title="Анимация: изменение даты доставки в корзине"><img src="cases/basket/date-change.webp" width="1864" height="1116" alt="Корзина: изменение даты доставки для группы товаров" loading="lazy"></div><figcaption>Изменение даты</figcaption></figure>
+      <figure class="case__fig"><picture><source srcset="cases/basket/smart-groups-dark.webp" media="(prefers-color-scheme: dark)"><img src="cases/basket/smart-groups.webp" width="1864" height="1116" alt="Группы по доступности в корзине с быстрыми действиями: изменить дату, забрать из магазина, выбрать магазин" loading="lazy"></picture><figcaption>Группы по доступности с быстрыми действиями</figcaption></figure>
+      <figure class="case__fig"><div class="anim" data-anim="cases/anim/basket-date.html" data-title="Анимация: изменение даты доставки в корзине"><picture><source srcset="cases/basket/date-change-dark.webp" media="(prefers-color-scheme: dark)"><img src="cases/basket/date-change.webp" width="1864" height="1116" alt="Корзина: изменение даты доставки для группы товаров" loading="lazy"></picture></div><figcaption>Изменение даты</figcaption></figure>
       <p class="case__text">Разделили группу предзаказа на даты для заказа в удобный для пользователя день</p>
-      <figure class="case__fig"><img src="cases/basket/preorder.webp" width="1864" height="1228" alt="Группа предзаказа до и после: товары разделены по датам доставки" loading="lazy"><figcaption>Группы предзаказа</figcaption></figure>
+      <figure class="case__fig"><picture><source srcset="cases/basket/preorder-dark.webp" media="(prefers-color-scheme: dark)"><img src="cases/basket/preorder.webp" width="1864" height="1228" alt="Группа предзаказа до и после: товары разделены по датам доставки" loading="lazy"></picture><figcaption>Группы предзаказа</figcaption></figure>
     </div>
     <div class="case__group">
       <div class="case__block"><h3 class="case__h3">Умные рекомендации</h3><p class="case__text">После оформления заказа, настройки корзины подстраиваются под следующую группу товаров, если пользователь решил оформить следующий заказ.</p></div>
-      <figure class="case__fig"><img src="cases/basket/recommendations.webp" width="1864" height="1116" alt="Экран принятого заказа с предложением оформить предзаказ на оставшиеся товары" loading="lazy"><figcaption>Умные рекомендации</figcaption></figure>
+      <figure class="case__fig"><picture><source srcset="cases/basket/recommendations-dark.webp" media="(prefers-color-scheme: dark)"><img src="cases/basket/recommendations.webp" width="1864" height="1116" alt="Экран принятого заказа с предложением оформить предзаказ на оставшиеся товары" loading="lazy"></picture><figcaption>Умные рекомендации</figcaption></figure>
     </div>
     <div class="case__group">
       <div class="case__block"><h3 class="case__h3">Распродажа остатков</h3><p class="case__text">Часть товара в корзине могут разобрать пока пользователь выбирает товары в каталоге, тогда разобранный товар переместится в группу на следующую дату.<br>Если товара осталось не менее 40% от изначально добавленного, тогда подсвечиваем пользователю возможность уменьшить количество товара чтобы забрать его сегодня.</p></div>
-      <figure class="case__fig"><img src="cases/basket/leftovers.webp" width="1864" height="1116" alt="Подсказка в корзине: сегодня доступно только 6 штук, кнопка «Заменить»" loading="lazy"><figcaption>Распродажа остатков</figcaption></figure>
+      <figure class="case__fig"><picture><source srcset="cases/basket/leftovers-dark.webp" media="(prefers-color-scheme: dark)"><img src="cases/basket/leftovers.webp" width="1864" height="1116" alt="Подсказка в корзине: сегодня доступно только 6 штук, кнопка «Заменить»" loading="lazy"></picture><figcaption>Распродажа остатков</figcaption></figure>
     </div>
   </div>
 
@@ -1122,7 +1123,7 @@ img{max-width:100%;display:block}
         <p class="case__lead">Разработка брендинга для товаров с заканчивающимся сроком годности и добавление нового функционала для этих товаров.</p>
       </div>
     </div>
-    <figure class="case__fig"><img src="cases/eat-fast/hero.webp" width="1864" height="1116" alt="Три экрана «Ешь скорее»: баннер на главной, раздел каталога со скидками, настройка замены товаров в корзине"><figcaption>Основные решения</figcaption></figure>
+    <figure class="case__fig"><picture><source srcset="cases/eat-fast/hero-dark.webp" media="(prefers-color-scheme: dark)"><img src="cases/eat-fast/hero.webp" width="1864" height="1116" alt="Три экрана «Ешь скорее»: баннер на главной, раздел каталога со скидками, настройка замены товаров в корзине"></picture><figcaption>Основные решения</figcaption></figure>
   </div>
 
   <div class="case__sec" id="es-context">
@@ -1144,7 +1145,7 @@ img{max-width:100%;display:block}
       <h3 class="case__h4">Контекст</h3>
       <p class="case__text">Часть ассортимента каждый день подходит к концу срока годности. В онлайне продажа таких товаров реализована только через раздел настроек профиля, в котором идет слепая подписка на категории товаров: включил «молочку», а получил весь молочный отдел с заканчивающимися сроками годности.</p>
     </div>
-    <figure class="case__fig"><img src="cases/eat-fast/before.webp" width="1864" height="1280" alt="Старая страница «Съесть сегодня» в профиле сайта: подписка на категории со скидкой галочками" loading="lazy"><figcaption>Как было: подписка на категории галочками, спрятанная в настройках профиля</figcaption></figure>
+    <figure class="case__fig"><picture><source srcset="cases/eat-fast/before-dark.webp" media="(prefers-color-scheme: dark)"><img src="cases/eat-fast/before.webp" width="1864" height="1280" alt="Старая страница «Съесть сегодня» в профиле сайта: подписка на категории со скидкой галочками" loading="lazy"></picture><figcaption>Как было: подписка на категории галочками, спрятанная в настройках профиля</figcaption></figure>
     <div class="case__cards">
       <div class="case__card"><h3 class="case__h4">Проблемы бизнеса</h3><ul class="ach"><li>В онлайне товары «Ешь скорее» почти не продаются, поскольку нет раздела в каталоге, точек входа и механик для продвижения.</li><li>У товаров с заканчивающимся сроком годности нет брендового символа, из-за чего сложно выстроить коммуникацию с пользователями, не отпугнув их ассоциацией с просрочкой.</li></ul></div>
       <div class="case__card"><h3 class="case__h4">Проблемы пользователя</h3><ul class="ach"><li>Сложно найти товары «Ешь скорее» и отделить от других акционных товаров.</li><li>Функция по рекомендации товаров спрятана в настройках профиля.</li><li>Пользователь не понимает, что делать, если товар «Ешь скорее» разберут на этапе сборки заказа.</li><li>Не хватает данных для решения о покупке: цена, скидка, срок, остаток.</li></ul></div>
@@ -1240,25 +1241,25 @@ img{max-width:100%;display:block}
       <h3 class="case__h3">Ребрендинг раздела</h3>
       <p class="case__text">Предложила зеленый лист как знак скидки для раздела «Ешь скорее». С командой пришли к более короткому и звучному названию раздела «Ешь скорее» вместо «Съесть сегодня».</p>
       <figure class="case__fig"><div class="anim" data-anim="cases/anim/preview-eat-fast.html" data-title="Анимация: ребрендинг раздела «Ешь скорее»"><img src="cases/eat-fast/cover.webp" width="1864" height="1116" alt="Раздел «Ешь скорее» с зелёным листом — знаком скидки" loading="lazy"></div><figcaption>Ребрендинг раздела</figcaption></figure>
-      <figure class="case__fig"><img src="cases/eat-fast/brand.webp" width="1864" height="1116" alt="Баннер «Ешь скорее — скидки до 40%» с зелёным листом на главной приложения" loading="lazy"><figcaption>Знак скидки «Ешь скорее»</figcaption></figure>
+      <figure class="case__fig"><picture><source srcset="cases/eat-fast/brand-dark.webp" media="(prefers-color-scheme: dark)"><img src="cases/eat-fast/brand.webp" width="1864" height="1116" alt="Баннер «Ешь скорее — скидки до 40%» с зелёным листом на главной приложения" loading="lazy"></picture><figcaption>Знак скидки «Ешь скорее»</figcaption></figure>
     </div>
     <div class="case__group">
       <h3 class="case__h3">Каталог</h3>
       <ul class="ach"><li>Раздел в каталоге.</li><li>Теги категорий в разделе «Ешь скорее».</li><li>Информация о «Ешь скорее» в разделе.</li><li>Честное «Разобрали» с подсказкой о доступности товаров.</li></ul>
-      <figure class="case__fig"><img src="cases/eat-fast/catalog.webp" width="1864" height="1116" alt="Раздел «Ешь скорее» в каталоге: теги категорий, описание раздела и состояние «Разобрали»" loading="lazy"><figcaption>Каталог</figcaption></figure>
+      <figure class="case__fig"><picture><source srcset="cases/eat-fast/catalog-dark.webp" media="(prefers-color-scheme: dark)"><img src="cases/eat-fast/catalog.webp" width="1864" height="1116" alt="Раздел «Ешь скорее» в каталоге: теги категорий, описание раздела и состояние «Разобрали»" loading="lazy"></picture><figcaption>Каталог</figcaption></figure>
     </div>
     <div class="case__group">
       <div class="case__block"><h3 class="case__h3">Корзина</h3><p class="case__text">Многие пользователи сначала набирают корзину и только потом решают по деталям. Поэтому корзина стала главным местом решения.</p>
       <ul class="ach"><li>Зеленые ценники с листом показывают цену «Ешь скорее» и цену без скидки.</li><li>Настройки по замене товаров «Ешь скорее», если товар закончится при сборке.</li><li>Карусель с рекомендациями.</li></ul></div>
-      <figure class="case__fig"><img src="cases/eat-fast/basket.webp" width="1864" height="1116" alt="Корзина с зелёными ценниками, кнопкой «Настроить Ешь скорее» и каруселью товаров со скидкой" loading="lazy"><figcaption>Корзина</figcaption></figure>
+      <figure class="case__fig"><picture><source srcset="cases/eat-fast/basket-dark.webp" media="(prefers-color-scheme: dark)"><img src="cases/eat-fast/basket.webp" width="1864" height="1116" alt="Корзина с зелёными ценниками, кнопкой «Настроить Ешь скорее» и каруселью товаров со скидкой" loading="lazy"></picture><figcaption>Корзина</figcaption></figure>
     </div>
     <div class="case__group">
       <div class="case__block"><h3 class="case__h3">Предпочтения по сборке</h3><p class="case__text">Что делать, если товар «Ешь скорее» закончится к моменту сборки? Дали пользователям возможность самим принимать решения о том, какие товары будут заменены.</p></div>
-      <figure class="case__fig"><div class="anim" data-anim="cases/anim/eat-fast-replace.html" data-title="Анимация: настройка замены товаров «Ешь скорее»"><img src="cases/eat-fast/preferences.webp" width="1864" height="1116" alt="Шторка «Настроить Ешь скорее»: заменить все, настроить для каждого товара или ничего не менять" loading="lazy"></div><figcaption>Предпочтения по сборке</figcaption></figure>
+      <figure class="case__fig"><div class="anim" data-anim="cases/anim/eat-fast-replace.html" data-title="Анимация: настройка замены товаров «Ешь скорее»"><picture><source srcset="cases/eat-fast/preferences-dark.webp" media="(prefers-color-scheme: dark)"><img src="cases/eat-fast/preferences.webp" width="1864" height="1116" alt="Шторка «Настроить Ешь скорее»: заменить все, настроить для каждого товара или ничего не менять" loading="lazy"></picture></div><figcaption>Предпочтения по сборке</figcaption></figure>
     </div>
     <div class="case__group">
       <div class="case__block"><h3 class="case__h3">Настройка уведомлений</h3><p class="case__text">Для продвижения товаров «Ешь скорее» были добавлены подписки на уведомления о новых товарах в разделе.</p></div>
-      <figure class="case__fig"><img src="cases/eat-fast/notifications.webp" width="1864" height="1116" alt="Переключатель «Включить уведомления» в разделе «Ешь скорее» и на экране принятого заказа" loading="lazy"><figcaption>Подписка на уведомления</figcaption></figure>
+      <figure class="case__fig"><picture><source srcset="cases/eat-fast/notifications-dark.webp" media="(prefers-color-scheme: dark)"><img src="cases/eat-fast/notifications.webp" width="1864" height="1116" alt="Переключатель «Включить уведомления» в разделе «Ешь скорее» и на экране принятого заказа" loading="lazy"></picture><figcaption>Подписка на уведомления</figcaption></figure>
     </div>
   </div>
 
@@ -1296,7 +1297,7 @@ img{max-width:100%;display:block}
         <p class="case__lead">Как мы увеличили число пользователей, проходящих онбординг, а заодно повысили конверсию на пуши и обновили раздел уведомлений.</p>
       </div>
     </div>
-    <figure class="case__fig"><img src="cases/onboarding/hero.webp" width="1398" height="837" alt="Три экрана: вход в Клуб Друзей, экран 18+ о гастрономической культуре, уведомления с ассистентом Клеверти"><figcaption>Основные решения</figcaption></figure>
+    <figure class="case__fig"><picture><source srcset="cases/onboarding/hero-dark.webp" media="(prefers-color-scheme: dark)"><img src="cases/onboarding/hero.webp" width="1398" height="837" alt="Три экрана: вход в Клуб Друзей, экран 18+ о гастрономической культуре, уведомления с ассистентом Клеверти"></picture><figcaption>Основные решения</figcaption></figure>
   </div>
 
   <div class="case__sec" id="ob-context">
@@ -1318,7 +1319,7 @@ img{max-width:100%;display:block}
     </div>
     <div class="case__block">
       <h3 class="case__h4">Больше всего людей уходят между картой и первой корзиной</h3>
-      <figure class="case__fig"><img src="cases/onboarding/funnel.webp" width="1864" height="880" alt="Воронка: установки, вход и карта, первая корзина, покупка за 7 дней. Между входом и первой корзиной уходит больше половины вошедших" loading="lazy"></figure>
+      <figure class="case__fig"><picture><source srcset="cases/onboarding/funnel-dark.webp" media="(prefers-color-scheme: dark)"><img src="cases/onboarding/funnel.webp" width="1864" height="880" alt="Воронка: установки, вход и карта, первая корзина, покупка за 7 дней. Между входом и первой корзиной уходит больше половины вошедших" loading="lazy"></picture></figure>
     </div>
     <div class="case__card"><h3 class="case__h4">Проблема бизнеса</h3><p class="case__text">Последние несколько месяцев пользователи плохо проходили онбординг. Многие уходили, так и не завершив знакомство с продуктом.</p></div>
     <div class="case__card"><h3 class="case__h4">Проблема пользователя</h3><p class="case__text">Экраны говорили языком любого ритейлера. Новый пользователь не понимал, чем КуулКлевер отличается от соседнего магазина, хотя у компании 7 заводов, ежемесячные дегустации и баллы, которые не сгорают никогда.</p></div>
@@ -1340,7 +1341,7 @@ img{max-width:100%;display:block}
     </div>
     <div class="case__group">
       <div class="case__block"><h3 class="case__h3">Проблема 3: карта лояльности подана очень формально</h3><p class="case__text">Это главный подарок новичку, а выглядит как справка. Ни имени, ни эмоции, ни объяснения выгоды.</p></div>
-      <figure class="case__fig"><img src="cases/onboarding/audit-card.webp" width="1864" height="1280" alt="Старый экран «Добавьте карту КуулКлевер» с двумя пунктами списка" loading="lazy"><figcaption>Получение карты лояльности как было</figcaption></figure>
+      <figure class="case__fig"><picture><source srcset="cases/onboarding/audit-card-dark.webp" media="(prefers-color-scheme: dark)"><img src="cases/onboarding/audit-card.webp" width="1864" height="1280" alt="Старый экран «Добавьте карту КуулКлевер» с двумя пунктами списка" loading="lazy"></picture><figcaption>Получение карты лояльности как было</figcaption></figure>
     </div>
     <div class="case__card"><h3 class="case__h4">Находка</h3><p class="case__text">Разрешения на пуши и личные данные просили слишком рано, при регистрации и сразу после входа. Человек ещё ничего не получил, а от него уже чего-то хотят.</p></div>
 
@@ -1411,19 +1412,19 @@ img{max-width:100%;display:block}
     <h2 class="p-title">Продуктовые решения</h2>
     <div class="case__group">
       <h3 class="case__h3">Загрузка приложения</h3>
-      <figure class="case__fig"><img src="cases/onboarding/loading.webp" width="1864" height="1116" alt="Заставки во время загрузки: кадры еды, логотип и короткий факт о продукте" loading="lazy"><figcaption>Загрузка приложения</figcaption></figure>
+      <figure class="case__fig"><picture><source srcset="cases/onboarding/loading-dark.webp" media="(prefers-color-scheme: dark)"><img src="cases/onboarding/loading.webp" width="1864" height="1116" alt="Заставки во время загрузки: кадры еды, логотип и короткий факт о продукте" loading="lazy"></picture><figcaption>Загрузка приложения</figcaption></figure>
       <p class="case__text">Пока приложение грузится, человек всё равно смотрит на экран. Я решила использовать эти секунды. На заставке идут кадры с производства и один короткий проверяемый факт о продукте, например о том, как контролируют качество. Потом появляется короткое обещание бренда.</p>
       <p class="case__text">Факты меняются от запуска к запуску, и каждый проверяют технологи. Заставка живёт ровно столько, сколько идёт загрузка. Знакомство теперь можно пропустить кнопкой «Пропустить», она есть всегда.</p>
       <div class="case__block"><h4 class="case__h4">Зачем?</h4><p class="case__text">Чтобы показать, чем сеть отличается от других, не добавив ни одного нового экрана.</p></div>
     </div>
     <div class="case__group">
       <h3 class="case__h3">Авторизация в 2 шага</h3>
-      <figure class="case__fig"><img src="cases/onboarding/auth.webp" width="1864" height="1116" alt="Экран входа в Клуб Друзей со Сбер ID и Яндекс ID и экран ввода СМС-кода Сбер ID" loading="lazy"><figcaption>Сократили авторизацию</figcaption></figure>
+      <figure class="case__fig"><picture><source srcset="cases/onboarding/auth-dark.webp" media="(prefers-color-scheme: dark)"><img src="cases/onboarding/auth.webp" width="1864" height="1116" alt="Экран входа в Клуб Друзей со Сбер ID и Яндекс ID и экран ввода СМС-кода Сбер ID" loading="lazy"></picture><figcaption>Сократили авторизацию</figcaption></figure>
       <p class="case__text">Раньше на вход уходило 6 кликов. Теперь основной путь — это Сбер ID: пара тапов, и человек внутри. Имя подтягивается из Сбер, Яндекс или VK ID, поэтому анкету заполнять не нужно. Вход по телефону остался как запасной вариант.</p>
       <div class="case__card"><h4 class="case__h4">Сбер ID и Яндекс ID — выгода для бизнеса</h4><p class="case__text">При входе по телефону компания платит за каждую SMS с кодом или звонок для подтверждения номера. Вход через ID обходится без них. Чем больше людей входит через ID, тем меньше компания тратит на подтверждение номеров.</p></div>
       <figure class="case__fig"><div class="hscroll" tabindex="0" role="region" aria-label="Получение карты лояльности: 4 экрана, прокрутите вбок"><figure class="hscroll__item"><img src="cases/onboarding/card-1.webp" width="495" height="1020" alt="Заставка с логотипом КуулКлевер" loading="lazy" draggable="false"><figcaption>Заставка</figcaption></figure><figure class="hscroll__item"><img src="cases/onboarding/card-2.webp" width="495" height="1020" alt="Экран «Собираем карту…»" loading="lazy" draggable="false"><figcaption>Сборка карты</figcaption></figure><figure class="hscroll__item"><img src="cases/onboarding/card-3.webp" width="495" height="1020" alt="Шторка «Как вас зовут?» с полем имени" loading="lazy" draggable="false"><figcaption>Ввод имени</figcaption></figure><figure class="hscroll__item"><img src="cases/onboarding/card-4.webp" width="495" height="1020" alt="Готовая карта и преимущества клуба" loading="lazy" draggable="false"><figcaption>Готовая карта</figcaption></figure></div><figcaption>Получение карты лояльности</figcaption></figure>
       <p class="case__text">Сразу после входа гость видит свою карту с именем. Она разворачивается с лёгкой анимацией, телефон коротко вибрирует, звучит фирменный звук. Рядом кнопка «Добавить в Wallet». Это главный яркий момент первой сессии, раньше на его месте была формальная карточка.</p>
-      <figure class="case__fig"><img src="cases/onboarding/gate.webp" width="1864" height="1116" alt="Экран 18+: «В КуулКлевер мы развиваем гастрономическую культуру» с кнопками «Нет 18» и «Есть 18»" loading="lazy"><figcaption>Гейт 18+</figcaption></figure>
+      <figure class="case__fig"><picture><source srcset="cases/onboarding/gate-dark.webp" media="(prefers-color-scheme: dark)"><img src="cases/onboarding/gate.webp" width="1864" height="1116" alt="Экран 18+: «В КуулКлевер мы развиваем гастрономическую культуру» с кнопками «Нет 18» и «Есть 18»" loading="lazy"></picture><figcaption>Гейт 18+</figcaption></figure>
       <p class="case__text">В приложении есть раздел с алкоголем, поэтому после входа нужно подтвердить возраст. У конкурентов этот экран сухой и юридический: вопрос «Вам есть 18?» и две кнопки.</p>
       <p class="case__text">Механику мы оставили ту же, юридически ничего не меняется. Поменяли тон: экран говорит голосом эксперта и коротко рассказывает, как сеть отбирает напитки.</p>
       <div class="case__block"><h4 class="case__h4">Зачем?</h4><p class="case__text">Чтобы заинтересовать гостей на первом же экране и показать характер бренда там, где у всех пусто.</p></div>
@@ -1433,11 +1434,11 @@ img{max-width:100%;display:block}
         <p class="case__text">На iOS системное окно с вопросом про уведомления можно показать один раз.</p>
         <p class="case__text">Если человек нажал «Нет», вернуть его почти невозможно. Поэтому перед системным окном мы показываем свою брендовую модалку. В ней коротко сказано, какую пользу дадут уведомления. Кнопки «Включить» и «Не сейчас» одного размера, отказ никак не наказывается.</p></div>
       <div class="case__block"><h4 class="case__h4">Точки входа</h4><p class="case__text">Выбрали там, где пользователю уже интересно:</p><ul class="ach"><li>При просмотре акций, когда он хочет не пропустить скидку.</li><li>В корзине, когда ему важно знать, где его заказ.</li><li>В каталоге, когда хочет узнать о поступлении товара.</li></ul></div>
-      <figure class="case__fig"><img src="cases/onboarding/push.webp" width="1864" height="1116" alt="Корзина, брендовая модалка «Для вас — чуть больше» и системный запрос уведомлений iOS" loading="lazy"><figcaption>Запросы на пуши</figcaption></figure>
+      <figure class="case__fig"><picture><source srcset="cases/onboarding/push-dark.webp" media="(prefers-color-scheme: dark)"><img src="cases/onboarding/push.webp" width="1864" height="1116" alt="Корзина, брендовая модалка «Для вас — чуть больше» и системный запрос уведомлений iOS" loading="lazy"></picture><figcaption>Запросы на пуши</figcaption></figure>
     </div>
     <div class="case__group">
       <div class="case__block"><h3 class="case__h3">Уведомления и чат Клеверти</h3><p class="case__text">Раздел уведомлений раньше был списком служебных сообщений. Мы переделали его в формат чата. Сообщения приходят от фирменного персонажа бренда, как от знакомого, а не от системы.</p></div>
-      <figure class="case__fig"><img src="cases/onboarding/chat.webp" width="1864" height="1116" alt="Раздел уведомлений и чат с Куул-ассистентом Клеверти, который спрашивает имя и рассказывает факты" loading="lazy"><figcaption>Уведомления и чат Клеверти</figcaption></figure>
+      <figure class="case__fig"><picture><source srcset="cases/onboarding/chat-dark.webp" media="(prefers-color-scheme: dark)"><img src="cases/onboarding/chat.webp" width="1864" height="1116" alt="Раздел уведомлений и чат с Куул-ассистентом Клеверти, который спрашивает имя и рассказывает факты" loading="lazy"></picture><figcaption>Уведомления и чат Клеверти</figcaption></figure>
       <p class="case__text">В чат добавили раздел с ботом. Начиная с третьей сессии персонаж в коротком диалоге спрашивает имя, дату рождения и почту. После сбора данных, чтобы повысить вовлечённость и познакомить с брендом, Клеверти предлагает рассказать интересные факты о КуулКлевере.</p>
       <div class="case__block"><h4 class="case__h4">Почему не просим всё при регистрации?</h4><p class="case__text">Раньше пуши и личные данные просили при регистрации и сразу после входа. Мы от этого отказались по трём причинам:</p><ul class="ach"><li>Каждый лишний шаг в начале теряет часть людей. Новичок пришёл за едой, а не за анкетой.</li><li>Человек ещё не получил ничего полезного и не понимает, зачем делиться данными. В момент, когда польза понятна, он соглашается охотнее.</li><li>Системный запрос пушей одноразовый. Потратить его на первом экране значит часто потерять этого человека для уведомлений навсегда.</li></ul></div>
     </div>

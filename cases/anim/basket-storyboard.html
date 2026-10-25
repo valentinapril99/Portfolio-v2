@@ -8,7 +8,7 @@
 :root{
   --page:#E9ECF2; --text:#1E1E1E; --muted:#6B7280; --track:#D3D8E0;
   --accent:#80BA27; --accent-ink:#ffffff; --btn:#ffffff; --btn-line:#D3D8E0;
-  --scene:#F6F7FA;
+  --scene:var(--scene-bg);
   box-sizing:border-box;
   padding-top:env(safe-area-inset-top,0px);
   padding-bottom:env(safe-area-inset-bottom,0px);
@@ -55,7 +55,8 @@ input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;bac
 .time{font-variant-numeric:tabular-nums;color:var(--muted);min-width:118px;text-align:right;font-size:14px}
 @media (max-width:520px){.time{min-width:0}.time .frame{display:none}button{padding:0 12px}}
 </style>
-<style>/* встраивание на сайт: без панели управления, по размеру окна */html,body{background:#F6F7FA!important;overflow:hidden!important}body{padding:0!important;gap:0!important;margin:0;height:100vh;display:flex!important;align-items:center!important;justify-content:center!important}.controls{display:none!important}.fit{width:min(100vw,100vh)!important;height:min(100vw,100vh)!important;border-radius:0!important}</style>
+<style>/* встраивание на сайт: без панели управления, по размеру окна */html,body{background:var(--scene-bg)!important;overflow:hidden!important}body{padding:0!important;gap:0!important;margin:0;height:100vh;display:flex!important;align-items:center!important;justify-content:center!important}.controls{display:none!important}.fit{width:min(100vw,100vh)!important;height:min(100vw,100vh)!important;border-radius:0!important}</style>
+<style>:root{--scene-bg:#F6F7FA}@media (prefers-color-scheme: dark){:root{--scene-bg:#26272B}}</style>
 </head>
 <body>
 <div class="fit" id="fit">
