@@ -1373,6 +1373,8 @@ img{max-width:100%;display:block}
   var dR=document.getElementById('gR'), dG=document.getElementById('gG'), dB=document.getElementById('gB');
   if(!el||!img) return;
   var REFRACTION=0.71, DISPERSION=0.23;
+  /* в макете стекло выше ленты (491 против 335), поэтому верх и низ карточек не искажаются — только боковые кромки */
+  var SIDES=!!el.closest('.sp');
   var desk=window.matchMedia('(min-width:1440px)'), tab=window.matchMedia('(min-width:768px)');
   var last='';
   function build(){
@@ -1384,9 +1386,9 @@ img{max-width:100%;display:block}
     var cv=document.createElement('canvas'); cv.width=W; cv.height=H;
     var ctx=cv.getContext('2d'), data=ctx.createImageData(W,H), p=data.data;
     for(var y=0;y<H;y++){ for(var x=0;x<W;x++){
-      var d=Math.min(x+.5, W-x-.5, y+.5, H-y-.5), o=(y*W+x)*4, dx=0, dy=0;
+      var d=SIDES?Math.min(x+.5, W-x-.5):Math.min(x+.5, W-x-.5, y+.5, H-y-.5), o=(y*W+x)*4, dx=0, dy=0;
       if(d<D){
-        var t=1-d/D, m=L*t*t*t, vx=cx-x, vy=cy-y, len=Math.hypot(vx,vy)||1;
+        var t=1-d/D, m=L*t*t*t, vx=cx-x, vy=SIDES?0:cy-y, len=Math.hypot(vx,vy)||1;
         dx=vx/len*m; dy=vy/len*m;
       }
       p[o]=Math.round(255*(0.5+dx/S)); p[o+1]=Math.round(255*(0.5+dy/S)); p[o+2]=128; p[o+3]=255;
