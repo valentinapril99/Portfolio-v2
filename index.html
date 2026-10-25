@@ -521,6 +521,27 @@ img{max-width:100%;display:block}
   .case__fig .hscroll img{width:180px;scroll-margin-left:24px}
 }
 
+/* края блока с экранами: плавное затухание и стрелки при наведении */
+.hsw{position:relative;border-radius:48px;overflow:hidden}
+.hsw::before,.hsw::after{content:"";position:absolute;top:0;bottom:0;width:96px;z-index:1;pointer-events:none;opacity:0;transition:opacity .2s ease}
+.hsw::before{left:0;background:linear-gradient(90deg,#f6f7fa 20%,rgba(246,247,250,0))}
+.hsw::after{right:0;background:linear-gradient(270deg,#f6f7fa 20%,rgba(246,247,250,0))}
+.hsw.has-prev::before,.hsw.has-next::after{opacity:1}
+.hsw__btn{position:absolute;top:50%;z-index:2;width:44px;height:44px;margin-top:-22px;border:0;border-radius:50%;background:#fff;color:#0f0f0f;
+  box-shadow:0 4px 16px rgba(15,15,15,.12);display:grid;place-items:center;cursor:pointer;opacity:0;visibility:hidden;transition:opacity .2s ease,visibility .2s,transform .2s ease}
+.hsw__btn--prev{left:16px}
+.hsw__btn--next{right:16px}
+.hsw__btn:hover{transform:scale(1.08)}
+.hsw__btn:focus-visible{outline:2px solid var(--main-1);outline-offset:2px}
+@media (hover:hover){
+  .hsw.has-prev:hover .hsw__btn--prev,.hsw.has-next:hover .hsw__btn--next,
+  .hsw.has-prev .hsw__btn--prev:focus-visible,.hsw.has-next .hsw__btn--next:focus-visible{opacity:1;visibility:visible}
+}
+@media (max-width:767px){
+  .hsw{border-radius:24px}
+  .hsw::before,.hsw::after{width:48px}
+}
+
 /* экраны с подписями внутри горизонтальной прокрутки */
 .hscroll__item{margin:0;display:flex;flex-direction:column;align-items:center;gap:16px;flex:none;scroll-snap-align:start;scroll-margin-left:48px}
 .case__fig .hscroll__item img{scroll-snap-align:none}
@@ -1387,7 +1408,7 @@ img{max-width:100%;display:block}
       <figure class="case__fig"><img src="cases/onboarding/auth.webp" width="1864" height="1116" alt="Экран входа в Клуб Друзей со Сбер ID и Яндекс ID и экран ввода СМС-кода Сбер ID" loading="lazy"><figcaption>Сократили авторизацию</figcaption></figure>
       <p class="case__text">Раньше на вход уходило 6 кликов. Теперь основной путь — это Сбер ID: пара тапов, и человек внутри. Имя подтягивается из Сбер, Яндекс или VK ID, поэтому анкету заполнять не нужно. Вход по телефону остался как запасной вариант.</p>
       <div class="case__card"><h4 class="case__h4">Сбер ID и Яндекс ID — выгода для бизнеса</h4><p class="case__text">При входе по телефону компания платит за каждую SMS с кодом или звонок для подтверждения номера. Вход через ID обходится без них. Чем больше людей входит через ID, тем меньше компания тратит на подтверждение номеров.</p></div>
-      <figure class="case__fig"><img src="cases/onboarding/card.webp" width="1864" height="1116" alt="Получение карты лояльности: заставка, «Собираем карту…» и шторка «Как вас зовут?»" loading="lazy"><figcaption>Получение карты лояльности</figcaption></figure>
+      <figure class="case__fig"><div class="hscroll" tabindex="0" role="region" aria-label="Получение карты лояльности: 4 экрана, прокрутите вбок"><figure class="hscroll__item"><img src="cases/onboarding/card-1.webp" width="495" height="1020" alt="Заставка с логотипом КуулКлевер" loading="lazy" draggable="false"><figcaption>Заставка</figcaption></figure><figure class="hscroll__item"><img src="cases/onboarding/card-2.webp" width="495" height="1020" alt="Экран «Собираем карту…»" loading="lazy" draggable="false"><figcaption>Сборка карты</figcaption></figure><figure class="hscroll__item"><img src="cases/onboarding/card-3.webp" width="495" height="1020" alt="Шторка «Как вас зовут?» с полем имени" loading="lazy" draggable="false"><figcaption>Ввод имени</figcaption></figure><figure class="hscroll__item"><img src="cases/onboarding/card-4.webp" width="495" height="1020" alt="Готовая карта и преимущества клуба" loading="lazy" draggable="false"><figcaption>Готовая карта</figcaption></figure></div><figcaption>Получение карты лояльности</figcaption></figure>
       <p class="case__text">Сразу после входа гость видит свою карту с именем. Она разворачивается с лёгкой анимацией, телефон коротко вибрирует, звучит фирменный звук. Рядом кнопка «Добавить в Wallet». Это главный яркий момент первой сессии, раньше на его месте была формальная карточка.</p>
       <figure class="case__fig"><img src="cases/onboarding/gate.webp" width="1864" height="1116" alt="Экран 18+: «В КуулКлевер мы развиваем гастрономическую культуру» с кнопками «Нет 18» и «Есть 18»" loading="lazy"><figcaption>Гейт 18+</figcaption></figure>
       <p class="case__text">В приложении есть раздел с алкоголем, поэтому после входа нужно подтвердить возраст. У конкурентов этот экран сухой и юридический: вопрос «Вам есть 18?» и две кнопки.</p>
@@ -1590,6 +1611,29 @@ document.querySelectorAll('.works').forEach(function(el,n){
     window.addEventListener('pointermove',function(e){if(!down)return;var dx=e.clientX-x0;if(Math.abs(dx)>5){moved=true;el.classList.add('is-drag')}if(moved)el.scrollLeft=s0-dx});
     window.addEventListener('pointerup',function(){if(!down)return;down=false;el.classList.remove('is-drag')});
     el.addEventListener('click',function(e){if(moved){e.stopPropagation();e.preventDefault();moved=false}},true);
+  });
+})();
+/* Блоки с экранами: затухание у края, за которым есть ещё экраны, и стрелки для прокрутки */
+(function(){
+  var ico=function(d){return '<svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="'+d+'" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>'};
+  document.querySelectorAll('.hscroll').forEach(function(el){
+    var w=document.createElement('div'); w.className='hsw';
+    el.parentNode.insertBefore(w,el); w.appendChild(el);
+    function btn(cls,label,d,dir){
+      var b=document.createElement('button'); b.type='button'; b.className='hsw__btn '+cls; b.setAttribute('aria-label',label); b.innerHTML=ico(d);
+      b.addEventListener('click',function(){el.scrollBy({left:dir*el.clientWidth*0.7,behavior:'smooth'})});
+      w.appendChild(b);
+    }
+    btn('hsw__btn--prev','Прокрутить назад','M12.5 4.5 7 10l5.5 5.5',-1);
+    btn('hsw__btn--next','Прокрутить вперёд','M7.5 4.5 13 10l-5.5 5.5',1);
+    function upd(){
+      var max=el.scrollWidth-el.clientWidth;
+      w.classList.toggle('has-prev',el.scrollLeft>2);
+      w.classList.toggle('has-next',el.scrollLeft<max-2);
+    }
+    el.addEventListener('scroll',upd,{passive:true}); window.addEventListener('resize',upd);
+    el.querySelectorAll('img').forEach(function(i){if(!i.complete)i.addEventListener('load',upd)});
+    upd();
   });
 })();
 /* Фото в кейсах и концептах открываются на весь экран; листаются стрелками, клавишами и свайпом */
