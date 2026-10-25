@@ -569,7 +569,7 @@ img{max-width:100%;display:block}
 /* ================= Одностраничная главная (тестовая структура) ================= */
 .sp{display:flex;flex-direction:column;gap:120px;overflow-x:clip;background:var(--surface)}
 .sp-col{width:min(1044px,100%);margin:0 auto;padding:0 56px}
-.sp-top{position:sticky;top:0;z-index:10;background:var(--surface);padding:24px 0 16px;margin-bottom:-56px}
+.sp-top{position:sticky;top:0;z-index:10;background:var(--surface);padding:24px 0 16px;margin-bottom:-72px}
 .sp-top__in{display:flex;align-items:center;justify-content:space-between;gap:16px}
 .sp-top .profile{text-decoration:none;color:inherit;flex:0 1 auto}
 .sp-top .avatar{width:72px;height:72px;border-radius:24px}
@@ -577,7 +577,7 @@ img{max-width:100%;display:block}
 .sp-top .profile__role{display:block;font-size:20px;line-height:28px;letter-spacing:.4px}
 .sp-top .text{display:flex;flex-direction:column;gap:4px}
 .sp-top .btn{height:72px;padding:16px 32px;font-size:20px;letter-spacing:.4px;background:var(--btn-secondary-s);min-width:0}
-.sp-hero{display:flex;flex-direction:column;gap:40px}  /* 64px от шапки: gap .sp (120) − margin-bottom шапки (56) */
+.sp-hero{display:flex;flex-direction:column;gap:40px}  /* 64px от шапки до текста: gap .sp (120) − (margin-bottom шапки 72 − её нижний отступ 16) */
 .sp-hero__t{margin:0;max-width:600px;font:600 24px/32px var(--font-display);color:var(--main-3)}
 .sp-sec{display:flex;flex-direction:column;gap:64px;scroll-margin-top:120px}
 .sp-head{display:flex;flex-direction:column;gap:24px;align-items:flex-start}
@@ -603,7 +603,7 @@ img{max-width:100%;display:block}
 @media (max-width:767px){
   .sp{gap:80px;background:var(--page-mobile)}
   .sp-col{padding:0 16px}
-  .sp-top{padding:8px 0;margin-bottom:-40px;background:var(--page-mobile)}
+  .sp-top{padding:8px 0;margin-bottom:-48px;background:var(--page-mobile)}
   .sp-top .avatar{width:48px;height:48px;border-radius:16px}
   .sp-top .profile__name{font-size:18px;line-height:24px;letter-spacing:0}
   .sp-top .profile__role{font:500 14px/17px var(--font-text);color:var(--el-secondary)}
