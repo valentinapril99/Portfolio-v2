@@ -419,7 +419,7 @@ picture{display:contents}
 
 /* таблица конкурентов */
 .cmp{display:flex;flex-direction:column;gap:16px}
-.cmp__scroll{overflow-x:auto;scrollbar-width:none}
+.cmp__scroll{overflow-x:auto;overflow-y:hidden;padding-right:8px;padding-bottom:8px;margin-right:-8px;margin-bottom:-8px;scrollbar-width:none}  /* место под выступ таблицы (margin:-8px под border-spacing), иначе на десктопе появлялась прокрутка */
 .cmp__scroll::-webkit-scrollbar{display:none}
 .cmp__table{border-collapse:separate;border-spacing:8px;margin:-8px;min-width:913px}
 .cmp__table thead th{padding:0;width:66px;vertical-align:bottom}
@@ -504,7 +504,8 @@ picture{display:contents}
   .case__card{padding:20px;gap:12px}
   .case__tags{gap:8px}
   .case__tags li,.case__tag{padding:8px 16px}
-  .cmp__scroll{margin:-48px -16px 0;padding:48px 16px 0}
+  .cmp__scroll{margin:-48px -16px -8px;padding:48px 16px 8px}
+  .cmp .hsw::before{left:-16px} .cmp .hsw::after{right:-16px}
   .cmp__table{min-width:760px}
   .cmp__table tbody th{padding:12px 16px;font-size:16px;line-height:24px}
   .ice__head{display:none}
@@ -535,8 +536,11 @@ picture{display:contents}
 /* края блока с экранами: плавное затухание и стрелки при наведении */
 .hsw{position:relative;border-radius:48px;overflow:hidden}
 .hsw::before,.hsw::after{content:"";position:absolute;top:0;bottom:0;width:96px;z-index:1;pointer-events:none;opacity:0;transition:opacity .2s ease}
-.hsw::before{left:0;background:linear-gradient(90deg,var(--btn-secondary) 20%,transparent)}
-.hsw::after{right:0;background:linear-gradient(270deg,var(--btn-secondary) 20%,transparent)}
+.hsw::before{left:0;background:linear-gradient(90deg,var(--hsw-fade,var(--btn-secondary)) 20%,transparent)}
+.hsw::after{right:0;background:linear-gradient(270deg,var(--hsw-fade,var(--btn-secondary)) 20%,transparent)}
+/* таблица конкурентов: та же подсказка, но в цвет страницы; блок прокрутки выходит за обёртку отрицательными отступами */
+.cmp .hsw{--hsw-fade:var(--surface);border-radius:0;overflow:visible}
+.cmp .hsw::before{left:-24px} .cmp .hsw::after{right:-8px}
 .hsw.has-prev::before,.hsw.has-next::after{opacity:1}
 .hsw__btn{position:absolute;top:50%;z-index:2;width:44px;height:44px;margin-top:-22px;border:0;border-radius:50%;background:var(--surface);color:var(--name);
   box-shadow:0 4px 16px rgba(15,15,15,.12);display:grid;place-items:center;cursor:pointer;opacity:0;visibility:hidden;transition:opacity .2s ease,visibility .2s,transform .2s ease}
@@ -1692,7 +1696,7 @@ document.querySelectorAll('.works').forEach(function(el,n){
 })();
 /* Блоки с экранами и мини-карточки проектов: мышью можно тянуть вбок; после перетаскивания клик не срабатывает */
 (function(){
-  document.querySelectorAll('.hscroll, .minis').forEach(function(el){
+  document.querySelectorAll('.hscroll, .minis, .cmp__scroll').forEach(function(el){
     el.addEventListener('dragstart',function(e){e.preventDefault()});  /* не таскать картинки и ссылки как файлы */
     var x0=0,s0=0,down=false,moved=false;
     el.addEventListener('pointerdown',function(e){if(e.pointerType!=='mouse'||e.button!==0)return;down=true;moved=false;x0=e.clientX;s0=el.scrollLeft});
@@ -1704,7 +1708,7 @@ document.querySelectorAll('.works').forEach(function(el,n){
 /* Блоки с экранами: затухание у края, за которым есть ещё экраны, и стрелки для прокрутки */
 (function(){
   var ico=function(d){return '<svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="'+d+'" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>'};
-  document.querySelectorAll('.hscroll').forEach(function(el){
+  document.querySelectorAll('.hscroll, .cmp__scroll').forEach(function(el){
     var w=document.createElement('div'); w.className='hsw';
     el.parentNode.insertBefore(w,el); w.appendChild(el);
     function btn(cls,label,d,dir){
@@ -1719,7 +1723,8 @@ document.querySelectorAll('.works').forEach(function(el,n){
       w.classList.toggle('has-prev',el.scrollLeft>2);
       w.classList.toggle('has-next',el.scrollLeft<max-2);
     }
-    el.addEventListener('scroll',upd,{passive:true}); window.addEventListener('resize',upd);
+    el.addEventListener('scroll',upd,{passive:true});
+    if('ResizeObserver' in window) new ResizeObserver(upd).observe(el); else window.addEventListener('resize',upd);  /* в т.ч. когда скрытый кейс становится видимым */
     el.querySelectorAll('img').forEach(function(i){if(!i.complete)i.addEventListener('load',upd)});
     upd();
   });
