@@ -14,6 +14,7 @@
   --on-primary:#f0f0f2; --btn-secondary:#f6f7fa; --btn-secondary-s:#f0f0f2;
   --name:#0f0f0f; --surface:#ffffff; --page:#ffffff; --page-mobile:#f9f9f9;
   --overlay:rgba(255,255,255,.96);
+  --card-m:#ffffff;  /* плашки на мобильном фоне */
   --font-text:"Golos Text", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   --font-nav:"Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   --font-display:"Montserrat Alternates", "Montserrat", system-ui, sans-serif;
@@ -26,14 +27,14 @@
   :root:not([data-theme="light"]){
     --main-2:#f0f0f2; --main-3:#f5f6f8; --el-main:#e6e6ea; --el-secondary:#b4b6ba; --el-disable:#85888d;
     --on-primary:#1a1a1c; --btn-secondary:#26272b; --btn-secondary-s:#26272b;
-    --name:#f5f5f7; --surface:#141518; --page:#141518; --page-mobile:#141518; --overlay:rgba(20,21,24,.97);
+    --name:#f5f5f7; --surface:#141518; --page:#141518; --page-mobile:#141518; --overlay:rgba(20,21,24,.97); --card-m:#26272b;
     color-scheme: dark;
   }
 }
 :root[data-theme="dark"]{
   --main-2:#f0f0f2; --main-3:#f5f6f8; --el-main:#e6e6ea; --el-secondary:#b4b6ba; --el-disable:#85888d;
   --on-primary:#1a1a1c; --btn-secondary:#26272b; --btn-secondary-s:#26272b;
-  --name:#f5f5f7; --surface:#141518; --page:#141518; --page-mobile:#141518; --overlay:rgba(20,21,24,.97);
+  --name:#f5f5f7; --surface:#141518; --page:#141518; --page-mobile:#141518; --overlay:rgba(20,21,24,.97); --card-m:#26272b;
   color-scheme: dark;
 }
 html{scroll-padding-top:env(safe-area-inset-top,0px)}
@@ -460,12 +461,12 @@ img{max-width:100%;display:block}
 .persona__part{display:flex;flex-direction:column;gap:16px}
 .ach li.ach__anton::before{width:25px;height:25px;margin-top:1px;-webkit-mask:none;mask:none;background:url("cases/eat-fast/anton.webp") center/cover}
 @media (max-width:767px){
-  .persona{gap:24px;padding:20px;background:var(--surface)}
+  .persona{gap:24px;padding:20px;background:var(--card-m)}
   .persona__t{font-size:20px;line-height:28px;letter-spacing:.4px}
   .persona__who{flex-direction:column;gap:8px}
   .persona__who>img{width:88px;height:88px}
-  .persona__quote{background:var(--btn-secondary);font-size:16px;line-height:24px;letter-spacing:.32px}
-  .persona__quote::after{background:var(--btn-secondary);top:auto;bottom:100%;left:24px;transform:scaleY(-1)}
+  .persona__quote{background:var(--page-mobile);font-size:16px;line-height:24px;letter-spacing:.32px}
+  .persona__quote::after{background:var(--page-mobile);top:auto;bottom:100%;left:24px;transform:scaleY(-1)}
   .persona__who .persona__quote{margin:0}
   .persona__part{gap:12px}
 }
@@ -502,7 +503,7 @@ img{max-width:100%;display:block}
   .ice__h{grid-column:1/-1}
   .ice__row>span{display:flex;flex-direction:column;padding:8px 12px}
   .ice__row>span::before{content:attr(data-k);font-size:13px;line-height:18px;color:var(--el-disable)}
-  .case__stat,.case__card,.case__read,.case__tag,.case__tags li,.cmp__table tbody td,.cmp__table tbody th,.ice__row>*{background-color:var(--surface)}
+  .case__stat,.case__card,.case__read,.case__tag,.case__tags li,.cmp__table tbody td,.cmp__table tbody th,.ice__row>*{background-color:var(--card-m)}
 }
 
 
@@ -538,7 +539,7 @@ img{max-width:100%;display:block}
   .hscroll__item{gap:8px;scroll-margin-left:24px}
   .hscroll__item figcaption{font-size:14px;line-height:20px;max-width:180px}
   .hyps{gap:12px}
-  .hyps li{padding:12px 16px;font-size:16px;line-height:24px;background:var(--surface)}
+  .hyps li{padding:12px 16px;font-size:16px;line-height:24px;background:var(--card-m)}
   .next-case{gap:8px;padding-top:16px}
   .next-case__k{font-size:18px;line-height:24px}
   .next-case__t{font-size:40px}
