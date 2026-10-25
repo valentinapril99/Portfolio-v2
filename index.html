@@ -1055,7 +1055,7 @@ img{max-width:100%;display:block}
     <div class="case__group">
       <h3 class="case__h3">Ребрендинг раздела</h3>
       <p class="case__text">Предложила зеленый лист как знак скидки для раздела «Ешь скорее». С командой пришли к более короткому и звучному названию раздела «Ешь скорее» вместо «Съесть сегодня».</p>
-      <figure class="case__fig"><img src="cases/eat-fast/brand.webp" width="1864" height="1116" alt="Баннер «Ешь скорее — скидки до 40%» с зелёным листом на главной приложения" loading="lazy"><figcaption>Знак скидки «Ешь скорее»</figcaption></figure>
+      <figure class="case__fig"><div class="anim" data-anim="cases/anim/preview-eat-fast.html" data-title="Анимация: ребрендинг раздела «Ешь скорее»"><img src="cases/eat-fast/brand.webp" width="1165" height="698" alt="Раздел «Ешь скорее» в каталоге с зелёными листьями — знаком скидки" loading="lazy"></div><figcaption>Ребрендинг раздела</figcaption></figure>
     </div>
     <div class="case__group">
       <h3 class="case__h3">Каталог</h3>
@@ -1484,6 +1484,7 @@ img{max-width:100%;display:block}
       f.addEventListener('load',function(){
         var ok=false; try{ var d=f.contentDocument; ok=!!(d&&d.title&&d.querySelector('script')); }catch(e){}  /* страница с ошибкой загрузки недоступна или пустая */
         if(!ok){ clearTimeout(fail); f.remove(); return; }
+        try{ var c=f.contentWindow.__ctl; if(c){ c.reset(); c.play(); } }catch(e){}  /* превью стартуют только по команде страницы */
         setTimeout(function(){ if(f.isConnected){ done=true; clearTimeout(fail); el.classList.add('is-playing'); } },600);
       });
       f.src=el.getAttribute('data-anim'); el.appendChild(f);
