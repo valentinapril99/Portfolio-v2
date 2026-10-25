@@ -25,16 +25,16 @@
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
-    --main-2:#f0f0f2; --main-3:#f5f6f8; --el-main:#e6e6ea; --el-secondary:#b4b6ba; --el-disable:#85888d;
+    --main-2:#f0f0f2; --main-3:#f0f0f2; --el-main:#f0f0f2; --el-secondary:#b4b6ba; --el-disable:#85888d;
     --on-primary:#1a1a1c; --btn-secondary:#26272b; --btn-secondary-s:#26272b;
-    --name:#f5f5f7; --surface:#141518; --page:#141518; --page-mobile:#141518; --overlay:rgba(20,21,24,.97); --card-m:#26272b;
+    --name:#f0f0f2; --surface:#141518; --page:#141518; --page-mobile:#141518; --overlay:rgba(20,21,24,.97); --card-m:#26272b;
     color-scheme: dark;
   }
 }
 :root[data-theme="dark"]{
-  --main-2:#f0f0f2; --main-3:#f5f6f8; --el-main:#e6e6ea; --el-secondary:#b4b6ba; --el-disable:#85888d;
+  --main-2:#f0f0f2; --main-3:#f0f0f2; --el-main:#f0f0f2; --el-secondary:#b4b6ba; --el-disable:#85888d;
   --on-primary:#1a1a1c; --btn-secondary:#26272b; --btn-secondary-s:#26272b;
-  --name:#f5f5f7; --surface:#141518; --page:#141518; --page-mobile:#141518; --overlay:rgba(20,21,24,.97); --card-m:#26272b;
+  --name:#f0f0f2; --surface:#141518; --page:#141518; --page-mobile:#141518; --overlay:rgba(20,21,24,.97); --card-m:#26272b;
   color-scheme: dark;
 }
 html{scroll-padding-top:env(safe-area-inset-top,0px);scrollbar-gutter:stable}  /* место под полосу прокрутки не пропадает, когда меню или галерея блокируют прокрутку */
@@ -987,7 +987,7 @@ picture{display:contents}
     </div>
     <figure class="case__fig"><div class="anim" data-anim="cases/anim/basket-storyboard.html" data-title="Анимация: анализ корзины в приложении"><picture><source srcset="cases/basket/audit-1-dark.webp" media="(prefers-color-scheme: dark)"><img src="cases/basket/audit-1.webp" width="1864" height="1280" alt="Корзина приложения КуулКлевер до редизайна" loading="lazy"></picture></div><figcaption>Анализ корзины в приложении 1/2</figcaption></figure>
     <figure class="case__fig"><picture><source srcset="cases/basket/audit-2-dark.webp" media="(prefers-color-scheme: dark)"><img src="cases/basket/audit-2.webp" width="1864" height="1280" alt="Группы товаров в корзине до редизайна: доступно на другую дату, самовывозом, недоступно" loading="lazy"></picture><figcaption>Анализ корзины в приложении 2/2</figcaption></figure>
-    <figure class="case__fig"><div class="hscroll" tabindex="0" role="region" aria-label="Путь пользователя: 7 экранов, прокрутите вбок"><img src="cases/basket/path-1.webp" width="494" height="1088" alt="Каталог" loading="lazy" draggable="false"><img src="cases/basket/path-2.webp" width="494" height="1088" alt="Корзина" loading="lazy" draggable="false"><img src="cases/basket/path-3.webp" width="494" height="1088" alt="Настройки корзины" loading="lazy" draggable="false"><img src="cases/basket/path-4.webp" width="494" height="1088" alt="Настройки корзины: выбраны адрес и дата" loading="lazy" draggable="false"><img src="cases/basket/path-5.webp" width="494" height="1088" alt="Корзина: доступно для заказа 20 мая" loading="lazy" draggable="false"><img src="cases/basket/path-6.webp" width="494" height="1088" alt="Оформление" loading="lazy" draggable="false"><img src="cases/basket/path-7.webp" width="494" height="1088" alt="Заказ оформлен" loading="lazy" draggable="false"></div><figcaption>Путь пользователя</figcaption></figure>
+    <figure class="case__fig"><div class="hscroll" tabindex="0" role="region" aria-label="Путь пользователя: 7 экранов, прокрутите вбок"><figure class="hscroll__item"><img src="cases/basket/path-1.webp" width="495" height="1020" alt="Каталог" loading="lazy" draggable="false"><figcaption>Каталог</figcaption></figure><figure class="hscroll__item"><img src="cases/basket/path-2.webp" width="495" height="1020" alt="Корзина" loading="lazy" draggable="false"><figcaption>Корзина</figcaption></figure><figure class="hscroll__item"><img src="cases/basket/path-3.webp" width="495" height="1020" alt="Настройки корзины" loading="lazy" draggable="false"><figcaption>Настройки корзины</figcaption></figure><figure class="hscroll__item"><img src="cases/basket/path-4.webp" width="495" height="1020" alt="Настройки корзины: выбраны адрес и дата" loading="lazy" draggable="false"><figcaption>Настройки корзины</figcaption></figure><figure class="hscroll__item"><img src="cases/basket/path-5.webp" width="495" height="1020" alt="Корзина: доступно для заказа 20 мая" loading="lazy" draggable="false"><figcaption>Корзина</figcaption></figure><figure class="hscroll__item"><img src="cases/basket/path-6.webp" width="495" height="1020" alt="Оформление" loading="lazy" draggable="false"><figcaption>Оформление</figcaption></figure><figure class="hscroll__item"><img src="cases/basket/path-7.webp" width="495" height="1020" alt="Заказ оформлен" loading="lazy" draggable="false"><figcaption>Заказ оформлен</figcaption></figure></div><figcaption>Путь пользователя</figcaption></figure>
 
     <div class="case__group">
       <div class="case__row"><h3 class="case__h3">Анализ конкурентов</h3><span class="case__tag">12 продуктов</span></div>
