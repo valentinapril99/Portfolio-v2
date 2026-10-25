@@ -715,6 +715,12 @@ img{max-width:100%;display:block}
 
 /* меню кейса прижато к верху, вровень с началом кейса */
 @media (min-width:1440px){.sub[data-view^="case-"] .sub__side{justify-content:flex-start}}
+
+/* пункты меню: текущий раздел — жирный со звёздочкой, при наведении — semibold */
+.menu .nav a{display:inline-flex;align-items:center;gap:8px;background:none}
+.menu .nav a:hover,.cnav__list a:hover{font-weight:600;color:var(--name)}
+.menu .nav a[aria-current]{font-weight:600;color:var(--name)}
+.menu .nav a[aria-current]::after{content:"";flex:none;width:19.8px;height:18.635px;background:var(--main-1);-webkit-mask:var(--star) center/contain no-repeat;mask:var(--star) center/contain no-repeat}
 /* ================= Система отступов (правило близости) =================
    Чем теснее связь, тем меньше отступ: подпись ↔ своё изображение < заголовок ↔ свой текст < текст ↔ свой визуал
    < элементы одного списка < подблоки раздела < разделы. Шкала (десктоп / мобильный):
@@ -1730,6 +1736,21 @@ document.querySelectorAll('.works').forEach(function(el,n){
     window.scrollTo({top:0,behavior:smooth?'smooth':'auto'});
   });
   upd();
+})();
+/* Главная: в меню подсвечивается раздел, в котором сейчас находится посетитель */
+(function(){
+  var ids=['projects','career','concepts','about','contacts'], links=document.querySelectorAll('.menu .nav a'), raf=0;
+  function mark(){
+    raf=0; var home=document.getElementById('home'); if(!home||home.classList.contains('is-hidden')) return;
+    var y=window.innerHeight*0.35, cur='';
+    ids.forEach(function(id){ var el=document.getElementById(id); if(el&&el.getBoundingClientRect().top<=y) cur=id; });
+    if(window.innerHeight+window.scrollY>=document.documentElement.scrollHeight-2) cur='contacts';  /* дошли до конца страницы */
+    links.forEach(function(a){ if(cur&&a.getAttribute('href')==='#'+cur) a.setAttribute('aria-current','true'); else a.removeAttribute('aria-current'); });
+  }
+  function sched(){ if(!raf) raf=requestAnimationFrame(mark); }
+  window.addEventListener('scroll',sched,{passive:true}); window.addEventListener('hashchange',function(){setTimeout(mark,60)});
+  document.querySelectorAll('[data-menu-open]').forEach(function(b){ b.addEventListener('click',mark); });
+  mark();
 })();
 /* Модалка «Все права защищены»: закрывается крестиком, Esc и кликом по фону */
 (function(){
