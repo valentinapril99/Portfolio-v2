@@ -712,6 +712,9 @@ img{max-width:100%;display:block}
 .to-top:hover{filter:brightness(.94)}
 .to-top[hidden]{display:flex}
 @media (max-width:767px){.to-top{right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));width:40px;height:40px}}
+
+/* меню кейса прижато к верху, вровень с началом кейса */
+@media (min-width:1440px){.sub[data-view^="case-"] .sub__side{justify-content:flex-start}}
 /* ================= Система отступов (правило близости) =================
    Чем теснее связь, тем меньше отступ: подпись ↔ своё изображение < заголовок ↔ свой текст < текст ↔ свой визуал
    < элементы одного списка < подблоки раздела < разделы. Шкала (десктоп / мобильный):
