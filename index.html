@@ -634,9 +634,9 @@ picture{display:contents}
 .btn--cv>span{display:inline-block;white-space:nowrap;overflow:hidden;transition:max-width .35s cubic-bezier(.4,0,.2,1),opacity .25s ease}
 .btn--cv .cv__s{max-width:3em;opacity:1}
 .btn--cv .cv__l{max-width:0;opacity:0}
-.btn--cv:hover .cv__s,.btn--cv:focus-visible .cv__s,.btn--cv.is-open .cv__s{max-width:0;opacity:0}
-.btn--cv:hover .cv__l,.btn--cv:focus-visible .cv__l,.btn--cv.is-open .cv__l{max-width:12em;opacity:1}
-@media (hover:none){.btn--cv:not(.is-open):hover .cv__s{max-width:3em;opacity:1}.btn--cv:not(.is-open):hover .cv__l{max-width:0;opacity:0}}
+.btn--cv:hover .cv__s,.btn--cv:focus-visible .cv__s{max-width:0;opacity:0}
+.btn--cv:hover .cv__l,.btn--cv:focus-visible .cv__l{max-width:12em;opacity:1}
+@media (hover:none){.btn--cv:hover .cv__s{max-width:3em;opacity:1}.btn--cv:hover .cv__l{max-width:0;opacity:0}}  /* на тач-экранах кнопка не раскрывается от «залипшего» hover */
 @media (prefers-reduced-motion: reduce){.btn--cv>span{transition:none}}
 
 
@@ -1900,16 +1900,6 @@ document.querySelectorAll('.works').forEach(function(el,n){
   window.addEventListener('hashchange',function(){ setTimeout(schedule,50); });
   schedule();
 })();
-/* Кнопка CV на тач-экранах: первое нажатие раскрывает «Скачать резюме», второе открывает предпросмотр */
-(function(){
-  var b=document.querySelector('.btn--cv'); if(!b) return;
-  var touch=window.matchMedia('(hover: none)');
-  b.addEventListener('click',function(e){
-    if(!touch.matches||b.classList.contains('is-open')) return;
-    e.preventDefault(); b.classList.add('is-open');
-  });
-  document.addEventListener('click',function(e){ if(!b.contains(e.target)) b.classList.remove('is-open'); });
-})();
 /* Кнопка «Наверх»: появляется после первого экрана, плавно возвращает к первому блоку */
 (function(){
   var b=document.getElementById('toTop'); if(!b) return; b.hidden=false;
@@ -1946,7 +1936,6 @@ document.querySelectorAll('.works').forEach(function(el,n){
   /* размер берём у самого файла, чтобы подпись не устарела после замены PDF */
   if(window.fetch) fetch(dl.getAttribute('href'),{method:'HEAD'}).then(function(r){ var n=+r.headers.get('content-length'); if(r.ok&&n) size.textContent=fmt(n); }).catch(function(){});
   b.addEventListener('click',function(e){
-    if(e.defaultPrevented) return;  /* на тач-экранах первое нажатие только раскрывает кнопку */
     e.preventDefault(); d.showModal(); document.body.style.overflow='hidden';
   });
   d.querySelector('[data-cv-close]').addEventListener('click',function(){d.close()});
