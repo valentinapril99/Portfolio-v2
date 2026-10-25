@@ -702,6 +702,53 @@ img{max-width:100%;display:block}
   .lb__prev,.lb__next{display:none}
   .lb__close{top:8px;right:8px;width:48px;height:48px}
 }
+
+/* ================= Система отступов (правило близости) =================
+   Чем теснее связь, тем меньше отступ: подпись ↔ своё изображение < заголовок ↔ свой текст < текст ↔ свой визуал
+   < элементы одного списка < подблоки раздела < разделы. Шкала (десктоп / мобильный):
+   xs 4/4 · s 12/8 · m 16/12 · l 32/24 · xl 48/32 · 2xl 80/56 · 3xl 120/80 */
+:root{--s-xs:4px;--s-s:12px;--s-m:16px;--s-l:32px;--s-xl:48px;--s-2xl:80px;--s-3xl:120px}
+@media (max-width:767px){:root{--s-xs:4px;--s-s:8px;--s-m:12px;--s-l:24px;--s-xl:32px;--s-2xl:56px;--s-3xl:80px}}
+/* главная */
+.sp{gap:var(--s-3xl)}
+.sp-hero{gap:var(--s-l)}
+.sp-sec{gap:var(--s-xl)}
+.sp-head{gap:var(--s-m)}
+.sp-head .btn-row,.sp-head .socials{margin-top:var(--s-m)}
+.sp-cases{gap:var(--s-2xl)}
+.sp-cases .pblock{gap:var(--s-m)}
+.sp-cases .ptitle{gap:var(--s-xs)}
+.sp-jobs{gap:var(--s-l)}
+.sp-edu{display:flex;flex-direction:column;gap:var(--s-l);margin-top:var(--s-l)}
+.sp-job__head{gap:var(--s-xs)}
+.sp-job__body>.sp-job__desc:first-child,.sp-job__body>.kp:first-child{margin-top:var(--s-m)}
+.sp-job__body .kp{margin-top:var(--s-l)}
+#about{gap:var(--s-xl)}
+#about .sp-sub{gap:var(--s-l)}
+#about .works--photos+.sp-sub{margin-top:var(--s-l)}
+#about .sp-sub+.sp-sub{margin-top:var(--s-m)}
+/* кейсы */
+.case{gap:var(--s-3xl)}
+.case__hero{gap:var(--s-xl)}
+.case__intro{gap:var(--s-m)}
+.case__titles{gap:var(--s-m)}
+.case__sec{gap:var(--s-xl)}
+.case__sec>.p-title+*{margin-top:calc(var(--s-m) - var(--s-xl))}
+.case__sec>.p-title+.case__block,.case__sec>.p-title+.case__stack,.case__sec>.p-title+.case__group,.case__sec>.p-title+.case__role,.case__sec>.p-title+.ice{margin-top:0}
+.case__block{gap:var(--s-m)}
+.case__stack{gap:var(--s-xl)}
+.case__group{gap:var(--s-l)}
+.case__group+.case__group,.case__role+.case__role{margin-top:var(--s-l)}
+.case__group>.case__h3+.case__text,.case__group>.case__h3+.ach,.case__group>.case__row+.case__text{margin-top:calc(var(--s-m) - var(--s-l))}
+.case__group>.case__block+.case__fig,.case__group>.case__text+.case__fig{margin-top:0}
+.case__sub{gap:var(--s-s)}
+.case__cards{gap:var(--s-l)}
+.case__sec>.case__card+.case__card{margin-top:calc(var(--s-l) - var(--s-xl))}  /* соседние карточки — одна группа */
+.case__card{gap:var(--s-m)}
+.case__fig{gap:var(--s-s)}
+.case__role{gap:var(--s-l)}
+.persona{gap:var(--s-l)}
+.persona__part{gap:var(--s-m)}
 </style>
 </head>
 <body>
@@ -737,10 +784,12 @@ img{max-width:100%;display:block}
       <details class="sp-job"><summary class="sp-job__sum"><span class="sp-job__head"><p class="sp-job__date">Август 2023 г — Декабрь 2023 г</p><p class="sp-job__title">Продуктовый дизайнер, проектная работа</p></span><svg class="sp-job__chev" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary><div class="sp-job__body"><p class="sp-job__desc">Партнёрская платформа массового подбора персонала.<br>Единственный дизайнер: структура, интерфейс, Lottie-анимации, сопровождение разработки.</p></div></details>
       <details class="sp-job"><summary class="sp-job__sum"><span class="sp-job__head"><p class="sp-job__date">Май 2022 г — Июль 2023 г</p><p class="sp-job__title">UX/UI-дизайнер, дизайн-студия Brand&amp;Digital</p></span><svg class="sp-job__chev" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary><div class="sp-job__body"><div class="kp"><ul class="ach"><li>Почётная грамота за вклад в развитие компании.</li></ul></div></div></details>
     </div>
+    <div class="sp-edu">
     <h3 class="p-h2 sp-h3">Образование</h3>
     <div class="sp-jobs">
       <details class="sp-job"><summary class="sp-job__sum"><span class="sp-job__head"><p class="sp-job__date">2023 г</p><p class="sp-job__title"><b>Магистр, НГТУ им. Р.Е. Алексеева</b>, <b>информационные системы и технологии</b></p></span><svg class="sp-job__chev" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary><div class="sp-job__body"><div class="kp"><ul class="ach"><li>Закончила с отличием информационные системы и технологии.</li><li>Победитель 33-й всероссийской конференции по графическим информационным системам.</li><li>Разработала дизайн-проект для всероссийского проекта Передовая инженерная школа НГТУ. Опубликовала статью по теме исследования.</li></ul></div></div></details>
       <details class="sp-job"><summary class="sp-job__sum"><span class="sp-job__head"><p class="sp-job__date">2021 г</p><p class="sp-job__title"><b>Бакалавр, НГТУ им. Р.Е. Алексеева</b>, <b>информационные системы и технологии</b></p></span><svg class="sp-job__chev" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary><div class="sp-job__body"><div class="kp"><ul class="ach"><li>Вошла в списки лучших выпускников своего института ИРИТ за 2021 год.</li><li>Дважды победитель студенческой олимпиады по графическим информационным технологиям.</li><li>Благодарственное письмо за помощь в организации 31-ой Международной конференции по компьютерной графике и машинному зрению. Отвечала за дизайн.</li><li>Благодарственное письмо за помощь в организации 30-ой всероссийской конференции по графическим информационным технологиям. Отвечала за дизайн.</li></ul></div></div></details>
+    </div>
     </div>
   </section>
 
