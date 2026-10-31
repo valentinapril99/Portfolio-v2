@@ -38,11 +38,11 @@
     var css = document.createElement('style');
     css.textContent =
       '.cookie{position:fixed;left:16px;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:1000;' +
-      'max-width:800px;margin:0 auto;display:flex;align-items:center;gap:24px;padding:20px 20px 20px 28px;border-radius:24px;' +
+      'width:fit-content;max-width:720px;margin:0 auto;display:flex;align-items:center;gap:24px;padding:20px 20px 20px 28px;border-radius:24px;' +
       'background:var(--btn-secondary-s,#f0f0f2);color:var(--name,#0f0f0f);box-shadow:0 12px 40px rgba(0,0,0,.16);' +
       'font:400 16px/24px var(--font-text,system-ui,sans-serif);letter-spacing:.32px;animation:cookie-in .3s ease-out}' +
       '.cookie p{margin:0;flex:1;min-width:0}' +
-      '.cookie a{color:inherit;text-decoration:underline;text-decoration-color:var(--main-1,#ff8d2a);' +
+      '.cookie a{white-space:nowrap;color:inherit;text-decoration:underline;text-decoration-color:var(--main-1,#ff8d2a);' +
       'text-decoration-thickness:2px;text-underline-offset:4px}' +
       '.cookie a:hover{color:var(--main-1,#ff8d2a)}' +
       '.cookie .cookie__ok{flex:none}' +  /* сама кнопка — стиль сайта .btn.btn--primary */
