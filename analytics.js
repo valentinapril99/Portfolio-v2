@@ -1,15 +1,20 @@
-/* Аналитика: Яндекс Метрика включается только после согласия посетителя.
-   Выбор хранится в localStorage («analytics-consent»: yes / no).
+/* Аналитика: Яндекс Метрика.
+   Метрика запускается сразу; посетитель видит уведомление о cookie («Хорошо» скрывает его навсегда).
+   Не запускается, если в браузере включён запрет отслеживания (Do Not Track / Global Privacy Control)
+   или посетитель отключил статистику на странице политики («analytics-consent» = no).
    Цели для Метрики (тип «JavaScript-событие»):
      case_open, case_read_solutions, case_read_finish,
      по каждому кейсу: basket_open / basket_solutions / basket_finish,
        eat_fast_open / eat_fast_solutions / eat_fast_finish, onboarding_open / onboarding_solutions / onboarding_finish,
      contact_click, tg_channel_click, cv_open, cv_download, photo_open, concepts_view */
 (function () {
-  var ID = 113964333, KEY = 'analytics-consent', on = false;
+  var ID = 113964333, KEY = 'analytics-consent', NOTICE = 'cookie-notice', on = false;
 
-  function get() { try { return localStorage.getItem(KEY); } catch (e) { return null; } }
-  function set(v) { try { localStorage.setItem(KEY, v); } catch (e) {} }
+  function get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
+  function set(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
+  function blocked() {
+    return get(KEY) === 'no' || navigator.doNotTrack === '1' || window.doNotTrack === '1' || navigator.globalPrivacyControl === true;
+  }
 
   function load() {
     if (on) return; on = true;
@@ -28,32 +33,34 @@
 
   function goal(name, params) { if (on && window.ym) window.ym(ID, 'reachGoal', name, params || {}); }
 
-  /* ---------- плашка согласия ---------- */
-  function banner() {
+  /* ---------- уведомление о cookie ---------- */
+  function notice() {
     var css = document.createElement('style');
     css.textContent =
-      '.consent{position:fixed;left:16px;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:1000;' +
-      'max-width:440px;margin:0 auto 0 0;display:flex;flex-direction:column;gap:16px;padding:20px 24px;border-radius:24px;' +
-      'background:var(--surface,#fff);color:var(--name,#0f0f0f);box-shadow:0 8px 32px rgba(0,0,0,.16);' +
-      'font:400 16px/24px var(--font-text,system-ui,sans-serif);letter-spacing:.32px}' +
-      '.consent p{margin:0}.consent a{color:inherit;text-decoration:underline;text-underline-offset:3px}' +
-      '.consent__row{display:flex;gap:8px;flex-wrap:wrap}' +
-      '.consent__b{flex:1 1 120px;height:48px;padding:0 20px;border:0;border-radius:24px;cursor:pointer;' +
-      'font:500 16px/1 var(--font-text,system-ui,sans-serif);letter-spacing:.32px}' +
-      '.consent__b--yes{background:var(--main-2,#242426);color:var(--on-primary,#f0f0f2)}' +
-      '.consent__b--no{background:var(--btn-secondary-s,#f0f0f2);color:var(--el-main,#242426)}' +
-      '.consent__b:focus-visible{outline:2px solid var(--main-1,#ff8d2a);outline-offset:2px}' +
-      '@media (min-width:768px){.consent{left:24px;bottom:24px}}';
+      '.cookie{position:fixed;left:16px;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:1000;' +
+      'max-width:800px;margin:0 auto;display:flex;align-items:center;gap:24px;padding:20px 20px 20px 28px;border-radius:24px;' +
+      'background:var(--main-2,#242426);color:var(--on-primary,#f0f0f2);box-shadow:0 12px 40px rgba(0,0,0,.24);' +
+      'font:400 16px/24px var(--font-text,system-ui,sans-serif);letter-spacing:.32px;animation:cookie-in .3s ease-out}' +
+      '.cookie p{margin:0;flex:1;min-width:0}' +
+      '.cookie a{color:inherit;text-decoration:underline;text-decoration-color:var(--main-1,#ff8d2a);' +
+      'text-decoration-thickness:2px;text-underline-offset:4px}' +
+      '.cookie a:hover{color:var(--main-1,#ff8d2a)}' +
+      '.cookie__ok{flex:none;height:56px;padding:0 32px;border:0;border-radius:40px;cursor:pointer;' +
+      'background:var(--main-1,#ff8d2a);color:#0f0f0f;font:500 18px/1 var(--font-text,system-ui,sans-serif);letter-spacing:.36px;' +
+      'transition:transform .15s ease}' +
+      '.cookie__ok:hover{transform:translateY(-1px)}.cookie__ok:active{transform:translateY(0)}' +
+      '.cookie__ok:focus-visible{outline:2px solid var(--on-primary,#f0f0f2);outline-offset:3px}' +
+      '@keyframes cookie-in{from{opacity:0;transform:translateY(12px)}}' +
+      '@media (max-width:640px){.cookie{flex-direction:column;align-items:stretch;gap:16px;padding:20px}.cookie__ok{height:48px;font-size:16px}}' +
+      '@media (prefers-reduced-motion:reduce){.cookie{animation:none}}';
     document.head.appendChild(css);
     var el = document.createElement('div');
-    el.className = 'consent'; el.setAttribute('role', 'region'); el.setAttribute('aria-label', 'Согласие на cookies');
+    el.className = 'cookie'; el.setAttribute('role', 'region'); el.setAttribute('aria-label', 'Уведомление о cookie');
     el.innerHTML =
-      '<p>Сайт использует cookies и Яндекс Метрику, чтобы понимать, какие кейсы читают. ' +
-      'Подробнее — в <a href="privacy.html">политике обработки данных</a>.</p>' +
-      '<div class="consent__row"><button type="button" class="consent__b consent__b--yes">Принять</button>' +
-      '<button type="button" class="consent__b consent__b--no">Отклонить</button></div>';
-    el.querySelector('.consent__b--yes').addEventListener('click', function () { set('yes'); el.remove(); load(); });
-    el.querySelector('.consent__b--no').addEventListener('click', function () { set('no'); el.remove(); });
+      '<p>Я использую файлы cookie, чтобы сайт работал корректно и чтобы понимать, какие кейсы читают. ' +
+      'Продолжая просмотр, вы соглашаетесь с этим. Подробнее — в <a href="privacy.html">политике конфиденциальности</a>.</p>' +
+      '<button type="button" class="cookie__ok">Хорошо</button>';
+    el.querySelector('.cookie__ok').addEventListener('click', function () { set(NOTICE, 'ok'); el.remove(); });
     document.body.appendChild(el);
   }
 
@@ -133,12 +140,8 @@
 
   /* ---------- запуск ---------- */
   function boot() {
-    var v = get();
-    if (v === 'yes') load();
-    else if (v !== 'no') banner();
+    if (!blocked()) load();
+    if (get(NOTICE) !== 'ok') notice();
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot); else boot();
-
-  /* для страницы политики: отозвать или дать согласие */
-  window.analyticsConsent = function (v) { set(v ? 'yes' : 'no'); };
 })();
