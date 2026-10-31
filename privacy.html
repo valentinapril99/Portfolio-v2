@@ -65,9 +65,37 @@ li::before{content:"";position:absolute;left:4px;top:9px;width:6px;height:6px;bo
 .opt button{height:48px;padding:0 24px;border:0;border-radius:40px;cursor:pointer;background:var(--main-2);color:var(--on-primary);
   font:500 16px/1 var(--font-text);letter-spacing:.32px}
 
-@media (max-width:640px){
-  .doc{padding-top:32px;gap:40px}
-  h1{font-size:32px;line-height:40px}
+p,li,a{overflow-wrap:anywhere}  /* длинные адреса и почта не вылезают за край */
+.doc{padding-left:max(44px,env(safe-area-inset-left,0px));padding-right:max(44px,env(safe-area-inset-right,0px))}
+
+/* планшет */
+@media (max-width:1023px){
+  .doc{padding-top:48px;padding-bottom:80px;gap:40px;
+    padding-left:max(32px,env(safe-area-inset-left,0px));padding-right:max(32px,env(safe-area-inset-right,0px))}
+  h1{font-size:36px;line-height:44px}
+}
+/* телефон — те же отступы, что на мобильной главной */
+@media (max-width:767px){
+  .doc{padding-top:24px;padding-bottom:calc(64px + env(safe-area-inset-bottom,0px));gap:32px;
+    padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+  .back{gap:8px;font-size:16px;line-height:24px}
+  .back i{width:40px;height:40px}
+  .head{gap:12px}
+  h1{font-size:28px;line-height:36px}
+  .date{font-size:14px;line-height:20px}
+  .sec{gap:12px;padding-top:24px}
+  h2{gap:12px;font-size:20px;line-height:28px;letter-spacing:.4px}
+  ul{gap:8px}
+  li{padding-left:20px}
+  li::before{left:2px}
+  .opt{flex-direction:column;align-items:stretch;gap:12px;padding:16px;border-radius:20px}
+  .opt p{flex:none}
+  .opt button{width:100%}
+}
+/* узкие телефоны */
+@media (max-width:374px){
+  h1{font-size:24px;line-height:32px}
+  h2{font-size:18px;line-height:26px}
 }
 </style>
 </head>
