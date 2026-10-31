@@ -94,7 +94,7 @@ img{max-width:100%;display:block}
    Белая заливка 20% × 20% = 4%, refraction .71, dispersion .23, depth по брейкпоинту. */
 .works::after{content:none}
 .works.has-glass{filter:url(#glass)}
-.works__track{--gap:23px;display:flex;gap:var(--gap);width:max-content;animation:scroll-x 48s linear infinite}
+.works__track{--gap:23px;display:flex;gap:var(--gap);width:max-content;animation:scroll-x 144s linear infinite}
 .works:hover .works__track{animation-play-state:paused}
 .card{width:334px;height:334px;border-radius:23px;overflow:hidden;flex:none;background:#e9eef0}
 .card img{width:100%;height:100%;object-fit:cover}
@@ -226,7 +226,7 @@ img{max-width:100%;display:block}
   .intro .btn{height:72px;padding:16px 32px;font-size:20px;letter-spacing:.4px}
   .intro .btn--primary{min-width:272px}
   .hero .works{position:absolute;top:0;bottom:0;right:16px;width:511px;margin:0;padding:0 79px 0 98px;background:var(--page)}
-  .works__track{flex-direction:column;width:auto;animation:scroll-y 40s linear infinite}
+  .works__track{flex-direction:column;width:auto;animation:scroll-y 120s linear infinite}
   .hero{display:block}
   .footer{padding:28px 56px 40px}
 }
@@ -688,7 +688,7 @@ picture{display:contents}
 .works--photos{margin:0 calc(50% - 50vw);padding:0;background:var(--surface)}
 .card--empty{background:var(--btn-secondary)}
 .works--photos .works__track{animation-direction:reverse}
-.sp .works__track{flex-direction:row;width:max-content;animation:scroll-x 48s linear infinite}
+.sp .works__track{flex-direction:row;width:max-content;animation:scroll-x 144s linear infinite}
 .sp .card{width:335px;height:335px;cursor:zoom-in}
 @media (min-width:1440px){
   .sp{padding-bottom:132px}  /* + отступ футера 28 = 160 */
@@ -1706,12 +1706,12 @@ document.querySelectorAll('.works').forEach(function(el,n){
   m.addEventListener('click',function(e){if(e.target===m)set(false)});
   document.addEventListener('keydown',function(e){if(e.key==='Escape'&&m.classList.contains('is-open'))set(false)});
 })();
-/* Ленты фото и концептов: едут сами (как раньше, 48 с на круг), на наведении стоят; их можно тянуть мышью или пальцем */
+/* Ленты фото и концептов: едут сами (144 с на круг, в 3 раза медленнее прежнего), на наведении стоят; их можно тянуть мышью или пальцем */
 (function(){
   if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   document.querySelectorAll('.sp .works').forEach(function(el){
     var tr=el.querySelector('.works__track'); if(!tr) return;
-    var dir=el.classList.contains('works--photos')?1:-1, DUR=48;
+    var dir=el.classList.contains('works--photos')?1:-1, DUR=144;
     var x=0, P=0, hover=false, down=false, moved=false, x0=0, px0=0, id=null, last=0, vis=true;
     el.classList.add('is-js');
     var base=[].slice.call(tr.children);
