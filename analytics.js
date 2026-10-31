@@ -2,6 +2,8 @@
    Выбор хранится в localStorage («analytics-consent»: yes / no).
    Цели для Метрики (тип «JavaScript-событие»):
      case_open, case_read_solutions, case_read_finish,
+     по каждому кейсу: basket_open / basket_solutions / basket_finish,
+       eat_fast_open / eat_fast_solutions / eat_fast_finish, onboarding_open / onboarding_solutions / onboarding_finish,
      contact_click, tg_channel_click, cv_open, cv_download, photo_open */
 (function () {
   var ID = 113964333, KEY = 'analytics-consent', on = false;
@@ -60,6 +62,7 @@
     var CASES = { 'case-basket': 'basket', 'case-eat-fast': 'eat-fast', 'case-onboarding': 'onboarding' };
     var PREF = { cb: 'basket', es: 'eat-fast', ob: 'onboarding' };
     var source = 'direct', sent = {};
+    function key(c) { return c.replace('-', '_'); }  /* basket, eat_fast, onboarding */
 
     /* откуда открыли кейс: карточка на главной, «следующий кейс», меню */
     document.addEventListener('click', function (e) {
@@ -69,7 +72,7 @@
 
     function caseOpened() {
       var c = CASES[location.hash.slice(1)];
-      if (c) goal('case_open', { case: c, from: source });
+      if (c) { goal('case_open', { case: c, from: source }); goal(key(c) + '_open', { from: source }); }
       source = 'direct';
     }
     window.addEventListener('hashchange', caseOpened);
@@ -83,8 +86,8 @@
           var id = x.target.id, p = id.split('-'), c = PREF[p[0]], s = p.slice(1).join('-');
           if (!c || sent[id]) return; sent[id] = true;
           window.ym(ID, 'params', { 'Глубина чтения': { [c]: { [s]: 1 } } });
-          if (s === 'solutions') goal('case_read_solutions', { case: c });
-          if (s === 'team') goal('case_read_finish', { case: c });
+          if (s === 'solutions') { goal('case_read_solutions', { case: c }); goal(key(c) + '_solutions'); }
+          if (s === 'team') { goal('case_read_finish', { case: c }); goal(key(c) + '_finish'); }
         });
       }, { threshold: 0, rootMargin: '0px 0px -40% 0px' });  /* раздел засчитан, когда его начало поднялось выше 60% экрана */
       document.querySelectorAll('[id^="cb-"],[id^="es-"],[id^="ob-"]').forEach(function (el) {
