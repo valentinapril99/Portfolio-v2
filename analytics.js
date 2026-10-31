@@ -39,19 +39,15 @@
     css.textContent =
       '.cookie{position:fixed;left:16px;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:1000;' +
       'max-width:800px;margin:0 auto;display:flex;align-items:center;gap:24px;padding:20px 20px 20px 28px;border-radius:24px;' +
-      'background:var(--main-2,#242426);color:var(--on-primary,#f0f0f2);box-shadow:0 12px 40px rgba(0,0,0,.24);' +
+      'background:var(--btn-secondary-s,#f0f0f2);color:var(--name,#0f0f0f);box-shadow:0 12px 40px rgba(0,0,0,.16);' +
       'font:400 16px/24px var(--font-text,system-ui,sans-serif);letter-spacing:.32px;animation:cookie-in .3s ease-out}' +
       '.cookie p{margin:0;flex:1;min-width:0}' +
       '.cookie a{color:inherit;text-decoration:underline;text-decoration-color:var(--main-1,#ff8d2a);' +
       'text-decoration-thickness:2px;text-underline-offset:4px}' +
       '.cookie a:hover{color:var(--main-1,#ff8d2a)}' +
-      '.cookie__ok{flex:none;height:56px;padding:0 32px;border:0;border-radius:40px;cursor:pointer;' +
-      'background:var(--main-1,#ff8d2a);color:#0f0f0f;font:500 18px/1 var(--font-text,system-ui,sans-serif);letter-spacing:.36px;' +
-      'transition:transform .15s ease}' +
-      '.cookie__ok:hover{transform:translateY(-1px)}.cookie__ok:active{transform:translateY(0)}' +
-      '.cookie__ok:focus-visible{outline:2px solid var(--on-primary,#f0f0f2);outline-offset:3px}' +
+      '.cookie .cookie__ok{flex:none}' +  /* сама кнопка — стиль сайта .btn.btn--primary */
       '@keyframes cookie-in{from{opacity:0;transform:translateY(12px)}}' +
-      '@media (max-width:640px){.cookie{flex-direction:column;align-items:stretch;gap:16px;padding:20px}.cookie__ok{height:48px;font-size:16px}}' +
+      '@media (max-width:640px){.cookie{flex-direction:column;align-items:stretch;gap:16px;padding:20px}}' +
       '@media (prefers-reduced-motion:reduce){.cookie{animation:none}}';
     document.head.appendChild(css);
     var el = document.createElement('div');
@@ -59,7 +55,7 @@
     el.innerHTML =
       '<p>Я использую файлы cookie, чтобы сайт работал корректно и чтобы понимать, какие кейсы читают. ' +
       'Продолжая просмотр, вы соглашаетесь с этим. Подробнее — в <a href="privacy.html">политике конфиденциальности</a>.</p>' +
-      '<button type="button" class="cookie__ok">Хорошо</button>';
+      '<button type="button" class="btn btn--primary cookie__ok">Хорошо</button>';
     el.querySelector('.cookie__ok').addEventListener('click', function () { set(NOTICE, 'ok'); el.remove(); });
     document.body.appendChild(el);
   }
