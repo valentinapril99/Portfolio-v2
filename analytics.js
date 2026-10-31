@@ -4,7 +4,7 @@
      case_open, case_read_solutions, case_read_finish,
      по каждому кейсу: basket_open / basket_solutions / basket_finish,
        eat_fast_open / eat_fast_solutions / eat_fast_finish, onboarding_open / onboarding_solutions / onboarding_finish,
-     contact_click, tg_channel_click, cv_open, cv_download, photo_open */
+     contact_click, tg_channel_click, cv_open, cv_download, photo_open, concepts_view */
 (function () {
   var ID = 113964333, KEY = 'analytics-consent', on = false;
 
@@ -93,6 +93,20 @@
       document.querySelectorAll('[id^="cb-"],[id^="es-"],[id^="ob-"]').forEach(function (el) {
         if (/^(cb|es|ob)-[a-z]+$/.test(el.id)) io.observe(el);
       });
+
+      /* главная: до каких разделов долистали; концепты — отдельной целью.
+         how: scroll — долистали сами, menu — перешли по ссылке в меню */
+      var HOME = { projects: 'Кейсы', career: 'Опыт', concepts: 'Концепты', about: 'Обо мне', contacts: 'Контакты' };
+      var hio = new IntersectionObserver(function (en) {
+        en.forEach(function (x) {
+          if (!x.isIntersecting) return;
+          var id = x.target.id; if (sent[id]) return; sent[id] = true;
+          var how = location.hash.slice(1) === id ? 'menu' : 'scroll';
+          window.ym(ID, 'params', { 'Главная: разделы': { [HOME[id]]: how } });
+          if (id === 'concepts') goal('concepts_view', { how: how });
+        });
+      }, { threshold: 0, rootMargin: '0px 0px -40% 0px' });
+      Object.keys(HOME).forEach(function (id) { var el = document.getElementById(id); if (el) hio.observe(el); });
     }
 
     /* контакты, канал, резюме, фото */
