@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Политика обработки данных — Валентина Михеева</title>
+<link rel="icon" href="/favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--page:#fff;--name:#0f0f0f;--muted:#5c5f66;--btn:#242426;--on-btn:#f0f0f2;--soft:#f0f0f2;--accent:#ff8d2a;
+  --font:"Golos Text",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color-scheme:light}
+@media (prefers-color-scheme:dark){:root{--page:#141518;--name:#f0f0f2;--muted:#b4b6ba;--btn:#f0f0f2;--on-btn:#1a1a1c;--soft:#26272b;color-scheme:dark}}
+body{margin:0;background:var(--page);color:var(--name);font:400 18px/28px var(--font);letter-spacing:.36px}
+main{max-width:720px;margin:0 auto;padding:48px 16px 80px;display:flex;flex-direction:column;gap:24px}
+a{color:inherit;text-underline-offset:3px}
+.back{font-size:16px;color:var(--muted)}
+h1{margin:0;font:600 40px/48px var(--font);letter-spacing:.4px;text-wrap:balance}
+h2{margin:16px 0 0;font:600 24px/32px var(--font)}
+p,ul{margin:0}ul{padding-left:22px;display:flex;flex-direction:column;gap:6px}
+.muted{color:var(--muted);font-size:16px}
+.row{display:flex;gap:8px;flex-wrap:wrap}
+button{height:48px;padding:0 24px;border:0;border-radius:24px;cursor:pointer;font:500 16px/1 var(--font);letter-spacing:.32px}
+.yes{background:var(--btn);color:var(--on-btn)}.no{background:var(--soft);color:var(--name)}
+button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+#state{font-size:16px}
+</style>
+</head>
+<body>
+<main>
+  <a class="back" href="/">← На главную</a>
+  <h1>Политика обработки данных</h1>
+  <p class="muted">Действует с 31 октября 2026 года.</p>
+
+  <p>Сайт valentinamikheeva.ru — личное портфолио продуктового дизайнера Валентины Михеевой. Эта страница объясняет, какие данные собираются при посещении сайта, зачем и как от этого отказаться.</p>
+
+  <h2>Что собирается</h2>
+  <p>Если вы нажали «Принять» в плашке о cookies, на сайте работает сервис Яндекс Метрика. Он собирает:</p>
+  <ul>
+    <li>cookies и обезличенный идентификатор браузера;</li>
+    <li>IP-адрес, примерное местоположение, тип устройства, браузер и разрешение экрана;</li>
+    <li>откуда вы пришли на сайт и какие разделы открывали;</li>
+    <li>действия на страницах: прокрутку, клики, переходы по ссылкам — в том числе в виде записи сессии (Вебвизор).</li>
+  </ul>
+  <p>Имя, телефон, почту и другие контактные данные сайт не запрашивает и не собирает.</p>
+
+  <h2>Зачем</h2>
+  <p>Чтобы понимать, какие кейсы и разделы портфолио интересны посетителям, и делать сайт удобнее. Данные смотрятся только в обобщённом виде в отчётах Метрики.</p>
+
+  <h2>Кто обрабатывает</h2>
+  <p>Данные обрабатывает ООО «ЯНДЕКС» по своим <a href="https://yandex.ru/legal/confidential/" target="_blank" rel="noopener">правилам конфиденциальности</a> и <a href="https://yandex.ru/legal/metrica_termsofuse/" target="_blank" rel="noopener">условиям использования Метрики</a>. Третьим лицам владелец сайта данные не передаёт.</p>
+
+  <h2>Основание и срок</h2>
+  <p>Данные обрабатываются на основании вашего согласия, которое вы даёте кнопкой «Принять». Без согласия Метрика на сайте не запускается. Данные хранятся в Метрике в течение срока, установленного Яндексом.</p>
+
+  <h2>Как отказаться</h2>
+  <p>Изменить решение можно в любой момент — выбор сохранится в этом браузере:</p>
+  <div class="row">
+    <button type="button" class="no" id="no">Отключить аналитику</button>
+    <button type="button" class="yes" id="yes">Разрешить аналитику</button>
+  </div>
+  <p id="state" class="muted" aria-live="polite"></p>
+  <p>Также можно удалить cookies в настройках браузера или установить <a href="https://yandex.ru/support/metrica/general/opt-out.html" target="_blank" rel="noopener">блокировщик Метрики</a>.</p>
+
+  <h2>Связаться</h2>
+  <p>По вопросам обработки данных пишите в Telegram: <a href="https://t.me/ValentinaPril" target="_blank" rel="noopener">@ValentinaPril</a>.</p>
+</main>
+<script>
+(function(){
+  var KEY='analytics-consent', st=document.getElementById('state');
+  function get(){try{return localStorage.getItem(KEY)}catch(e){return null}}
+  function set(v){try{localStorage.setItem(KEY,v)}catch(e){}}
+  function show(){var v=get();st.textContent=v==='yes'?'Сейчас аналитика разрешена.':v==='no'?'Сейчас аналитика отключена.':'Вы ещё не делали выбор.'}
+  document.getElementById('no').addEventListener('click',function(){set('no');show()});
+  document.getElementById('yes').addEventListener('click',function(){set('yes');show()});
+  show();
+})();
+</script>
+</body>
+</html>
