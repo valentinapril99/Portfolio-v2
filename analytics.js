@@ -53,8 +53,7 @@
     var el = document.createElement('div');
     el.className = 'cookie'; el.setAttribute('role', 'region'); el.setAttribute('aria-label', 'Уведомление о cookie');
     el.innerHTML =
-      '<p>Я использую файлы cookie, чтобы сайт работал корректно и чтобы понимать, какие кейсы читают. ' +
-      'Продолжая просмотр, вы соглашаетесь с этим. Подробнее — в <a href="privacy.html">политике конфиденциальности</a>.</p>' +
+      '<p>Сайт собирает cookie для стабильной работы и статистики. <a href="privacy.html">Политика конфиденциальности</a>.</p>' +
       '<button type="button" class="btn btn--primary cookie__ok">Хорошо</button>';
     el.querySelector('.cookie__ok').addEventListener('click', function () { set(NOTICE, 'ok'); el.remove(); });
     document.body.appendChild(el);
