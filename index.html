@@ -778,6 +778,23 @@ picture{display:contents}
   .lb__prev,.lb__next{display:none}
   .lb__close{top:8px;right:8px;width:48px;height:48px}
 }
+/* Телефон горизонтально: фото во весь экран, подпись и кнопки поверх.
+   Подпись видна 3 секунды после перелистывания, по нажатию на фото — снова */
+@media (orientation:landscape) and (max-height:500px){
+  .lb__stage{padding:0;gap:16px}
+  .lb__img{width:100%;height:100%;border-radius:0}
+  .lb__award{width:200px;flex-direction:column;padding:0 0 0 64px}
+  .lb__stage:has(.lb__award:not([hidden])) .lb__img{width:auto;flex:1 1 0}
+  .lb__cap{position:absolute;left:50%;bottom:calc(12px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);max-width:calc(100% - 160px);
+    padding:6px 16px;border-radius:16px;background:rgba(9,12,15,.75);font-size:14px;line-height:20px;flex-direction:row;gap:12px;
+    opacity:0;pointer-events:none;transition:opacity .3s ease}
+  .lb.lb--cap .lb__cap{opacity:1}
+  .lb__btn{width:44px;height:44px;background:rgba(9,12,15,.55)}
+  .lb__close{top:8px;right:calc(8px + env(safe-area-inset-right,0px))}
+  .lb__prev,.lb__next{display:flex}
+  .lb__prev{left:calc(8px + env(safe-area-inset-left,0px))}
+  .lb__next{right:calc(8px + env(safe-area-inset-right,0px))}
+}
 
 
 /* кнопка «Наверх» */
@@ -1799,7 +1816,11 @@ document.querySelectorAll('.works').forEach(function(el,n){
     count.textContent=list.length>1?(i+1)+' / '+list.length:'';
     prev.disabled=i===0; next.disabled=i===list.length-1;
     [i-1,i+1].forEach(function(k){if(list[k]) new Image().src=list[k].currentSrc||list[k].src});
+    flashCap();
   }
+  var capTimer;
+  function flashCap(){lb.classList.add('lb--cap'); clearTimeout(capTimer); capTimer=setTimeout(function(){lb.classList.remove('lb--cap')},3000)}
+  img.addEventListener('click',flashCap);
   document.addEventListener('click',function(e){
     var el=e.target.closest(SEL);
     var copy=!el&&e.target.closest('.works .card[aria-hidden] img');
