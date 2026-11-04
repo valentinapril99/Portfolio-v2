@@ -63,7 +63,7 @@
   function startTracking() {
     var CASES = { 'case-basket': 'basket', 'case-eat-fast': 'eat-fast', 'case-onboarding': 'onboarding' };
     var PREF = { cb: 'basket', es: 'eat-fast', ob: 'onboarding' };
-    var source = 'direct', sent = {};
+    var source = fromParam || 'direct', sent = {};
     function key(c) { return c.replace('-', '_'); }  /* basket, eat_fast, onboarding */
 
     /* откуда открыли кейс: карточка на главной, «следующий кейс», меню */
@@ -134,6 +134,17 @@
   }
 
   /* ---------- запуск ---------- */
+  /* кейс открыт в новой вкладке с карточки на главной: ?from=card — запоминаем источник и убираем метку из адреса */
+  var fromParam = null;
+  try {
+    var q = new URLSearchParams(location.search);
+    if (q.has('from')) {
+      fromParam = q.get('from'); q.delete('from');
+      var qs = q.toString();
+      history.replaceState(history.state, '', location.pathname + (qs ? '?' + qs : '') + location.hash);
+    }
+  } catch (e) {}
+
   function boot() {
     if (!blocked()) load();
     if (get(NOTICE) !== 'ok') notice();
