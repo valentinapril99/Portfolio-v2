@@ -619,6 +619,35 @@ picture{display:contents}
 }
 
 /* анимации в кейсах: фото — заглушка, поверх неё подгружается анимация */
+.vshot{position:relative;container-type:inline-size}
+.vshot>picture{display:block}
+.vs{--u:calc(100cqw/932);position:absolute;width:calc(225.8*var(--u));height:calc(488.7*var(--u));top:calc(34.67*var(--u));border-radius:calc(34*var(--u));overflow:hidden;pointer-events:none;color:#fff;
+  font-family:-apple-system,"SF Pro Display","Golos Text",system-ui,sans-serif;-webkit-font-smoothing:antialiased;isolation:isolate}
+.vs *{position:absolute;margin:0}
+.vs--welcome{left:calc(82.06*var(--u));background:#2a1a10}
+.vs--gate{left:calc(624.13*var(--u));background:#57081e}
+.vs__shade{left:0;top:0;width:100%;height:100%;background:linear-gradient(rgba(20,0,6,.35),rgba(20,0,6,.15) 45%,rgba(20,0,6,.5))}
+.vs__bg{left:0;top:0;width:100%;height:100%;object-fit:cover}
+.vs__top{left:0;top:0;width:100%;height:calc(81.8*var(--u));background:linear-gradient(rgba(0,0,0,.2),transparent)}
+.vs__bottom{left:0;top:calc(323.7*var(--u));width:100%;height:calc(166.6*var(--u));background:linear-gradient(transparent,rgba(0,0,0,.7));
+  -webkit-backdrop-filter:blur(calc(9.7*var(--u)));backdrop-filter:blur(calc(9.7*var(--u)));
+  -webkit-mask-image:linear-gradient(transparent,#000 45%);mask-image:linear-gradient(transparent,#000 45%)}
+.vs__logo{left:calc(94.1*var(--u));top:calc(317.9*var(--u));width:calc(38.8*var(--u));height:calc(38.8*var(--u));background:url(cases/onboarding/video/logo.png) center/cover;border-radius:50%}
+.vs__t{left:calc(9.7*var(--u));width:calc(206.4*var(--u));text-align:center;font-weight:600}
+.vs__title{top:calc(371.2*var(--u));font-size:calc(14.54*var(--u));line-height:calc(17*var(--u))}
+.vs__btn{left:calc(9.64*var(--u));width:calc(207.8*var(--u));height:calc(30*var(--u));border-radius:calc(9.7*var(--u));display:flex;align-items:center;justify-content:center;
+  font-size:calc(9.69*var(--u));font-weight:500;background:#80ba27}
+.vs__btn--ghost{background:rgba(240,240,240,.2)}
+.vs__sq{left:calc(-45.1*var(--u));top:calc(-21.1*var(--u));width:calc(316.3*var(--u));height:calc(316.3*var(--u));object-fit:cover}
+.vs__fade{left:calc(-45.1*var(--u));top:calc(-21.1*var(--u));width:calc(316.3*var(--u));height:calc(316.3*var(--u));background:linear-gradient(transparent 40%,#57081e)}
+.vs__age{top:calc(262*var(--u));font-size:calc(28.9*var(--u));line-height:calc(26*var(--u))}
+.vs__h{top:calc(315.7*var(--u));font-size:calc(14.46*var(--u));line-height:calc(17*var(--u))}
+.vs__sub{top:calc(342.3*var(--u));font-size:calc(9.64*var(--u));line-height:calc(12.5*var(--u));font-weight:500}
+.vs__status{left:0;top:0;width:100%;height:calc(26.7*var(--u))}
+.vs__time{left:calc(22*var(--u));top:calc(12.6*var(--u));font-size:calc(10*var(--u));line-height:1;font-weight:600}
+.vs__icons{right:calc(18*var(--u));top:calc(14*var(--u));width:calc(44*var(--u));height:calc(8.6*var(--u))}
+.vs__island{left:calc(77.2*var(--u));top:calc(7.7*var(--u));width:calc(71.4*var(--u));height:calc(20.85*var(--u));border-radius:calc(10.5*var(--u));background:#000}
+.vs__home{left:calc(77*var(--u));bottom:calc(5.5*var(--u));width:calc(72*var(--u));height:calc(2.8*var(--u));border-radius:9px;background:#fff}
 .anim{position:relative;border-radius:48px;overflow:hidden;background:var(--btn-secondary)}
 .anim>img,.anim>picture>img{display:block}
 .anim>iframe{position:absolute;inset:0;width:100%;height:100%;border:0;opacity:0;transition:opacity .5s ease;pointer-events:none;background:var(--btn-secondary)}
@@ -1359,7 +1388,7 @@ picture{display:contents}
         <p class="case__lead">Как мы увеличили число пользователей, проходящих онбординг, а заодно повысили конверсию на пуши и обновили раздел уведомлений.</p>
       </div>
     </div>
-    <figure class="case__fig"><picture><source srcset="cases/onboarding/hero-dark.webp?v=2" media="(prefers-color-scheme: dark)"><img src="cases/onboarding/hero.webp?v=2" width="1864" height="1116" alt="Три экрана: приветствие «Один шаг, чтобы влюбиться!», вход в КуулКлевер по номеру, Сбер ID или Яндекс ID и экран подтверждения возраста 18+"></picture><figcaption>Основные решения</figcaption></figure>
+    <figure class="case__fig"><div class="vshot"><picture><source srcset="cases/onboarding/hero-dark.webp?v=2" media="(prefers-color-scheme: dark)"><img src="cases/onboarding/hero.webp?v=2" width="1864" height="1116" alt="Три экрана: приветствие «Один шаг, чтобы влюбиться!», вход в КуулКлевер по номеру, Сбер ID или Яндекс ID и экран подтверждения возраста 18+"></picture><div class="vs vs--welcome" aria-hidden="true"><video class="vs__bg" muted loop playsinline preload="none" poster="cases/onboarding/video/welcome.jpg" data-src="cases/onboarding/video/welcome.mp4"></video><span class="vs__top"></span><span class="vs__bottom"></span><span class="vs__logo"></span><p class="vs__t vs__title">Один шаг,<br>чтобы влюбиться!</p><span class="vs__btn" style="top:calc(429.5*var(--u))">Войти</span><span class="vs__status"><span class="vs__time">9:41</span><svg class="vs__icons" viewBox="0 0 38 7.4" fill="#fff"><rect x="0" y="5" width="1.6" height="2.4" rx=".4"/><rect x="2.5" y="3.6" width="1.6" height="3.8" rx=".4"/><rect x="5" y="2" width="1.6" height="5.4" rx=".4"/><rect x="7.5" y=".4" width="1.6" height="7" rx=".4"/><path d="M16.2 1.5a6.4 6.4 0 0 1 4.5 1.8l.9-.9a7.7 7.7 0 0 0-10.8 0l.9.9a6.4 6.4 0 0 1 4.5-1.8Zm0 2.4a4 4 0 0 1 2.8 1.1l.9-.9a5.3 5.3 0 0 0-7.4 0l.9.9a4 4 0 0 1 2.8-1.1Zm0 2.4c.4 0 .8.2 1.1.5l-1.1 1.1-1.1-1.1c.3-.3.7-.5 1.1-.5Z"/><rect x="24.6" y=".5" width="11.2" height="6.4" rx="1.8" fill="none" stroke="#fff" stroke-opacity=".45" stroke-width=".8"/><rect x="25.8" y="1.7" width="8.8" height="4" rx="1"/><path d="M36.6 2.6v2.2c.6-.2 1-.6 1-1.1s-.4-.9-1-1.1Z" fill-opacity=".45"/></svg></span><span class="vs__island"></span><span class="vs__home"></span></div><div class="vs vs--gate" aria-hidden="true"><video class="vs__sq" muted loop playsinline preload="none" poster="cases/onboarding/video/wine.jpg" data-src="cases/onboarding/video/wine.mp4"></video><span class="vs__fade"></span><span class="vs__shade"></span><p class="vs__t vs__age">18+</p><p class="vs__t vs__h">Подтвердите возраст</p><p class="vs__t vs__sub">В&nbsp;КуулКлевер мы развиваем коллекции СОМЕЛЬЕ с&nbsp;напитками из&nbsp;27&nbsp;стран.</p><span class="vs__btn vs__btn--ghost" style="top:calc(391.4*var(--u));left:calc(9.7*var(--u));width:calc(205.4*var(--u))">Еще нет 18</span><span class="vs__btn" style="top:calc(428.5*var(--u));left:calc(9.7*var(--u));width:calc(205.4*var(--u))">Да, мне есть 18</span><span class="vs__status"><span class="vs__time">9:41</span><svg class="vs__icons" viewBox="0 0 38 7.4" fill="#fff"><rect x="0" y="5" width="1.6" height="2.4" rx=".4"/><rect x="2.5" y="3.6" width="1.6" height="3.8" rx=".4"/><rect x="5" y="2" width="1.6" height="5.4" rx=".4"/><rect x="7.5" y=".4" width="1.6" height="7" rx=".4"/><path d="M16.2 1.5a6.4 6.4 0 0 1 4.5 1.8l.9-.9a7.7 7.7 0 0 0-10.8 0l.9.9a6.4 6.4 0 0 1 4.5-1.8Zm0 2.4a4 4 0 0 1 2.8 1.1l.9-.9a5.3 5.3 0 0 0-7.4 0l.9.9a4 4 0 0 1 2.8-1.1Zm0 2.4c.4 0 .8.2 1.1.5l-1.1 1.1-1.1-1.1c.3-.3.7-.5 1.1-.5Z"/><rect x="24.6" y=".5" width="11.2" height="6.4" rx="1.8" fill="none" stroke="#fff" stroke-opacity=".45" stroke-width=".8"/><rect x="25.8" y="1.7" width="8.8" height="4" rx="1"/><path d="M36.6 2.6v2.2c.6-.2 1-.6 1-1.1s-.4-.9-1-1.1Z" fill-opacity=".45"/></svg></span><span class="vs__island"></span><span class="vs__home"></span></div></div><figcaption>Основные решения</figcaption></figure>
   </div>
 
   <div class="case__sec" id="ob-context">
@@ -1844,6 +1873,17 @@ document.querySelectorAll('.works').forEach(function(el,n){
     if(x0===null)return; var dx=e.changedTouches[0].clientX-x0, dy=e.changedTouches[0].clientY-y0; x0=null; img.style.transform='';
     if(Math.abs(dx)>50&&Math.abs(dx)>Math.abs(dy)) show(dx<0?i+1:i-1);
   });
+})();
+/* Видео внутри макетов (HTML-экраны поверх картинки): грузятся у экрана, играют, пока видны */
+(function(){
+  var vids=[].slice.call(document.querySelectorAll('.vs video[data-src]'));
+  if(!vids.length||!('IntersectionObserver' in window)) return;
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  if(navigator.connection&&navigator.connection.saveData) return;
+  var io=new IntersectionObserver(function(es){ es.forEach(function(e){ var v=e.target;
+    v._in=e.isIntersecting; if(e.isIntersecting){ if(!v.getAttribute('src')) v.src=v.dataset.src; v.play().catch(function(){}); } else v.pause(); }); },{rootMargin:'200px 0px'});
+  vids.forEach(function(v){ io.observe(v); });
+  document.addEventListener('visibilitychange',function(){ vids.forEach(function(v){ if(document.hidden) v.pause(); else if(v._in) v.play().catch(function(){}); }); });
 })();
 /* Анимации в кейсах: грузятся, когда блок подходит к экрану; пока анимация не заиграла или если не загрузилась — видно фото */
 (function(){
