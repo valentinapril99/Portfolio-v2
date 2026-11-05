@@ -1799,12 +1799,13 @@ document.querySelectorAll('.works').forEach(function(el,n){
   m.addEventListener('click',function(e){if(e.target===m)set(false)});
   document.addEventListener('keydown',function(e){if(e.key==='Escape'&&m.classList.contains('is-open'))set(false)});
 })();
-/* Ленты фото и концептов: едут сами (144 с на круг, в 3 раза медленнее прежнего), на наведении стоят; их можно тянуть мышью или пальцем */
+/* Ленты фото и концептов: едут сами с постоянной скоростью (SPEED пикселей в секунду), на наведении стоят; их можно тянуть мышью или пальцем.
+   Скорость не зависит от ширины ленты: раньше она считалась как «ширина/144 с» и росла, пока догружались картинки и добавлялись копии */
 (function(){
   if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   document.querySelectorAll('.sp .works').forEach(function(el){
     var tr=el.querySelector('.works__track'); if(!tr) return;
-    var dir=el.classList.contains('works--photos')?1:-1, DUR=144;
+    var photos=el.classList.contains('works--photos'), dir=photos?1:-1, SPEED=photos?18:12;
     var x=0, P=0, hover=false, down=false, moved=false, x0=0, px0=0, id=null, last=0, vis=true;
     el.classList.add('is-js');
     var base=[].slice.call(tr.children);
@@ -1814,12 +1815,13 @@ document.querySelectorAll('.works').forEach(function(el,n){
         var d=c.cloneNode(true); d.setAttribute('aria-hidden','true'); d.querySelectorAll('img').forEach(function(i){i.alt=''; i.removeAttribute('data-award'); i.removeAttribute('data-award-desc')}); tr.appendChild(d);
       });
     }
-    function measure(){ fill(); var g=parseFloat(getComputedStyle(tr).columnGap)||0; P=tr.scrollWidth/2+g/2; }
+    var half=Math.floor(base.length/2);  /* в разметке лента уже из двух одинаковых половин */
+    function measure(){ fill(); var a=base[0], b=base[half]; P=(a&&b&&b.offsetLeft>a.offsetLeft)?b.offsetLeft-a.offsetLeft:tr.scrollWidth/2; }
     function wrap(){ if(P){ x%=P; if(x>0) x-=P; } }
     function draw(){ tr.style.transform='translate3d('+x+'px,0,0)'; }
     function tick(now){
       var dt=last?Math.min((now-last)/1000,.1):0; last=now;
-      if(vis&&!hover&&!down&&P){ x+=dir*P/DUR*dt; wrap(); draw(); }
+      if(vis&&!hover&&!down&&P){ x+=dir*SPEED*dt; wrap(); draw(); }
       requestAnimationFrame(tick);
     }
     el.addEventListener('pointerenter',function(e){ if(e.pointerType==='mouse') hover=true; });
