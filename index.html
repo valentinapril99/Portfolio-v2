@@ -803,6 +803,13 @@ button.pblock__a{border:0;padding:0;margin:0;background:none;cursor:pointer}
 .sp .works.is-js .works__track{animation:none;will-change:transform}
 .sp .works.is-js{cursor:grab;touch-action:pan-y;user-select:none;-webkit-user-select:none}
 .sp .works.is-js.is-drag,.sp .works.is-js.is-drag .card{cursor:grabbing}
+/* наведение: фото увеличивается на 20%, соседние плавно расходятся */
+#concepts .works.is-js,.sp .works.is-js{padding-top:36px;padding-bottom:36px;margin-top:-36px;margin-bottom:-36px}
+.sp .works.is-js .card{transition:transform .45s cubic-bezier(.2,.8,.2,1);position:relative}
+.sp .works.is-js .card.is-zoom{transform:scale(1.2);z-index:2}
+@media (max-width:767px){#concepts .works.is-js,.sp .works.is-js{padding-top:30px;padding-bottom:30px;margin-top:-30px;margin-bottom:-30px}}
+@media (prefers-reduced-motion:reduce){.sp .works.is-js .card{transition:none}}
+
 
 /* опыт и образование: подробности раскрываются по нажатию */
 .sp-job__sum{display:flex;align-items:flex-start;justify-content:space-between;gap:24px;cursor:pointer;list-style:none}
@@ -1837,6 +1844,18 @@ document.querySelectorAll('.works').forEach(function(el,n){
       if(vis&&!hover&&!down&&P){ x+=dir*SPEED*dt; wrap(); draw(); }
       requestAnimationFrame(tick);
     }
+    /* наведение мышью на фото: оно увеличивается на 20%, остальные расходятся в стороны */
+    var zoomed=null;
+    function unzoom(){ if(!zoomed) return; [].forEach.call(tr.children,function(c){ c.style.transform=''; c.classList.remove('is-zoom'); }); zoomed=null; }
+    function zoom(card){
+      if(card===zoomed) return; unzoom(); zoomed=card;
+      var kids=[].slice.call(tr.children), i=kids.indexOf(card), sh=card.offsetWidth*0.1+12;
+      kids.forEach(function(c,k){ if(k===i) c.classList.add('is-zoom'); else c.style.transform='translateX('+(k<i?-sh:sh)+'px)'; });
+    }
+    if(window.matchMedia('(hover: hover) and (pointer: fine)').matches){
+      tr.addEventListener('pointerover',function(e){ if(e.pointerType!=='mouse'||down) return; var c=e.target.closest('.card'); if(c&&c.parentNode===tr) zoom(c); });
+      el.addEventListener('pointerleave',unzoom);
+    }
     el.addEventListener('pointerenter',function(e){ if(e.pointerType==='mouse') hover=true; });
     el.addEventListener('pointerleave',function(e){ if(e.pointerType==='mouse') hover=false; });
     el.addEventListener('dragstart',function(e){ e.preventDefault(); });
@@ -1847,7 +1866,7 @@ document.querySelectorAll('.works').forEach(function(el,n){
     el.addEventListener('pointermove',function(e){
       if(!down||e.pointerId!==id) return;
       var dx=e.clientX-px0;
-      if(!moved&&Math.abs(dx)>5){ moved=true; el.classList.add('is-drag'); try{el.setPointerCapture(id)}catch(_){} }
+      if(!moved&&Math.abs(dx)>5){ moved=true; unzoom(); el.classList.add('is-drag'); try{el.setPointerCapture(id)}catch(_){} }
       if(moved){ x=x0+dx; wrap(); draw(); }
     });
     function up(e){ if(!down||(e&&e.pointerId!==id)) return; down=false; el.classList.remove('is-drag'); }
