@@ -621,6 +621,19 @@ picture{display:contents}
 /* анимации в кейсах: фото — заглушка, поверх неё подгружается анимация */
 .vshot{position:relative;container-type:inline-size}
 .vshot>picture{display:block}
+.fnl{--fnl-bg:#f5f7fb;--fnl-bar:#d7d9e4;--fnl-loss:#e33949;background:var(--fnl-bg);border-radius:48px;padding:40px 40px 36px;color:var(--name);font-family:var(--font-text)}
+:root[data-theme="dark"] .fnl{--fnl-bg:#1d1e22;--fnl-bar:#3a3c45;--fnl-loss:#ff5a62}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .fnl{--fnl-bg:#1d1e22;--fnl-bar:#3a3c45;--fnl-loss:#ff5a62}}
+.fnl__title{margin:0 0 28px;font:600 20px/28px var(--font-text);letter-spacing:.2px}
+.fnl__row{display:grid;grid-template-columns:190px minmax(0,1fr);align-items:center;gap:16px}
+.fnl__label{font:600 16px/24px var(--font-text);letter-spacing:.32px}
+.fnl__bar{display:block;height:44px;border-radius:22px;background:var(--fnl-bar)}
+.fnl__note{margin:14px 0 14px 206px;font:400 16px/24px var(--font-text);letter-spacing:.32px}
+.fnl__note--loss{color:var(--fnl-loss)}
+.fnl__foot{margin:28px 0 0;font:400 14px/20px var(--font-text);color:var(--el-disable)}
+@media (max-width:767px){.fnl{border-radius:24px;padding:24px 16px}.fnl__title{font-size:18px;line-height:24px;margin-bottom:20px}
+  .fnl__row{grid-template-columns:118px minmax(0,1fr);gap:10px}.fnl__label{font-size:14px;line-height:20px}
+  .fnl__bar{height:32px}.fnl__note{margin:10px 0 10px 128px;font-size:14px;line-height:20px}.fnl__foot{margin-top:20px;font-size:12px;line-height:16px}}
 .vs{--u:calc(100cqw/932);position:absolute;width:calc(225.8*var(--u));height:calc(488.7*var(--u));top:calc(34.67*var(--u));border-radius:calc(34*var(--u));overflow:hidden;clip-path:inset(0 round calc(34*var(--u)));pointer-events:none;color:#fff;opacity:0;transition:opacity .4s ease;
   font-family:-apple-system,"SF Pro Display","Golos Text",system-ui,sans-serif;-webkit-font-smoothing:antialiased;isolation:isolate}
 .vs *{position:absolute;margin:0}
@@ -1425,7 +1438,15 @@ picture{display:contents}
     </div>
     <div class="case__block">
       <h3 class="case__h4">Больше всего людей уходят между картой и первой корзиной</h3>
-      <figure class="case__fig"><picture><source srcset="cases/onboarding/funnel-dark.webp" media="(prefers-color-scheme: dark)"><img src="cases/onboarding/funnel.webp" width="1864" height="880" alt="Воронка: установки, вход и карта, первая корзина, покупка за 7 дней. Между входом и первой корзиной уходит больше половины вошедших" loading="lazy"></picture></figure>
+      <figure class="case__fig"><div class="fnl" role="img" aria-label="Схематичная воронка: вход и карта, первая корзина, покупка за 7 дней. До первой корзины доходит только около 30% вошедших, до оплаты — около 80% из них">
+  <p class="fnl__title">Больше всего людей уходят между картой и первой корзиной</p>
+  <div class="fnl__row"><span class="fnl__label">Вход и карта</span><span class="fnl__bar" style="width:100%"></span></div>
+  <p class="fnl__note fnl__note--loss">↓ до первой корзины доходит только&nbsp;~30%</p>
+  <div class="fnl__row"><span class="fnl__label">Первая корзина</span><span class="fnl__bar" style="width:45%"></span></div>
+  <p class="fnl__note">↓ до оплаты доходит&nbsp;~80%</p>
+  <div class="fnl__row"><span class="fnl__label">Покупка за 7&nbsp;дней</span><span class="fnl__bar" style="width:35%"></span></div>
+  <p class="fnl__foot">Данные округлены, конверсия указана относительно предыдущего шага.</p>
+</div></figure>
     </div>
     <div class="case__card"><h3 class="case__h4">Проблема бизнеса</h3><p class="case__text">Последние несколько месяцев пользователи плохо проходили онбординг. Многие уходили, так и не завершив знакомство с продуктом.</p></div>
     <div class="case__card"><h3 class="case__h4">Проблема пользователя</h3><p class="case__text">Экраны говорили языком любого ритейлера. Новый пользователь не понимал, чем КуулКлевер отличается от соседнего магазина, хотя у компании 7 заводов, ежемесячные дегустации и баллы, которые не сгорают никогда.</p></div>
