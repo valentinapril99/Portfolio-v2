@@ -631,6 +631,18 @@ picture{display:contents}
 .fnl__note{margin:14px 0 14px 206px;font:400 16px/24px var(--font-text);letter-spacing:.32px}
 .fnl__note--loss{color:var(--fnl-loss)}
 .fnl__foot{margin:28px 0 0;font:400 14px/20px var(--font-text);color:var(--el-disable)}
+.fnl.is-wait *{transition:none!important}
+.fnl.is-wait .fnl__bar{transform:scaleX(0)}
+.fnl.is-wait .fnl__title,.fnl.is-wait .fnl__label,.fnl.is-wait .fnl__note,.fnl.is-wait .fnl__foot{opacity:0;transform:translateY(8px)}
+.fnl__bar{transform-origin:0 50%;transition:transform .9s cubic-bezier(.2,.8,.2,1)}
+.fnl__title,.fnl__label,.fnl__note,.fnl__foot{transition:opacity .5s ease,transform .5s ease}
+.fnl__row:nth-of-type(1) .fnl__bar{transition-delay:.15s}.fnl__row:nth-of-type(1) .fnl__label{transition-delay:.1s}
+.fnl__note:nth-of-type(2){transition-delay:.7s}
+.fnl__row:nth-of-type(2) .fnl__bar{transition-delay:.85s}.fnl__row:nth-of-type(2) .fnl__label{transition-delay:.8s}
+.fnl__note:nth-of-type(3){transition-delay:1.4s}
+.fnl__row:nth-of-type(3) .fnl__bar{transition-delay:1.55s}.fnl__row:nth-of-type(3) .fnl__label{transition-delay:1.5s}
+.fnl__foot{transition-delay:2s}
+@media (prefers-reduced-motion:reduce){.fnl *{transition:none!important}}
 @media (max-width:767px){.fnl{border-radius:24px;padding:24px 16px}.fnl__title{font-size:18px;line-height:24px;margin-bottom:20px}
   .fnl__row{grid-template-columns:118px minmax(0,1fr);gap:10px}.fnl__label{font-size:14px;line-height:20px}
   .fnl__bar{height:32px}.fnl__note{margin:10px 0 10px 128px;font-size:14px;line-height:20px}.fnl__foot{margin-top:20px;font-size:12px;line-height:16px}}
@@ -1909,6 +1921,13 @@ document.querySelectorAll('.works').forEach(function(el,n){
     if(x0===null)return; var dx=e.changedTouches[0].clientX-x0, dy=e.changedTouches[0].clientY-y0; x0=null; img.style.transform='';
     if(Math.abs(dx)>50&&Math.abs(dx)>Math.abs(dy)) show(dx<0?i+1:i-1);
   });
+})();
+/* Воронка в «Онбординге»: полосы вырастают по очереди, когда диаграмма появляется на экране */
+(function(){
+  var f=document.querySelectorAll('.fnl'); if(!f.length||!('IntersectionObserver' in window)) return;
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ io.unobserve(e.target); requestAnimationFrame(function(){ requestAnimationFrame(function(){ e.target.classList.remove('is-wait'); }); }); } }); },{threshold:.35});
+  f.forEach(function(el){ el.classList.add('is-wait'); io.observe(el); });
 })();
 /* Видео внутри макетов (HTML-экраны поверх фото-заглушки): грузятся у экрана, играют, пока видны; экран появляется, только когда видео заиграло */
 (function(){
