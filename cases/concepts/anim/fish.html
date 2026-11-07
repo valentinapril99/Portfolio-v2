@@ -1,5 +1,5 @@
 <!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
-<script>if(/[?&]thumb=1/.test(location.search))document.documentElement.classList.add('thumb');if(/[?&]lb=1/.test(location.search)){document.documentElement.classList.add('inlb');document.documentElement.setAttribute('data-theme','dark');}window.THUMB=document.documentElement.classList.contains('thumb');</script>
+<script>if(/[?&]thumb=1/.test(location.search))document.documentElement.classList.add('thumb');if(/[?&]lb=1/.test(location.search)){document.documentElement.classList.add('inlb');document.documentElement.setAttribute('data-theme','dark');window.INLB=true;}window.THUMB=document.documentElement.classList.contains('thumb');</script>
 <style>#play,#restart{display:none!important}
 html.thumb body{padding:0!important;display:block!important;background:transparent!important;overflow:hidden}
 html.thumb .controls{display:none!important}html.inlb,html.inlb body{background:#0a0d10!important}html.thumb #fit{border-radius:0}</style>
@@ -392,7 +392,7 @@ function noiseBuf(ctx){ const b=ctx.createBuffer(1,ctx.sampleRate,ctx.sampleRate
 function scheduleAudio(ctx, dest, from, end){
   const at = x => ctx.currentTime + (x-from);
   const comp=ctx.createDynamicsCompressor(); comp.threshold.value=-16; comp.ratio.value=4; comp.attack.value=.005; comp.release.value=.2;
-  const master=ctx.createGain(); master.gain.value=2.3; const lim=ctx.createDynamicsCompressor(); lim.threshold.value=-2.5; lim.knee.value=0; lim.ratio.value=20; lim.attack.value=.001; lim.release.value=.08; comp.connect(master); master.connect(lim); lim.connect(dest);
+  const master=ctx.createGain(); master.gain.value=2.3*(window.INLB?0.6:1); const lim=ctx.createDynamicsCompressor(); lim.threshold.value=-2.5; lim.knee.value=0; lim.ratio.value=20; lim.attack.value=.001; lim.release.value=.08; comp.connect(master); master.connect(lim); lim.connect(dest);
   const NB=noiseBuf(ctx);
   const mus=ctx.createGain(); mus.connect(comp); const sfx=ctx.createGain(); sfx.gain.value=AU.sfxVol; sfx.connect(comp);
   // music fade in / out
@@ -510,7 +510,7 @@ window.__renderAudio = async function(sr=48000){
 
 // ---------------- clock & controls ----------------
 const seekEl=$('seek'); seekEl.max=Math.round(DURATION*1000);
-let t=0, playing=!RENDER, last=null, soundOn=false;
+let t=0, playing=!RENDER, last=null, soundOn=!!window.INLB;
 function setPlaying(v){ playing=v; last=null; $('play').textContent=v?'Пауза':'Играть'; if(v) audioStart(t); else audioStop(); }
 function loop(now){ if(playing){ if(last!=null){ t+=(now-last)/1000; if(t>=DURATION){ if(C.loop!==false){ t=0; audioStart(0);} else { t=DURATION; setPlaying(false);} } } last=now; render(t); } requestAnimationFrame(loop); }
 $('play').onclick=()=>setPlaying(!playing);
@@ -526,9 +526,16 @@ window.addEventListener('resize',resize); resize();
 window.__duration=DURATION; window.__acts=ACTS.map(a=>({do:a.do,t:+a.t.toFixed(3),dur:a.dur})); window.__seek=x=>render(x); window.__ready=READY;
 READY.then(()=>{ render(0); if(!RENDER){ if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) setPlaying(false); requestAnimationFrame(loop);} });
 render(0);
-})();
+
 
 window.addEventListener('message',function(e){ if(e.source!==window.parent) return; if(e.data==='pv:pause') setPlaying(false); else if(e.data==='pv:play') setPlaying(true); });
+
+if(window.INLB){ const sb=$('sound'); sb.textContent='Выключить звук'; sb.setAttribute('aria-pressed','true');
+  const wake=()=>{ try{ if(actx&&actx.state==='suspended') actx.resume(); }catch(e){} };
+  ['pointerdown','keydown','touchstart'].forEach(ev=>document.addEventListener(ev,wake,{passive:true})); setInterval(wake,500);
+  Promise.resolve(typeof READY!=='undefined'?READY:null).then(()=>{ if(playing) audioStart(t); }); }
+
+})();
 </script>
 
 </body></html>
