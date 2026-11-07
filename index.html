@@ -94,6 +94,7 @@ img{max-width:100%;display:block}
    Белая заливка 20% × 20% = 4%, refraction .71, dispersion .23, depth по брейкпоинту. */
 .works::after{content:none}
 .works.has-glass{filter:url(#glass)}
+.sp .works.has-glass{clip-path:inset(2px 0 2px 0)}  /* кромка фильтра «стекло» сверху/снизу давала тонкую серую линию */
 .works__track{--gap:23px;display:flex;gap:var(--gap);width:max-content;animation:scroll-x 144s linear infinite}
 .works:hover .works__track{animation-play-state:paused}
 .card{width:334px;height:334px;border-radius:23px;overflow:hidden;flex:none;background:#e9eef0}
