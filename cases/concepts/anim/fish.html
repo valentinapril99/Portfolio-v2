@@ -552,6 +552,11 @@ if(window.INLB){ const sb=$('sound'); sb.textContent='Выключить зву�
 { const vb=document.getElementById('volBtn'), sb=$('sound');
   const sync=()=>{ const on=sb.getAttribute('aria-pressed')==='true'; vb.classList.toggle('is-muted',!on); const l=on?'Выключить звук':'Включить звук'; vb.setAttribute('aria-label',l); vb.title=l; };
   vb.addEventListener('click',()=>{ sb.click(); sync(); }); new MutationObserver(sync).observe(sb,{attributes:true}); sync(); }
+
+if(window.INLB&&window.parent!==window){ let sx=null,sy=0;
+  document.addEventListener('touchstart',e=>{ if(e.target.closest('.controls')){sx=null;return;} sx=e.touches[0].clientX; sy=e.touches[0].clientY; },{passive:true});
+  document.addEventListener('touchend',e=>{ if(sx===null) return; const dx=e.changedTouches[0].clientX-sx, dy=e.changedTouches[0].clientY-sy; sx=null;
+    if(Math.abs(dx)>50&&Math.abs(dx)>Math.abs(dy)) window.parent.postMessage({pv:'swipe',dir:dx<0?1:-1},'*'); },{passive:true}); }
 })();
 </script>
 
