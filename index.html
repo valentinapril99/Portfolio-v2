@@ -1926,7 +1926,7 @@ document.querySelectorAll('.works').forEach(function(el,n){
   function caption(el){var f=el.closest('figure'), c=f&&f.querySelector('figcaption'); if(el.closest('.hscroll')){var o=el.closest('.hscroll').closest('figure'),oc=o&&o.querySelector(':scope>figcaption');return (oc?oc.textContent+' — ':'')+el.alt} return c?c.textContent:el.alt}
   function show(n){
     i=Math.max(0,Math.min(list.length-1,n)); var el=list[i];
-    var an=el.closest('.card--anim'), fr=lb.querySelector('.lb__frame'), src=an?an.getAttribute('data-anim')+'?lb=1&v=5':'';
+    var an=el.closest('.card--anim'), fr=lb.querySelector('.lb__frame'), src=an?an.getAttribute('data-anim')+'?lb=1&v=6':'';
     lb.classList.toggle('lb--anim',!!an); if(fr.getAttribute('src')!==src){ if(src) fr.src=src; else fr.removeAttribute('src'); }
     img.src=el.currentSrc||el.src; img.alt=el.alt; text.textContent=caption(el);
     var aw=el.getAttribute('data-award'); award.hidden=!aw; awardText.textContent=aw||''; awardDesc.textContent=el.getAttribute('data-award-desc')||''; awardDesc.hidden=!awardDesc.textContent;
@@ -1974,7 +1974,7 @@ document.querySelectorAll('.works').forEach(function(el,n){
     if(e.isIntersecting){
       if(!c.querySelector('iframe')){ var f=document.createElement('iframe'); f.title=''; f.tabIndex=-1; f.setAttribute('aria-hidden','true');
         f.addEventListener('load',function(){ setTimeout(function(){ c.classList.add('is-live'); },300); });
-        f.src=c.getAttribute('data-anim')+'?thumb=1&v=5'; c.appendChild(f); }
+        f.src=c.getAttribute('data-anim')+'?thumb=1&v=6'; c.appendChild(f); }
       else send(c,'pv:play');
     } else send(c,'pv:pause'); }); },{rootMargin:'200px'});
   cards.forEach(function(c){ io.observe(c); });
